@@ -1,0 +1,17 @@
+{
+  "site_id": "gb_chesil_cove",
+  "name": "Chesil Cove, Portland, Dorset (UK reference nest area)",
+  "status": "reference",
+  "country": "GB",
+  "centre_lat": 50.5590,
+  "centre_lon": -2.4484,
+  "crs": "EPSG:27700",
+  "seabed_source": "EA SurfZone DEM 2019 (2 m) via fetch-uk; EA lidar 1 m via fetch-lidar for the intertidal",
+  "seabed_resolution_m": 2,
+  "seabed_vertical_datum": "ODN (Newlyn)",
+  "seabed_licence": "Open Government Licence v3.0. © Environment Agency copyright and/or database right 2019.",
+  "dem_path_local": "data/gb_chesil_cove/surfzone_2m.tif",
+  "nest_evidence": "literature (annual brooding males, Seasearch 2015); dive position only",
+  "citations": ["seasearch2015chesil"],
+  "notes": "notes.md"
+}

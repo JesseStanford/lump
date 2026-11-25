@@ -15,3 +15,10 @@
 - No confirmed nest record in Denmark. The 2,565 shallow spawning-season records are mostly trawl hauls
   (ICES DATRAS, IMR); in the Kattegat they sit at 6.5-19 m (median 11 m), in the western Baltic/Øresund
   9-19.5 m (median 13.5 m). These are pre-spawning adults on trawlable ground, not nests.
+
+## UK literature search (2026-11-25)
+- **Chesil Cove, Dorset:** annual brooding males (Seasearch 2015). Added as `approximate_nest_site`, ~200 m. Site folder `sites/gb_chesil_cove`.
+- **St Abbs and Eyemouth, Berwickshire:** repeated photos of males guarding eggs in April (Seasearch Scotland 2018; stock photo captions). No positions; Scotland is outside the EA data services.
+- **NE England shallow spring adults:** citizen-science adults at 4.5–5.2 m in May–June (Tyne and Wear 2011, Northumberland 1983) in the GBIF pull, evidence level 2. Breeding-season presence, not nests; not added to the reviewed list.
+- Swanage Pier (Mar 2016), Mumbles Pier (Mar 2001, male in breeding colour stranded), Scarborough rock pools (Jun 2011), Selsey Mixon: adults only, no eggs.
+- Hampshire, Dorset 2020–2022 Seasearch reports and Wildlife Trusts marine reviews 2023–24: no lumpsucker nest records.
