@@ -7,6 +7,8 @@
 #   .\run.ps1 sample    <site_id> <dem.tif> [options]     nest vs background seabed stats for a site
 #   .\run.ps1 fetch-uk  <site_id> <lat> <lon> [size_m]    2 m England SurfZone DEM clip -> data\<site_id>
 #   .\run.ps1 fetch-lidar <site_id> <lat> <lon> [size_m]  1 m England lidar DTM clip -> data\<site_id>
+#   .\run.ps1 fetch-wfs [options]                         list or download a WFS map layer (GeoJSON)
+#   .\run.ps1 overlay   [options]                         sightings vs habitat/substrate polygons
 #
 # Extra options are passed straight to the Python script (see .\run.ps1 help).
 param(
@@ -67,8 +69,16 @@ switch ($Task) {
         & $py (Join-Path $seabed "fetch_wcs.py") --url $url --lat $lat --lon $lon --half-size $half --tile 500 --out $out
         if ($LASTEXITCODE -ne 0) { throw "Download failed; nothing saved." }
     }
+    "fetch-wfs" {
+        $extra = @($Rest | Where-Object { $_ })
+        & $py (Join-Path $seabed "fetch_wfs.py") @extra
+    }
+    "overlay" {
+        $extra = @($Rest | Where-Object { $_ })
+        & $py (Join-Path $seabed "overlay_points.py") @extra
+    }
     default {
-        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 10 | ForEach-Object { $_ -replace "^# ?", "" }
+        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 12 | ForEach-Object { $_ -replace "^# ?", "" }
         if (Test-Path $py) {
             Write-Host "`n--- classify options (seabed_classify.py) ---"
             & $py (Join-Path $seabed "seabed_classify.py") -h | Out-Host
