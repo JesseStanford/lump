@@ -69,22 +69,48 @@ def main():
             print(data[:1500].decode("utf-8", "replace"), file=sys.stderr)
             raise SystemExit("Service returned an error (above). Try --axes x y, or --list to check the coverage id.")
         part = f"{a.out}.part{i}.tif"; open(part, "wb").write(data); parts.append(part)
-        print(f"  tile {i + 1}/{len(tiles)} ok", file=sys.stderr)
+        print(f"  tile {i + 1}/{len(tiles)} ok ({describe(part)})", file=sys.stderr)
+    mosaic_tiles(parts, a.out)
+    for pp in parts: os.remove(pp)
     import rasterio
-    from rasterio.merge import merge
-    if len(parts) == 1:
-        os.replace(parts[0], a.out)
-    else:
-        srcs = [rasterio.open(pp) for pp in parts]
-        mosaic, mtr = merge(srcs); prof = srcs[0].profile
-        prof.update(height=mosaic.shape[1], width=mosaic.shape[2], transform=mtr, compress="deflate")
-        for sr in srcs: sr.close()
-        with rasterio.open(a.out, "w", **prof) as d: d.write(mosaic)
-        for pp in parts: os.remove(pp)
     with rasterio.open(a.out) as s:
-        z = s.read(1, masked=True)
+        z = s.read(1); ok = np.isfinite(z)
+        if not ok.any():
+            raise SystemExit(f"Saved {a.out} but every cell is nodata: the service has no data here.")
         print(f"Saved {a.out}: {s.width}x{s.height} px, {abs(s.transform.a)} m, CRS {s.crs}, "
-              f"elevation {float(z.min()):.1f} to {float(z.max()):.1f} m, {100 * np.ma.getmaskarray(z).mean():.0f}% nodata")
+              f"elevation {z[ok].min():.1f} to {z[ok].max():.1f} m, {100 * (~ok).mean():.0f}% nodata")
+
+def read_clean(path):
+    """Read band 1 as float32 with every nodata flavour (declared value, huge negatives, NaN) set to NaN."""
+    import rasterio
+    with rasterio.open(path) as s:
+        z = s.read(1).astype("float32"); nd = s.nodata; tr = s.transform; crs = s.crs
+    bad = ~np.isfinite(z) | (np.abs(z) > 1e30)
+    if nd is not None and np.isfinite(nd): bad |= np.isclose(z, np.float32(nd))
+    z[bad] = np.nan
+    return z, tr, crs
+
+def describe(path):
+    z, tr, _ = read_clean(path); ok = np.isfinite(z)
+    return f"{z.shape[1]}x{z.shape[0]} px, " + (f"{z[ok].min():.1f} to {z[ok].max():.1f} m, {100 * ok.mean():.0f}% valid" if ok.any() else "all nodata")
+
+def mosaic_tiles(parts, out):
+    """Place tiles on one grid by their geotransforms (no resampling; tiles share the service grid)."""
+    import rasterio
+    from rasterio.transform import from_origin
+    tiles = [read_clean(p) for p in parts]
+    res = abs(tiles[0][1].a)
+    x0 = min(t[1].c for t in tiles); y1 = max(t[1].f for t in tiles)
+    x1 = max(t[1].c + t[0].shape[1] * res for t in tiles); y0 = min(t[1].f - t[0].shape[0] * res for t in tiles)
+    W, H = int(round((x1 - x0) / res)), int(round((y1 - y0) / res))
+    grid = np.full((H, W), np.nan, dtype="float32")
+    for z, tr, _ in tiles:
+        c, r = int(round((tr.c - x0) / res)), int(round((y1 - tr.f) / res))
+        h, w = z.shape; dst = grid[r:r + h, c:c + w]; z = z[:dst.shape[0], :dst.shape[1]]
+        m = np.isfinite(z) & ~np.isfinite(dst); dst[m] = z[m]
+    with rasterio.open(out, "w", driver="GTiff", width=W, height=H, count=1, dtype="float32", crs=tiles[0][2],
+                       transform=from_origin(x0, y1, res, res), nodata=float("nan"), compress="deflate") as d:
+        d.write(grid, 1)
 
 if __name__ == "__main__":
     main()
