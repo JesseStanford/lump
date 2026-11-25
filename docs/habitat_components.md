@@ -67,3 +67,19 @@ Spring orthophotos from SDFI (Dataforsyningen) can show boulders at 0 to about 5
 - **Doubtful:** the solid dark band of cells at 6 to 8 m along the outer edge (dark share 1.0, little texture). Near the visibility limit, water deeper than the 250 m depth grid says will look dark whatever the bottom is.
 - **The photo does not change the screen.** The erratic screen is built from the maps only, so rerunning it gives the same cells. The photo is a separate check (or filter) for 0 to about 7 m.
 
+### Boulder geometry from the photos (`boulders`)
+`boulder_measure.py` uses the same dark-pixel rule as `ortho-compare` (not re-tuned) on the 0.4 m tiles, 0.3 to 5 m deep. Dark blobs of 0.5 to 12 m² count as boulders (about 0.8 to 3.9 m across). It writes every boulder with position in metres (EPSG:25832, ready for Rhino), plan diameter, elongation, depth, distance from shore, nearest neighbour and cluster; patch outlines; per-50 m cell density and cover; and a table set against rules R03 (diameter), R04 (boulders per cluster), R06 (cluster spacing), R08 (cover) and R15 (distance to the hard/soft edge).
+- Footprints only: no heights, crevices or overhangs. A dark blob can be a weed clump or a shadow.
+- Boulders that touch or sit closer than about 0.5 m merge into one object, so clusters read as fewer, larger boulders.
+- Synthetic test (160 boulders of 0.9 to 1.6 m planted on sand at 1 to 3.5 m, 5 brightness units of noise): 119 found (74%), median diameter 1.19 m against 1.28 m planted.
+
+```
+.\run.ps1 boulders --tiles runs\ortho_gilleleje_hornbaek\tiles --erratic runs\dk_erratics\erratic_grid.tif --bbox 12.335 56.110 12.395 56.127 --out runs\boulders_nakkehoved
+```
+
+### Seaweed from lidar?
+- Denmark's national lidar (Danmarks Højdemodel) uses near-infrared light, which water absorbs within centimetres. It gives no seabed or seaweed signal below the waterline.
+- Green (topobathymetric) lidar, which does see the seabed, has been flown in Denmark only at research sites: Knudedyb in the Wadden Sea and Rødsand (`steinbacher2018topobathy`). Nothing on the north coast of Zealand or in the Øresund is published.
+- GEUS submitted an abstract in 2026 on mapping Danish coastal seabed nature with green lidar plus RGB images, ROV video and samples (`ernstsen2026whiteribbon`), later withdrawn. Worth asking GEUS whether data exist for north Zealand.
+- The Danish Hydrographic Office sells survey depth data on request; every transfer needs Danish Defence security clearance and no resolution is promised.
+- What we can do with the photos instead: seaweed colour. Brown (Fucus, kelp) and green (Ulva, eelgrass) bottom differ in the red/green/blue balance in clear shallow water. The near-infrared photo layer (`orto_foraar_cir`) only shows weed at or near the surface.
