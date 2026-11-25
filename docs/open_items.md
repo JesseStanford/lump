@@ -8,7 +8,7 @@ Last updated 2026-11-25.
 |---|---|---|
 | Spring currents and reef-to-nursery drift (`currents`, `drift`) | A Copernicus Marine login. Password reset and new accounts fail, and anonymous access returns 403 | `pip install copernicusmarine`, `copernicusmarine login`, then the commands in nursery_connectivity.md |
 | GBIF derived-dataset DOI for the sightings | A GBIF.org login, and one re-run of `.\run.ps1 nests` to get the source-dataset counts | Register at gbif.org/derived-dataset, put the DOI into `gbif_occurrences` in references.csv |
-| Aerial-photo check of unmapped score-3 patches (#53 Aflandshage, Skovshoved string) | Dataforsyningen login (orthophotos) | Look for boulders at 0 to 5 m |
+| Aerial photos: #3 Gilleleje–Hornbæk first, then #53 Aflandshage and the Skovshoved string (`ortho`) | Dataforsyningen user and token | Look for boulders at 0 to 5 m in the tiles; compare years with `--list` |
 | Natura 2000 survey mask for the reef validation | The EEA service timed out. Try the Danish haleconnect WFS | Re-run `reef-nursery` with `--surveyed`. Precision is a lower bound until then |
 | Denmark 50 m depth model, to sharpen the 0 to 3 m nursery band | Dataforsyningen login | Re-run `nursery` with it |
 
@@ -17,6 +17,7 @@ Last updated 2026-11-25.
 - `emodnet_substrate250k`: release year to confirm.
 - `emodnet_dtm2024`: confirm no newer DTM release was live on the download date.
 - `ea_lidar_dtm1m`: year and attribution statement to confirm.
+- `sdfi_orto_foraar`: SDFI attribution wording to confirm.
 - `tr142` and `salovius2020` lack full titles and authors. `fairchild2024` and `springer2024chaleur` lack author lists.
 
 ## Parked by choice

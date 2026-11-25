@@ -30,6 +30,7 @@ URL_KEYS = [
     ("lidar-composite-digital-terrain-model", "ea_lidar_dtm1m"),
     ("BALTICSEA_MULTIYEAR_PHY", "cmems_bal_phy_my"),
     ("api.gbif.org", "gbif_occurrences"),
+    ("dataforsyningen.dk/orto", "sdfi_orto_foraar"),
     ("inaturalist.org", "inaturalist_observations"),
     ("datras.ices.dk", "ices_datras"),
     ("marinespecies.org", "worms"),
@@ -52,6 +53,7 @@ FILE_KEYS = [
     ("nest_candidates*.geojson", ["gbif_occurrences", "inaturalist_observations"]),
     ("datras_hauls*.csv", ["ices_datras", "worms"]),
     ("gbif_download.zip", ["gbif_site_species"]),
+    ("ortho_*", ["sdfi_orto_foraar"]),
 ]
 
 # result file name -> dataset keys its inputs came from (for backfill of runs/)

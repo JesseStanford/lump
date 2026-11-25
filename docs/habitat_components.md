@@ -36,3 +36,6 @@ $env:GBIF_EMAIL = "the email on your GBIF account"
 Outputs: `site_components.csv` (patch × component), `site_species.csv` (species list per patch), `site_components.png`, `gbif_download.json` (key, DOI, citation). Re-run without a new download: add `--zip runs\oresund_species\gbif_download.zip`.
 
 No record means nobody reported one, not that the species is absent.
+
+## Aerial photos of shallow reefs (`ortho`)
+Spring orthophotos from SDFI (Dataforsyningen) can show boulders at 0 to about 5 m in clear water. `.\run.ps1 ortho` fetches 1 km tiles at 0.4 m, only where the erratic grid has water shallower than 12 m. It outlines screen-score-3 cells on an overview. A free Dataforsyningen token is needed (`$env:DATAFORSYNINGEN_TOKEN`). Run `--list` to see the photo years: an older spring with clearer water can beat the latest. Cite as `sdfi_orto_foraar`.
