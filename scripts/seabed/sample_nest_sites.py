@@ -13,6 +13,8 @@ Options:
   --radius 15             metres around each point to summarise (raise for vague coordinates)
   --background 20         random comparison points per nest point
   --bg-distance 1000      metres; background drawn within this distance and same depth band (+-3 m)
+  --include-land          also count dry_land / above-water cells (default: water cells only, z < 0,
+                          and a point that lands on shore is moved to the nearest water cell within --radius)
 
 Outputs (in --run folder):
   nest_site_samples.csv       one row per nest point and per background point
@@ -33,6 +35,7 @@ def main():
     ap.add_argument("--reviewed-only", action="store_true"); ap.add_argument("--radius", type=float, default=15)
     ap.add_argument("--background", type=int, default=20); ap.add_argument("--bg-distance", type=float, default=1000)
     ap.add_argument("--depth-positive", action="store_true"); ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--include-land", action="store_true", help="count dry land / above-water cells in the radius stats")
     a = ap.parse_args()
     import rasterio
     from rasterio.warp import transform as warp
@@ -49,6 +52,9 @@ def main():
         z = z[r0:r0 + cls.shape[0], c0:c0 + cls.shape[1]]; tr = ctr
     res = abs(tr.a); inv = ~tr
     hard = np.isin(cls, [3, 4, 5]); boul = cls == 4; shelf = cls == 5; valid = cls > 0
+    if not a.include_land:   # water cells only: drop dry_land and anything at or above 0 m
+        valid = valid & (cls != 6) & np.isfinite(z) & (z < 0)
+    d_water, (wr, wc) = ndi.distance_transform_edt(~valid, return_indices=True)
     d_hard = ndi.distance_transform_edt(~hard) * res
     d_boul = ndi.distance_transform_edt(~boul) * res
     bpts = []
@@ -72,16 +78,23 @@ def main():
 
     def summarise(x, y):
         c, r = inv * (x, y); r, c = int(r), int(c)
-        if not (rr <= r < z.shape[0] - rr and rr <= c < z.shape[1] - rr) or not valid[r, c]:
+        if not (rr <= r < z.shape[0] - rr and rr <= c < z.shape[1] - rr):
             return None
+        moved = 0.0
+        if not valid[r, c]:   # point on shore or nodata: move to nearest water cell within the radius
+            moved = float(d_water[r, c] * res)
+            if moved > a.radius: return None
+            r, c = int(wr[r, c]), int(wc[r, c])
+            if not (rr <= r < z.shape[0] - rr and rr <= c < z.shape[1] - rr): return None
         sl = (slice(r - rr, r + rr + 1), slice(c - rr, c + rr + 1)); m = disk & valid[sl]
         if m.sum() < 3: return None
         zz = z[sl][m]
         if a.floor is not None and np.nanmedian(zz) <= a.floor: return None
         if met.shape[0] > 5 and np.nanmedian(met[5][sl][m]) < 1e-4: return None   # dead-flat fill, not real bed
+        x, y = tr * (c + 0.5, r + 0.5)
         nb = int(((np.hypot(bpts[:, 0] - x, bpts[:, 1] - y) <= a.radius).sum())) if len(bpts) else 0
         cc = cls[sl][m]; cc = cc[cc > 0]; pk = np.bincount(cc, minlength=7)[1:] / max(1, cc.size); pk = pk[pk > 0]
-        return dict(class_shannon=float(-(pk * np.log(pk)).sum()), class_richness=int(pk.size),
+        return dict(moved_to_water_m=round(moved, 1), class_shannon=float(-(pk * np.log(pk)).sum()), class_richness=int(pk.size),
                     depth_m=float(np.nanmedian(z[sl][m])), bed_slope_deg=float(np.nanmedian(met[0][sl][m])),
                     rough_std_m=float(np.nanmedian(met[5][sl][m])) if met.shape[0] > 5 else np.nan,
                     hard_fraction=float(hard[sl][m].mean()), boulder_fraction=float(boul[sl][m].mean()),
@@ -105,7 +118,7 @@ def main():
         raise SystemExit("No nest points fall inside the seabed grid. Check coordinates and CRS.")
 
     with open(os.path.join(a.run, "nest_site_samples.csv"), "w", newline="") as f:
-        w = csv.DictWriter(f, ["kind", "id", "x", "y", "url"] + VARS); w.writeheader(); [w.writerow(r) for r in rows]
+        w = csv.DictWriter(f, ["kind", "id", "x", "y", "url", "moved_to_water_m"] + VARS); w.writeheader(); [w.writerow(r) for r in rows]
 
     def q(v, p): v = np.array(v, float); v = v[np.isfinite(v)]; return None if v.size == 0 else round(float(np.percentile(v, p)), 3)
     summary = {"n_nest": len(nest), "n_background": len(bg), "radius_m": a.radius, "variables": {}}
