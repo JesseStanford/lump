@@ -10,10 +10,12 @@ and measures, for every 250 m screen cell where the seabed can be seen, how much
 boulders / weed (dark patches) versus clean sand (pale, even).
 
 How "dark patch" is measured
-  The seabed is only visible in shallow water (--visible-depth, default 6 m), and water gets darker
-  with depth anyway. So each water pixel's brightness is compared with the typical brightness of
-  water pixels at the same depth (0.5 m depth bins from the screen's depth band). A pixel counts as
-  dark when it is more than --k robust standard deviations darker than that. Boulders with seaweed,
+  Water gets darker with depth whatever the bottom is. So each water pixel is compared with bare sand
+  at the same depth: in 0.5 m depth bins (screen depth band) the --sand-pct (80th) percentile of
+  brightness stands for sand, the darkest 1% of all water for "no bottom visible". A pixel is dark when
+  it has less than --dark-ratio (0.6) of the sand's brightness above deep water. A large, even dark
+  field therefore still counts as dark. The bottom is taken as visible down to the depth where sand is
+  less than --min-contrast (25%) as bright as in the shallows, at most --visible-depth (10 m). Boulders with seaweed,
   eelgrass and mussel beds all read as dark: the photo cannot tell them apart, the maps can help.
   Per cell: dark_frac = dark pixels / visible water pixels. Classes:
     patchy_dark    dark_frac >= --dark-hi (default 0.25)    boulders / weed likely
@@ -69,8 +71,10 @@ def main():
     ap.add_argument("--substrate"); ap.add_argument("--glacial", action="append", default=[])
     ap.add_argument("--reefs", help="HELCOM Reefs 1170 raster or polygons")
     ap.add_argument("--res", type=float, default=2.0, help="analysis resolution, m (mosaic is read decimated)")
-    ap.add_argument("--visible-depth", type=float, default=6.0, help="deepest water where the seabed shows, m")
-    ap.add_argument("--k", type=float, default=2.0, help="darker than depth-typical by k robust SD = dark pixel")
+    ap.add_argument("--visible-depth", type=float, default=10.0, help="deepest water to look at, m (cut shallower where the bottom fades)")
+    ap.add_argument("--sand-pct", type=float, default=80, help="percentile of brightness at a depth taken as bare sand")
+    ap.add_argument("--min-contrast", type=float, default=0.25, help="bottom counts as visible while sand is this share as bright above deep water as at its best")
+    ap.add_argument("--dark-ratio", type=float, default=0.6, help="dark pixel: less than this share of the sand's brightness above deep water")
     ap.add_argument("--dark-hi", type=float, default=0.25); ap.add_argument("--dark-lo", type=float, default=0.08)
     ap.add_argument("--min-visible", type=float, default=0.25)
     ap.add_argument("--zoom", nargs=4, type=float, help="lon_min lat_min lon_max lat_max for a close-up figure")
@@ -134,22 +138,28 @@ def main():
 
     # ---------- dark pixels
     water = valid & np.isfinite(depth) & (depth > 0) & (B > R) & (G >= R - 5)
-    vis = water & (depth <= a.visible_depth)
-    if vis.sum() < 1000: raise SystemExit("Almost no visible shallow water in the photo area: check --visible-depth and the inputs.")
-    bins = np.clip((depth / 0.5).astype("int32"), 0, int(a.visible_depth / 0.5) + 1)
-    nb = bins.max() + 1; expect = np.zeros(nb, "float32")
+    Ls = ndi.uniform_filter(L, 3)                     # take the edge off JPEG noise
+    cand = water & (depth <= a.visible_depth)
+    if cand.sum() < 1000: raise SystemExit("Almost no shallow water in the photo area: check --visible-depth and the inputs.")
+    deep = float(np.percentile(Ls[water], 1))          # darkest water: no light back from the bottom
+    nb = int(a.visible_depth / 0.5) + 1; bins = np.clip((depth / 0.5).astype("int32"), 0, nb - 1)
+    sand = np.full(nb, np.nan, "float32")
     for b in range(nb):
-        m = vis & (bins == b)
-        expect[b] = np.median(L[m]) if m.sum() > 200 else np.nan
-    ok = np.isfinite(expect)   # smooth in depth (bin centres), so bin edges leave no stripes
-    centres = (np.flatnonzero(ok) + 0.5) * 0.5
-    resid = np.where(vis, L - np.interp(np.nan_to_num(depth), centres, expect[ok]), np.nan)
-    rv = resid[vis]; scale = 1.4826 * np.median(np.abs(rv - np.median(rv)))
-    dark = vis & (resid < -a.k * scale)
+        m = cand & (bins == b)
+        if m.sum() > 200: sand[b] = np.percentile(Ls[m], a.sand_pct)
+    contrast = sand - deep; cmax = np.nanmax(contrast)
+    cut = a.visible_depth                              # bottom stops showing where sand is barely brighter than deep water
+    for b in range(nb):
+        if np.isfinite(contrast[b]) and contrast[b] < a.min_contrast * cmax: cut = b * 0.5; break
+    ok = np.isfinite(sand); centres = (np.flatnonzero(ok) + 0.5) * 0.5
+    sref = np.interp(np.nan_to_num(depth), centres, sand[ok])
+    vis = cand & (depth <= cut)
+    ratio = np.where(vis, (Ls - deep) / np.maximum(sref - deep, 1), np.nan)
+    dark = vis & (ratio < a.dark_ratio)
     m1 = ndi.uniform_filter(np.where(vis, L, 0), 5); m2 = ndi.uniform_filter(np.where(vis, L * L, 0), 5)
     texture = np.sqrt(np.maximum(m2 - m1 * m1, 0))
     print(f"Visible water {vis.sum() * a.res ** 2 / 1e6:.2f} km2; dark {100 * dark.sum() / vis.sum():.0f}% of it "
-          f"(robust SD {scale:.1f} brightness units)", file=sys.stderr)
+          f"(seabed visible to {cut:g} m on the depth grid; deep-water brightness {deep:.0f})", file=sys.stderr)
 
     # ---------- per screen cell
     rr, cc = np.mgrid[0:H, 0:W]
@@ -163,7 +173,7 @@ def main():
     tsum = cnt(np.where(vis, texture, 0))
     cell_px = (abs(etr.a) / a.res) ** 2
     visfrac = nvis / cell_px
-    looked = (visfrac >= a.min_visible) & (npx >= 0.5 * cell_px)
+    looked = (visfrac >= a.min_visible) & (npx >= 0.5 * cell_px) & (np.isfinite(score) | (sub > 0))   # not inland lakes
     dfrac = np.where(nvis > 0, ndark / np.maximum(nvis, 1), np.nan)
     tex = np.where(nvis > 0, tsum / np.maximum(nvis, 1), np.nan)
     pclass = np.full(eshape, "not_visible", object)
@@ -265,7 +275,7 @@ def main():
         ax = axs[1, 0]
         ov = np.zeros((H, W, 4), "float32"); ov[dark] = (1, 0.1, 0.6, 0.75); ov[vis & ~dark] = (0.2, 0.9, 1, 0.12)
         ax.imshow(ov, extent=fext)
-        ax.set_title(f"(c) Dark pixels (magenta) in visible water 0-{a.visible_depth:g} m (cyan tint)", fontsize=9)
+        ax.set_title(f"(c) Dark bottom (magenta) where the seabed shows, 0-{cut:g} m (cyan tint)", fontsize=9)
         ax = axs[1, 1]
         cm = ListedColormap(["#1a9850", "#fdae61", "#d73027", "#4575b4"])
         ax.imshow(np.where(agree > 0, agree, np.nan), extent=eext, cmap=cm, vmin=0.5, vmax=4.5, alpha=0.6, interpolation="nearest")
