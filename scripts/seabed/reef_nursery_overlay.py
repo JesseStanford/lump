@@ -62,6 +62,8 @@ def main():
     seabed = np.isfinite(score)
     reef, covered = to_grid(a.reefs, shape, tr, crs)
     surveyed = covered & seabed
+    if a.surveyed and not os.path.exists(a.surveyed):
+        print(f"--surveyed file {a.surveyed} not found: using the whole reef-raster area (precision will read low)"); a.surveyed = None
     if a.surveyed:
         sv, _ = to_grid(a.surveyed, shape, tr, crs); surveyed &= sv
     reef_s = reef & surveyed; n_reef = int(reef_s.sum()); n_sv = int(surveyed.sum())
