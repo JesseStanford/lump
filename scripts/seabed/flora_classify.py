@@ -6,18 +6,24 @@ using several years of spring aerial photos of the same area.
 Three clues
   1. Persistence (main test). Boulders stay put; weed beds, eelgrass and drift weed move, grow and die
      back. A dark object (same dark rule as ortho_compare.py / boulder_measure.py, not re-tuned) is
-     checked in every other year: share of its pixels that are dark there too, allowing --tol m of
-     misregistration (each other year is first shifted to best match the reference year, tile by
-     tile, by cross-correlation, max --max-shift m).
-       hard        dark in every year (overlap >= --stable in each)       boulders / stone reef
-       vegetation  dark in the reference year, mostly gone in others      weed / eelgrass / drift on sand
+     checked in every other year by its mean darkness ratio there, over the same footprint (best fit
+     within --tol m, after each other year is shifted to best match the reference year, tile by tile,
+     by cross-correlation, max --max-shift m). The mean over the whole footprint is far less noisy than
+     single pixels, and the confirming threshold (--confirm 0.7) is looser than the finding one (0.6),
+     so an object near the line in one year is not called temporary because light or clarity differed.
+     Only years that see the bottom there count.
+       hard        mean ratio < --confirm in every other year             boulders / stone reef
+       changing    sand-bright (ratio >= --gone 0.85) in most other years eelgrass, drift weed, annual
+                                                                          weed on sand, or moved sand ripples
        uncertain   in between
   2. Shape. Per object: plan size, elongation, solidity (area / convex hull) and edge sharpness (brightness
      gradient across the outline per metre, divided by the object's contrast with the sand around it: about
      1/edge width in m, so a crisp 0.3 m edge gives about 3, a soft 2 m fringe about 0.5). Boulders: compact, solid, sharp-edged.
      Weed: soft, streaky, ragged.
   3. Colour, only where the depth grid says <= --colour-depth (default 2 m); deeper, the water takes the
-     red out and everything is blue-green. Object colour vs the sand ring around it:
+     red out and everything is blue-green. The deep-water colour (surface glare and water haze, the same
+     over dark and bright bottom) is subtracted first; then the object's colour balance is compared with
+     the sand ring around it:
        brown_olive   redder and less blue than the sand   (Fucus, kelp, most weed-covered stones)
        green         greener                              (sea lettuce, green filamentous algae, eelgrass)
        grey_dark     darker with no colour shift          (bare stone, deep shadow)
@@ -32,9 +38,9 @@ Outputs in --out
                            elongation, solidity, edge_sharpness, overlap per year, class, colour
   flora_objects.geojson    the same as points (WGS84)
   flora_classes.tif        per pixel (at --map-res m): 1 sand, 2 hard (dark every year),
-                           3 vegetation (dark only some years), 0 not visible / land
+                           3 changing (dark only some years), 0 not visible / land
   flora_summary.csv        area per class and depth band, object counts per class and colour
-  flora_map.png            reference photo with hard (orange) and vegetation (green) overlaid
+  flora_map.png            reference photo with hard (orange) and changing (green) overlaid
   sources.csv / SOURCES.md carried from the photo folders
 
 Usage:
@@ -66,8 +72,8 @@ def main():
     ap.add_argument("--min-area", type=float, default=0.5, help="smallest object, m2")
     ap.add_argument("--tol", type=float, default=1.0, help="misregistration allowed when checking another year, m")
     ap.add_argument("--max-shift", type=float, default=3.0, help="largest shift searched between years, m")
-    ap.add_argument("--stable", type=float, default=0.6, help="overlap in every other year that sees the bottom, for 'hard'")
-    ap.add_argument("--gone", type=float, default=0.25, help="median overlap below this = 'vegetation'")
+    ap.add_argument("--confirm", type=float, default=0.7, help="mean dark ratio over the footprint that confirms an object in another year")
+    ap.add_argument("--gone", type=float, default=0.85, help="mean ratio at or above this in most other years = 'changing' (sand-bright)")
     ap.add_argument("--colour-depth", type=float, default=2.0)
     ap.add_argument("--map-res", type=float, default=0.5)
     ap.add_argument("--out", default="runs/flora")
@@ -109,26 +115,27 @@ def main():
     # pass 1: deep-water and sand brightness per year (sampled)
     stats = []
     for yi, (yname, _) in enumerate(years):
-        Ls, Ds, Hs = [], [], []
+        Ls, Ds, Hs, Cs = [], [], [], []
         for k in keys:
             with rasterio.open(tl[yi][k]) as s: img = s.read([1, 2, 3])
             d = depth_for(*k); w = water_of(img, d)
             L = ndi.uniform_filter(lum(img), 3)
             hp = L - ndi.uniform_filter(L, 31)
-            Ls.append(L[w][::37]); Ds.append(d[w][::37]); Hs.append(hp[w & (d < 2)][::37])
-        L = np.concatenate(Ls); D = np.concatenate(Ds); H = np.concatenate(Hs)
+            Ls.append(L[w][::37]); Ds.append(d[w][::37]); Hs.append(hp[w & (d < 2)][::37]); Cs.append(img[:, w][:, ::37].T)
+        L = np.concatenate(Ls); D = np.concatenate(Ds); H = np.concatenate(Hs); C = np.concatenate(Cs).astype("float32")
         noise = float(1.4826 * np.median(np.abs(H - np.median(H)))) if H.size else 0.0
         deep = float(np.percentile(L, 1)); nb = 41; b = np.clip((D / 0.5).astype(int), 0, nb - 1)
         sand = np.array([np.percentile(L[b == i], a.sand_pct) if (b == i).sum() > 100 else np.nan for i in range(nb)])
         ok = np.isfinite(sand); cmax = np.nanmax(sand - deep)
-        stats.append((deep, (np.flatnonzero(ok) + 0.5) * 0.5, sand[ok], cmax, noise))
+        cdeep = C[L <= deep].mean(axis=0) if (L <= deep).any() else np.zeros(3)   # glare + water haze colour
+        stats.append((deep, (np.flatnonzero(ok) + 0.5) * 0.5, sand[ok], cmax, noise, cdeep))
         print(f"  {yname}: deep-water brightness {deep:.0f}, sand at 1 m {np.interp(1, stats[-1][1], stats[-1][2]):.0f}, pixel noise {noise:.1f}", file=sys.stderr)
 
     def dark_of(img, d, st):
-        deep, cen, sandv, cmax, noise = st
+        deep, cen, sandv, cmax, noise, _ = st
         w = water_of(img, d); L = ndi.uniform_filter(lum(img), 3)
         idx = ndi.distance_transform_edt(~w, return_distances=False, return_indices=True) if w.any() else None
-        if idx is None: return np.zeros_like(w), np.zeros_like(w), L
+        if idx is None: z = np.zeros_like(w); return z, z, L, z, np.ones(w.shape, "float32")
         Lf = ndi.uniform_filter(L, 3)[tuple(idx)]; f = max(1, int(round(1.0 / res)))
         sm = Lf[::f, ::f]; loc = ndi.zoom(ndi.percentile_filter(sm, a.sand_pct, size=max(3, int(a.bg_m / (res * f)))), f, order=1)
         loc = np.pad(loc, ((0, max(0, n - loc.shape[0])), (0, max(0, n - loc.shape[1]))), mode="edge")[:n, :n]
@@ -137,10 +144,12 @@ def main():
         vis = w & (d >= a.min_depth) & (d <= a.max_depth) & ((byd - deep) >= a.min_contrast * cmax) \
               & ((byd - deep) * (1 - a.dark_ratio) >= 3 * noise)
         ratio = (L - deep) / np.maximum(np.maximum(loc, byd) - deep, 1)
-        dk = vis & (ratio < a.dark_ratio)
-        return ndi.median_filter(dk.astype("uint8"), 3).astype(bool) & vis, vis, L
+        dk = vis & (ratio < a.dark_ratio); cf = vis & (ratio < a.confirm)
+        md = lambda m: ndi.median_filter(m.astype("uint8"), 3).astype(bool) & vis
+        return md(dk), vis, L, md(cf), ratio
 
     def best_shift(Lref, Lo, vis):
+        if vis.mean() < 0.05: return None          # too little shared bottom in this tile to align on
         f = max(1, int(round(0.25 / res))); A = np.where(vis, Lref, np.nan)[::f, ::f]; B = np.where(vis, Lo, np.nan)[::f, ::f]
         A = np.nan_to_num(A - np.nanmean(A)); B = np.nan_to_num(B - np.nanmean(B))
         if not A.any() or not B.any(): return 0, 0
@@ -154,22 +163,25 @@ def main():
     xs0, ys1 = min(k[0] for k in keys), max(k[1] for k in keys) + tile_m
     MW = int(round((max(k[0] for k in keys) + tile_m - xs0) / (res * mf))); MH = int(round((ys1 - min(k[1] for k in keys)) / (res * mf)))
     cmap = np.zeros((MH, MW), "uint8"); ref_small = np.zeros((3, MH, MW), "uint8")
+    cdeep0 = stats[0][5]; sstep = max(1, int(round(0.25 / res)))
     rows = []; tolpx = max(1, int(round(a.tol / res))); px = res * res; shifts = []; visfrac = [[] for _ in years[1:]]
     for ti, (tx, ty) in enumerate(keys, 1):
         d = depth_for(tx, ty)
         with rasterio.open(tl[0][(tx, ty)]) as s: img0 = s.read([1, 2, 3])
-        dk0, vis0, L0 = dark_of(img0, d, stats[0])
+        dk0, vis0, L0, _, _ = dark_of(img0, d, stats[0])
         others = []
         for yi in range(1, len(years)):
             with rasterio.open(tl[yi][(tx, ty)]) as s: img = s.read([1, 2, 3])
-            dk, vis, L = dark_of(img, d, stats[yi])
-            sy, sx = best_shift(L0, L, vis0 & vis); shifts.append((sy * res, sx * res))
-            dk = np.roll(np.roll(dk, sy, 0), sx, 1); vis = np.roll(np.roll(vis, sy, 0), sx, 1)
-            others.append((ndi.binary_dilation(dk, iterations=tolpx), vis))
+            _, vis, L, cf, rt = dark_of(img, d, stats[yi])
+            sh = best_shift(L0, L, vis0 & vis)
+            if sh is None: sy = sx = 0
+            else: sy, sx = sh; shifts.append((sy * res, sx * res))
+            dk = np.roll(np.roll(cf, sy, 0), sx, 1); vis = np.roll(np.roll(vis, sy, 0), sx, 1); rt = np.roll(np.roll(rt, sy, 0), sx, 1)
+            others.append((ndi.binary_dilation(dk, iterations=tolpx), vis, rt))
         # a pixel is judged on the years where the bottom is visible there (a windy or murky year drops out locally)
         nvis = np.zeros(dk0.shape, "uint8"); ndark = np.zeros(dk0.shape, "uint8")
-        for dkd, v in others: nvis += v; ndark += (dkd & dk0 & v)
-        for yi, (_, v) in enumerate(others): visfrac[yi].append((float((v & vis0).sum()), float(vis0.sum())))
+        for dkd, v, _ in others: nvis += v; ndark += (dkd & dk0 & v)
+        for yi, (_, v, _) in enumerate(others): visfrac[yi].append((float((v & vis0).sum()), float(vis0.sum())))
         both = vis0 & (nvis >= 1)
         # pixel classes
         cls = np.zeros(dk0.shape, "uint8")
@@ -189,10 +201,21 @@ def main():
             if ar < a.min_area: continue
             yy, xx = np.nonzero(m); yy = yy + sl[0].start; xx = xx + sl[1].start
             # overlap per other year, only where that year sees the bottom over at least half the object
-            ov = [float(dkd[yy, xx][v[yy, xx]].mean()) if v[yy, xx].mean() >= 0.5 else np.nan for dkd, v in others]
-            ok = [o for o in ov if not np.isnan(o)]
+            ov, rv = [], []
+            for dkd, v, rt in others:
+                if v[yy, xx].mean() < 0.5: ov.append(np.nan); rv.append(np.nan); continue
+                ov.append(float(dkd[yy, xx][v[yy, xx]].mean()))
+                best = np.inf     # darkest fit of the same footprint within --tol (misregistration)
+                for dy in range(-tolpx, tolpx + 1, sstep):
+                    for dx in range(-tolpx, tolpx + 1, sstep):
+                        y2, x2 = yy + dy, xx + dx; inb = (y2 >= 0) & (y2 < n) & (x2 >= 0) & (x2 < n)
+                        if inb.mean() < 0.8: continue
+                        y2, x2 = y2[inb], x2[inb]; vv = v[y2, x2]
+                        if vv.mean() >= 0.5: best = min(best, float(rt[y2, x2][vv].mean()))
+                rv.append(best if np.isfinite(best) else np.nan)
+            ok = [r for r in rv if not np.isnan(r)]
             if not ok: continue
-            cls_o = "hard" if min(ok) >= a.stable else ("vegetation" if np.median(ok) < a.gone else "uncertain")
+            cls_o = "hard" if max(ok) < a.confirm else ("changing" if np.median(ok) >= a.gone else "uncertain")
             cov = np.cov(np.vstack([xx, yy])) if len(xx) > 2 else np.eye(2); ev = np.sort(np.linalg.eigvalsh(cov))
             try: sol = float(len(xx) / ConvexHull(np.c_[xx, yy]).volume) if len(xx) > 10 else 1.0
             except Exception: sol = 1.0
@@ -203,20 +226,26 @@ def main():
             contrast = (L0[pad][ring].mean() - L0[pad][mloc].mean()) if ring.any() else np.nan
             sharp = float(grad[pad][edge].mean() / res / contrast) if ring.any() and contrast > 1 else np.nan
             cy, cx = yy.mean(), xx.mean(); X, Y = tx + (cx + 0.5) * res, ty + tile_m - (cy + 0.5) * res
-            dep = float(d[int(cy), int(cx)]); colour = ""
+            dep = float(d[int(cy), int(cx)]); colour = ""; dcol = ["", "", ""]
             if ring.any() and dep <= a.colour_depth:
-                ro, go, bo = [float((c[pad][mloc] / S[pad][mloc]).mean()) for c in (R, G, B)]
-                rs, gs, bs = [float((c[pad][ring] / S[pad][ring]).mean()) for c in (R, G, B)]
-                colour = "brown_olive" if (ro - rs) > 0.01 and (bo - bs) < 0 else ("green" if (go - gs) > 0.01 else "grey_dark")
+                # bottom-leaving colour: subtract glare + haze (deep-water colour), then compare colour balance
+                ob = [max(float(c[pad][mloc].mean()) - cd, 0.5) for c, cd in zip((R, G, B), cdeep0)]
+                sb = [max(float(c[pad][ring].mean()) - cd, 0.5) for c, cd in zip((R, G, B), cdeep0)]
+                oc = np.array(ob) / sum(ob); sc = np.array(sb) / sum(sb); dc = oc - sc
+                dcol = [round(float(v) * 100, 1) for v in dc]
+                colour = "brown_olive" if dc[0] > 0.01 and dc[2] < 0 else ("green" if dc[1] > 0.01 and dc[0] <= 0.01 else "grey_dark")
             rows.append({"x": round(X, 2), "y": round(Y, 2), "area_m2": round(ar, 2), "diameter_m": round(2 * np.sqrt(ar / np.pi), 2),
                          "elongation": round(float(np.sqrt(ev[1] / max(ev[0], 1e-6))), 2), "solidity": round(min(sol, 1.0), 2),
                          "edge_sharpness": "" if np.isnan(sharp) else round(sharp, 2), "depth_m": round(dep, 1),
                          **{f"overlap_{years[i + 1][0]}": ("" if np.isnan(o) else round(o, 2)) for i, o in enumerate(ov)},
-                         "years_compared": len(ok), "class": cls_o, "colour": colour})
+                         **{f"ratio_{years[i + 1][0]}": ("" if np.isnan(r) else round(r, 2)) for i, r in enumerate(rv)},
+                         "years_compared": len(ok), "class": cls_o, "colour": colour,
+                         "d_red_pct": dcol[0], "d_green_pct": dcol[1], "d_blue_pct": dcol[2]})
         print(f"  tile {ti}/{len(keys)}", end="\r", file=sys.stderr)
     print(file=sys.stderr)
     if shifts:
-        sh = np.array(shifts); print(f"Shift between years (median |dy|, |dx|): {np.median(np.abs(sh[:, 0])):.2f} m, {np.median(np.abs(sh[:, 1])):.2f} m", file=sys.stderr)
+        sh = np.array(shifts); print(f"Shift between years (median |dy|, |dx|, over {len(sh)} tile pairs with enough bottom): "
+                                    f"{np.median(np.abs(sh[:, 0])):.2f} m, {np.median(np.abs(sh[:, 1])):.2f} m (step {max(1, int(round(0.25 / res))) * res:.2f} m)", file=sys.stderr)
     for yi, vf in enumerate(visfrac):
         f = sum(x for x, _ in vf) / max(sum(t for _, t in vf), 1)
         print(f"Year {years[yi + 1][0]}: bottom visible on {100 * f:.0f}% of the reference year's visible area"
@@ -232,7 +261,7 @@ def main():
     mtr = from_origin(xs0, ys1, res * mf, res * mf)
     with rasterio.open(os.path.join(a.out, "flora_classes.tif"), "w", driver="GTiff", width=MW, height=MH, count=1, dtype="uint8",
                        crs=crs, transform=mtr, nodata=0, compress="deflate") as dd:
-        dd.write(cmap, 1); dd.descriptions = ("1 sand, 2 hard (dark every year), 3 vegetation (dark some years)",)
+        dd.write(cmap, 1); dd.descriptions = ("1 sand, 2 hard (dark every year), 3 changing (dark some years)",)
 
     # summary
     sumrows = []
@@ -243,8 +272,8 @@ def main():
         m = (dmap > lo) & (dmap <= hi) & (cmap > 0); tot = m.sum()
         if not tot: continue
         sumrows.append({"what": f"area {lo}-{hi} m", **{c: round(100 * float(((cmap == v) & m).sum()) / tot, 1) for v, c in
-                        ((1, "sand_%"), (2, "hard_%"), (3, "vegetation_%"))}, "area_ha": round(tot * (res * mf) ** 2 / 1e4, 1)})
-    for c in ("hard", "vegetation", "uncertain"):
+                        ((1, "sand_%"), (2, "hard_%"), (3, "changing_%"))}, "area_ha": round(tot * (res * mf) ** 2 / 1e4, 1)})
+    for c in ("hard", "changing", "uncertain"):
         sub = [r for r in rows if r["class"] == c]
         cols = {k: sum(r["colour"] == k for r in sub) for k in ("brown_olive", "green", "grey_dark")}
         sh = [r["edge_sharpness"] for r in sub if r["edge_sharpness"] != ""]
@@ -265,7 +294,7 @@ def main():
     ov = np.zeros((MH, MW, 4), "float32"); ov[cmap == 2] = (1, 0.55, 0, 0.75); ov[cmap == 3] = (0.1, 0.9, 0.2, 0.6)
     ax.imshow(ov[::step, ::step], extent=ext, interpolation="nearest")
     ax.legend(handles=[Patch(color=(1, 0.55, 0), label="hard: dark in every year (boulders, usually weed-covered)"),
-                       Patch(color=(0.1, 0.9, 0.2), label="vegetation: dark in some years only (weed / eelgrass / drift on sand)")],
+                       Patch(color=(0.1, 0.9, 0.2), label="changing: dark in some years only (eelgrass, drift weed, moved sand)")],
               fontsize=8, loc="lower left")
     ax.set_title(f"Spring photos {', '.join(y for y, _ in years)} (SDFI), {a.min_depth:g}-{a.max_depth:g} m", fontsize=9)
     ax.set_xticks([]); ax.set_yticks([])
