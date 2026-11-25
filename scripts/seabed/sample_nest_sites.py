@@ -29,6 +29,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--run", required=True); ap.add_argument("--dem", required=True)
     ap.add_argument("--points", required=True); ap.add_argument("--min-evidence", type=int, default=3)
+    ap.add_argument("--floor", type=float, default=None, help="ignore cells at or below this elevation (lidar water-surface fill)")
     ap.add_argument("--reviewed-only", action="store_true"); ap.add_argument("--radius", type=float, default=15)
     ap.add_argument("--background", type=int, default=20); ap.add_argument("--bg-distance", type=float, default=1000)
     ap.add_argument("--depth-positive", action="store_true"); ap.add_argument("--seed", type=int, default=0)
@@ -75,6 +76,9 @@ def main():
             return None
         sl = (slice(r - rr, r + rr + 1), slice(c - rr, c + rr + 1)); m = disk & valid[sl]
         if m.sum() < 3: return None
+        zz = z[sl][m]
+        if a.floor is not None and np.nanmedian(zz) <= a.floor: return None
+        if met.shape[0] > 5 and np.nanmedian(met[5][sl][m]) < 1e-4: return None   # dead-flat fill, not real bed
         nb = int(((np.hypot(bpts[:, 0] - x, bpts[:, 1] - y) <= a.radius).sum())) if len(bpts) else 0
         cc = cls[sl][m]; cc = cc[cc > 0]; pk = np.bincount(cc, minlength=7)[1:] / max(1, cc.size); pk = pk[pk > 0]
         return dict(class_shannon=float(-(pk * np.log(pk)).sum()), class_richness=int(pk.size),

@@ -30,3 +30,12 @@
 
 - Cefas/BGS 2012 Bembridge MCZ multibeam: extent 50.6988–50.7285 N, 1.0984–1.0120 W, so it stops about 1.1 km north of the nest. Coverage is about 1–34 m below chart datum, so it would not reach a nest above chart datum anyway. Grids are not downloadable; available on request from BGS. Not useful for this nest.
 - Better option: EA national lidar (1 m, some 50 cm) from the Survey Data Download portal, OGL. Lidar is flown near low tide, so it can reach an intertidal nest. Still too coarse for a single boulder under ~3 m, but resolves ledges and gullies.
+
+## Results, EA lidar 1 m (run 2026-11-25, copies in results/lidar_1m/)
+
+- 2 × 2 km composite, −2.5 to +25 m ODN. **Below about −2.1 m the lidar shows a dead-flat surface (−2.13 / −2.15 m): that is water or fill, not seabed.** Treat anything at or below −2.1 m as no data.
+- Nest cell at −1.27 m ODN (2 m SurfZone said −1.30), so the depth reading is consistent: low intertidal, exposed at low springs.
+- Within 15 m of the nest: 8% hard ground (cobble/rough), 3 substrate classes, Shannon 0.39; nearest mapped hard ground 6.7 m. Background medians: 0% hard, 1 class, nearest hard 24 m. The nest sits at a sand/hard-ground edge, which is the first measured support for an edge rule.
+- 67 boulders detected (≥ ~1.6 m across, the 1 m grid limit): diameter p50 1.6 m (p90 2.4), height p50 0.5 m (0.33–0.75), nearest-neighbour spacing p50 7.8 m (p10 3.4). They cluster along the ledge bands NW and SE of the nest; nearest is 97 m from it. The nest boulder itself is below detection.
+- Caveat: several background points fell on the flat −2.1 m fill. sample_nest_sites.py now skips dead-flat cells and takes `--floor -2.1`; re-run to clean the comparison.
+- Still n = 1. Use as supporting evidence, not as calibrated rule values.
