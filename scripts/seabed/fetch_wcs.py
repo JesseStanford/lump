@@ -10,6 +10,9 @@ right 2019. All rights reserved."
 Usage:
   python fetch_wcs.py --lat 50.6892 --lon -1.0709 --half-size 500 --out data/gb_bembridge/surfzone_2m.tif
   python fetch_wcs.py --list            # show coverage ids offered by the service
+  # a lat/lon box instead of a point (tile is in the coverage CRS units, so degrees for EPSG:4326):
+  python fetch_wcs.py --url https://ows.emodnet-bathymetry.eu/wcs --coverage emodnet__mean --crs EPSG:4326 \
+      --axes Long Lat --bbox 7.5 54.4 15.3 57.9 --tile 1 --out data/dk/emodnet_dtm.tif
 """
 import argparse, os, re, sys, time, urllib.error, urllib.parse, urllib.request
 import numpy as np
@@ -35,6 +38,7 @@ def main():
     ap.add_argument("--crs", default="EPSG:27700", help="CRS of the coverage axes (SurfZone: British National Grid)")
     ap.add_argument("--axes", nargs=2, default=["E", "N"], help="axis labels used in subset= (try x y if E N fails)")
     ap.add_argument("--tile", type=float, default=500, help="request tile size in metres (smaller if the server times out)")
+    ap.add_argument("--bbox", nargs=4, type=float, help="lon_min lat_min lon_max lat_max instead of --lat/--lon/--half-size")
     ap.add_argument("--out", default="clip.tif"); ap.add_argument("--list", action="store_true")
     a = ap.parse_args()
 
@@ -43,17 +47,24 @@ def main():
         print("\n".join(ids) if ids else "No coverage ids found; open the GetCapabilities URL in a browser."); return
     cov = a.coverage or ids[0]
     from rasterio.warp import transform
-    xs, ys = transform("EPSG:4326", a.crs, [a.lon], [a.lat]); x, y = xs[0], ys[0]
-    h = a.half_size; t = a.tile
+    t = a.tile
+    if a.bbox:
+        bx, by = transform("EPSG:4326", a.crs, [a.bbox[0], a.bbox[2], a.bbox[0], a.bbox[2]],
+                           [a.bbox[1], a.bbox[1], a.bbox[3], a.bbox[3]])
+        X0, X1, Y0, Y1 = min(bx), max(bx), min(by), max(by)
+    else:
+        xs, ys = transform("EPSG:4326", a.crs, [a.lon], [a.lat]); h = a.half_size
+        X0, X1, Y0, Y1 = xs[0] - h, xs[0] + h, ys[0] - h, ys[0] + h
+    x, y = (X0 + X1) / 2, (Y0 + Y1) / 2
     os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
-    edges = lambda c: [c - h + i * t for i in range(int(np.ceil(2 * h / t)))]
-    tiles = [(x0, y0, min(x0 + t, x + h), min(y0 + t, y + h)) for x0 in edges(x) for y0 in edges(y)]
-    print(f"Requesting {cov} around {round(x)} {round(y)} in {len(tiles)} tile(s)", file=sys.stderr)
+    edges = lambda lo, hi: [lo + i * t for i in range(int(np.ceil((hi - lo) / t - 1e-9)))]
+    tiles = [(x0, y0, min(x0 + t, X1), min(y0 + t, Y1)) for x0 in edges(X0, X1) for y0 in edges(Y0, Y1)]
+    print(f"Requesting {cov} around {x:.4f} {y:.4f} in {len(tiles)} tile(s)", file=sys.stderr)
     parts = []
     for i, (x0, y0, x1, y1) in enumerate(tiles):
         params = [("service", "WCS"), ("request", "GetCoverage"), ("version", "2.0.1"), ("coverageId", cov),
                   ("format", "image/tiff"),
-                  ("subset", f"{a.axes[0]}({x0:.1f},{x1:.1f})"), ("subset", f"{a.axes[1]}({y0:.1f},{y1:.1f})")]
+                  ("subset", f"{a.axes[0]}({x0:.6f},{x1:.6f})"), ("subset", f"{a.axes[1]}({y0:.6f},{y1:.6f})")]
         q = a.url + "?" + urllib.parse.urlencode(params)
         for attempt in range(4):
             try:

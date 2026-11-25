@@ -27,6 +27,32 @@ def ring_area(r, lat0):
     a = np.asarray(r, float); x = a[:, 0] * 111320 * math.cos(math.radians(lat0)); y = a[:, 1] * 110540
     return 0.5 * abs(np.dot(x, np.roll(y, 1)) - np.dot(y, np.roll(x, 1)))
 
+def load_points(path, bbox=None, min_evidence=0, months="", max_depth=None, drop=""):
+    """Read a sightings CSV (lat, lon[, evidence, month/date, depth_m, notes/dataset/basis]) with filters.
+    Returns a list of (lon, lat, row)."""
+    import re
+    drop = re.compile(drop, re.I) if drop else None
+    months = {int(m) for m in str(months).split(",") if m.strip()}
+    pts = []
+    for r in csv.DictReader(open(path, encoding="utf-8")):
+        try: lat, lon = float(r["lat"]), float(r["lon"])
+        except (KeyError, ValueError): continue
+        if bbox and not (bbox[0] <= lon <= bbox[2] and bbox[1] <= lat <= bbox[3]): continue
+        try: ev = int(r.get("evidence") or 0)
+        except ValueError: ev = 0
+        if ev < min_evidence: continue
+        if drop and drop.search(" ".join(r.get(k) or "" for k in ("notes", "dataset", "basis"))): continue
+        if months:
+            try: m = int(r.get("month") or (r.get("date") or "")[5:7])
+            except ValueError: continue
+            if m not in months: continue
+        if max_depth is not None and (r.get("depth_m") or "").strip():
+            try:
+                if abs(float(r["depth_m"])) > max_depth: continue
+            except ValueError: pass
+        pts.append((lon, lat, r))
+    return pts
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--polys", required=True); ap.add_argument("--field", help="attribute holding the class (omit to list fields)")
@@ -52,27 +78,7 @@ def main():
     area_by = defaultdict(float)
     for p in polys: area_by[p[0]] += p[5]
 
-    import re
-    drop = re.compile(a.drop, re.I) if a.drop else None
-    months = {int(m) for m in a.months.split(",") if m.strip()}
-    pts = []
-    for r in csv.DictReader(open(a.points, encoding="utf-8")):
-        try: lat, lon = float(r["lat"]), float(r["lon"])
-        except (KeyError, ValueError): continue
-        if a.bbox and not (a.bbox[0] <= lon <= a.bbox[2] and a.bbox[1] <= lat <= a.bbox[3]): continue
-        try: ev = int(r.get("evidence") or 0)
-        except ValueError: ev = 0
-        if ev < a.min_evidence: continue
-        if drop and drop.search(" ".join(r.get(k) or "" for k in ("notes", "dataset", "basis"))): continue
-        if months:
-            try: m = int(r.get("month") or (r.get("date") or "")[5:7])
-            except ValueError: continue
-            if m not in months: continue
-        if a.max_depth is not None and (r.get("depth_m") or "").strip():
-            try:
-                if abs(float(r["depth_m"])) > a.max_depth: continue
-            except ValueError: pass
-        pts.append((lon, lat, r))
+    pts = load_points(a.points, a.bbox, a.min_evidence, a.months, a.max_depth, a.drop)
 
     out_rows, used = [], Counter()
     for lon, lat, r in pts:

@@ -8,7 +8,10 @@
 #   .\run.ps1 fetch-uk  <site_id> <lat> <lon> [size_m]    2 m England SurfZone DEM clip -> data\<site_id>
 #   .\run.ps1 fetch-lidar <site_id> <lat> <lon> [size_m]  1 m England lidar DTM clip -> data\<site_id>
 #   .\run.ps1 fetch-wfs [options]                         list or download a WFS map layer (GeoJSON)
+#   .\run.ps1 fetch-arcgis [options]                      list or download an ArcGIS REST layer (EMODnet glacial geology)
+#   .\run.ps1 fetch-wcs [options]                         generic WCS clip (point or --bbox), e.g. EMODnet depth
 #   .\run.ps1 overlay   [options]                         sightings vs habitat/substrate polygons
+#   .\run.ps1 erratics  [options]                         coarse substrate x glacial source x depth screening
 #   .\run.ps1 module    [options]                         20 x 40 m module: module.json + plan/section SVGs
 #
 # Extra options are passed straight to the Python script (see .\run.ps1 help).
@@ -74,6 +77,20 @@ switch ($Task) {
         $extra = @($Rest | Where-Object { $_ })
         & $py (Join-Path $seabed "fetch_wfs.py") @extra
     }
+    "fetch-arcgis" {
+        $extra = @($Rest | Where-Object { $_ })
+        & $py (Join-Path $seabed "fetch_arcgis.py") @extra
+        if ($LASTEXITCODE -ne 0) { throw "fetch-arcgis failed" }
+    }
+    "fetch-wcs" {
+        $extra = @($Rest | Where-Object { $_ })
+        & $py (Join-Path $seabed "fetch_wcs.py") @extra
+        if ($LASTEXITCODE -ne 0) { throw "fetch-wcs failed" }
+    }
+    "erratics" {
+        $extra = @($Rest | Where-Object { $_ })
+        & $py (Join-Path $seabed "erratic_overlay.py") @extra
+    }
     "overlay" {
         $extra = @($Rest | Where-Object { $_ })
         & $py (Join-Path $seabed "overlay_points.py") @extra
@@ -83,7 +100,7 @@ switch ($Task) {
         & $py (Join-Path $root "scripts\schematics\module_layout.py") @extra
     }
     default {
-        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 13 | ForEach-Object { $_ -replace "^# ?", "" }
+        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 16 | ForEach-Object { $_ -replace "^# ?", "" }
         if (Test-Path $py) {
             Write-Host "`n--- classify options (seabed_classify.py) ---"
             & $py (Join-Path $seabed "seabed_classify.py") -h | Out-Host
