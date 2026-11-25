@@ -32,7 +32,7 @@ def load_points(path, bbox=None, min_evidence=0, months="", max_depth=None, drop
     Returns a list of (lon, lat, row)."""
     import re
     drop = re.compile(drop, re.I) if drop else None
-    months = {int(m) for m in str(months).split(",") if m.strip()}
+    months = {int(m) for m in re.split(r"[,\s]+", str(months)) if m.strip()}   # PowerShell may pass 2,3,4,5 as "2 3 4 5"
     pts = []
     for r in csv.DictReader(open(path, encoding="utf-8")):
         try: lat, lon = float(r["lat"]), float(r["lon"])

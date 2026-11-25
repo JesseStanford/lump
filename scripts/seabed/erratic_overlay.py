@@ -112,7 +112,7 @@ def main():
         p, fld = a.substrate; idx = {}
         if fld == "auto":
             keys = [k for k in {k for f in cache[p][:200] for k in (f.get("properties") or {})}]
-            for pat in (r"folk.*7", r"folk.*5", r"folk", r"substrat", r"class"):
+            for pat in (r"folk.*7.*txt", r"folk.*5.*txt", r"folk.*txt", r"folk.*7", r"folk.*5", r"folk", r"substrat", r"class"):
                 hit = sorted(k for k in keys if re.search(pat, k, re.I))
                 if hit: fld = hit[0]; break
             else: raise SystemExit(f"No substrate class field found in {p}; fields are {sorted(keys)}. Pass it instead of 'auto'.")
@@ -134,7 +134,9 @@ def main():
         shp = []
         present = {k for f in cache[p][:200] for k in (f.get("properties") or {})}
         flds = [k for k in fld.split(",") if k in present]
-        if not flds: print(f"  {fld} not in {p}; matching on all fields", file=sys.stderr); flds = sorted(present)
+        if not flds:
+            if cache[p]: print(f"  {fld} not in {p}; matching on all fields", file=sys.stderr)
+            flds = sorted(present)
         for f in cache[p]:
             props = f.get("properties") or {}
             v = " ".join(str(props.get(k, "")) for k in flds)
@@ -160,9 +162,10 @@ def main():
             reproject(src, depth, src_transform=s.transform, src_crs=s.crs, dst_transform=tr, dst_crs=a.crs,
                       src_nodata=np.nan, dst_nodata=np.nan, resampling=Resampling.average)
         depth = depth if a.depth_positive else -depth
-        fin = depth[np.isfinite(depth)]
-        if fin.size: print(f"Depth on grid (positive down): p5 {np.percentile(fin, 5):.1f}  median {np.median(fin):.1f}  p95 {np.percentile(fin, 95):.1f} m"
-                           + ("  <- mostly negative: the raster may be positive-down already, try --depth-positive" if np.median(fin) < 0 else ""), file=sys.stderr)
+        fin = depth[np.isfinite(depth)]; wet = fin[fin > 0]
+        if wet.size: print(f"Water depth on grid: {100 * wet.size / fin.size:.0f}% of cells under water, "
+                           f"p10 {np.percentile(wet, 10):.1f}  median {np.median(wet):.1f}  p90 {np.percentile(wet, 90):.1f} m", file=sys.stderr)
+        else: print("No cells below sea level: the raster may be positive-down already, try --depth-positive", file=sys.stderr)
     has_depth = np.isfinite(depth)
     water = (sub > 0) | source  # mapped seabed
     if a.depth:
