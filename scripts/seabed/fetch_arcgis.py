@@ -61,7 +61,9 @@ def main():
         more = page.get("exceededTransferLimit") or (page.get("properties") or {}).get("exceededTransferLimit")
         if not fs or (not more and len(fs) < a.page): break
         off += len(fs)
-    if not feats: raise SystemExit("No features returned. Check the bbox (lon lat order) and --where.")
+    if not feats:
+        print("No features in this box: the layer has no mapping here (or check bbox lon lat order and --where). "
+              "Writing an empty file so later steps still run.")
     os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
     json.dump({"type": "FeatureCollection", "features": feats}, open(a.out, "w", encoding="utf-8"))
     print(f"Saved {len(feats)} features to {a.out}")

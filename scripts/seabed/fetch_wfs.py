@@ -8,7 +8,7 @@ Usage:
 
 Bbox is lon_min lat_min lon_max lat_max (WGS84). Output is GeoJSON in WGS84 when the server supports it.
 """
-import argparse, json, os, re, sys, urllib.parse, urllib.request
+import argparse, json, os, re, sys, urllib.error, urllib.parse, urllib.request
 
 UA = {"User-Agent": "lumpfish-habitat-research/0.1"}
 
@@ -34,23 +34,43 @@ def main():
         if not blocks: print(xml[:1500])
         return
 
-    feats, start = [], 0
-    while True:
-        p = {"service": "WFS", "request": "GetFeature", "version": a.version, "typeNames": a.layer, "typeName": a.layer,
-             "outputFormat": "application/json", "srsName": "EPSG:4326", "count": a.page, "maxFeatures": a.page, "startIndex": start}
-        if a.bbox:
-            x0, y0, x1, y1 = a.bbox
-            # WFS 2.0 with EPSG:4326 URN uses lat,lon axis order
-            p["bbox"] = f"{y0},{x0},{y1},{x1},urn:ogc:def:crs:EPSG::4326" if a.version.startswith("2") else f"{x0},{y0},{x1},{y1},EPSG:4326"
-        raw = get(a.url, p)
-        try: gj = json.loads(raw)
+    def params(mode, start):
+        p = {"service": "WFS", "request": "GetFeature", "outputFormat": "application/json", "srsName": "EPSG:4326"}
+        x0, y0, x1, y1 = a.bbox if a.bbox else (None,) * 4
+        if mode in ("v2_paged", "v2_single"):
+            p.update(version=a.version, typeNames=a.layer, count=a.page if mode == "v2_paged" else 1000000)
+            if mode == "v2_paged": p["startIndex"] = start
+            if a.bbox: p["bbox"] = f"{y0},{x0},{y1},{x1},urn:ogc:def:crs:EPSG::4326"   # WFS 2.0 URN: lat,lon order
+        elif mode == "v11":
+            p.update(version="1.1.0", typeName=a.layer, maxFeatures=1000000)
+            if a.bbox: p["bbox"] = f"{y0},{x0},{y1},{x1},urn:x-ogc:def:crs:EPSG:4326"
+        else:   # v10: plain lon,lat
+            p.update(version="1.0.0", typeName=a.layer, maxFeatures=1000000)
+            if a.bbox: p["bbox"] = f"{x0},{y0},{x1},{y1}"
+        return p
+
+    def try_get(p):
+        try: raw = get(a.url, p)
+        except urllib.error.HTTPError as e:
+            body = e.read()[:800].decode("utf-8", "replace")
+            print(f"  HTTP {e.code}: {re.sub(r'<[^>]+>', ' ', body).strip()[:400]}", file=sys.stderr); return None
+        try: return json.loads(raw)
         except ValueError:
-            print(raw[:1500].decode("utf-8", "replace"), file=sys.stderr)
-            raise SystemExit("Server did not return GeoJSON (above). Try --version 1.1.0, or check the layer name with --list.")
-        batch = gj.get("features", []); feats += batch
-        print(f"  {len(feats)} features", file=sys.stderr)
-        if len(batch) < a.page: break
-        start += a.page
+            print("  not GeoJSON: " + re.sub(r"<[^>]+>", " ", raw[:800].decode("utf-8", "replace")).strip()[:400], file=sys.stderr); return None
+
+    feats, mode = [], None
+    for m in ("v2_paged", "v2_single", "v11", "v10"):   # servers differ; take the first request form that works
+        print(f"  trying {m}", file=sys.stderr)
+        gj = try_get(params(m, 0))
+        if gj is not None: mode = m; feats = gj.get("features", []); break
+    if mode is None: raise SystemExit("Every request form failed (messages above). Check the layer name with --list.")
+    print(f"  {len(feats)} features ({mode})", file=sys.stderr)
+    start = len(feats)
+    while mode == "v2_paged" and len(feats) and len(feats) % a.page == 0:
+        gj = try_get(params(mode, start))
+        batch = (gj or {}).get("features", [])
+        if not batch: break
+        feats += batch; start += len(batch); print(f"  {len(feats)} features", file=sys.stderr)
     os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
     json.dump({"type": "FeatureCollection", "features": feats}, open(a.out, "w"))
     keys = sorted({k for f in feats[:200] for k in (f.get("properties") or {})})
