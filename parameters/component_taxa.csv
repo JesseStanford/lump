@@ -1,0 +1,36 @@
+component_id,taxon,note
+F1,Zostera marina,eelgrass
+F2,Saccharina latissima,sugar kelp
+F2,Laminaria digitata,oarweed
+F2,Laminaria hyperborea,tangle
+F3,Fucus,all wracks (genus)
+F4,Phycodrys rubens,
+F4,Delesseria sanguinea,
+F4,Furcellaria lumbricalis,
+F4,Coccotylus truncatus,
+F5,Cladophora,filamentous green (genus)
+F5,Ectocarpus,filamentous brown (genus)
+F5,Pylaiella littoralis,filamentous brown
+F5,Ulva,ephemeral green (genus)
+S7,Mytilus edulis,blue mussel (biogenic reef)
+A1,Ctenolabrus rupestris,goldsinny wrasse
+A1,Labrus bergylta,ballan wrasse
+A1,Symphodus melops,corkwing wrasse
+A2,Gadus morhua,cod
+A2,Pholis gunnellus,butterfish
+A2,Lipophrys pholis,shanny
+A3,Larus,gulls (genus) - only with --include-birds
+A3,Corvus,crows and rooks (genus) - only with --include-birds
+A3,Sturnus vulgaris,starling - only with --include-birds
+A4,Phoca vitulina,harbour seal
+A4,Halichoerus grypus,grey seal
+A4,Lutra lutra,otter
+A5,Harpacticoida,harpacticoid copepods (order)
+A5,Amphipoda,amphipods (order)
+A5,Isopoda,isopods (order)
+A6,Aurelia aurita,moon jelly
+A6,Cyanea capillata,lion's mane jelly
+A6,Mnemiopsis leidyi,comb jelly
+A7,Echinoidea,sea urchins (class)
+A8,Asterias rubens,common starfish
+T0,Cyclopterus lumpus,the target species

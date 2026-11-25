@@ -20,3 +20,16 @@ Evidence levels: **measured** (numbers from surveys or nests), **literature (dir
 2. Which shoreline alga juveniles prefer (Fucus vs others), and their densities.
 3. Kelp density at nests; any Danish wrasse predation data.
 4. Eelgrass role: likely indirect only.
+
+## Recorded species at the candidate sites (`species`)
+`parameters/component_taxa.csv` links each flora and fauna component to GBIF taxa (species, genus, order or class). `.\run.ps1 species` makes one GBIF occurrence download for those taxa around the shortlist patches. The download carries its own DOI, which is the citation (`gbif_site_species`). It then counts records per component and species within 2 km of each patch edge. Birds (A3) are left out unless `--include-birds` is given, because they would dominate the download.
+
+```powershell
+$env:GBIF_USER = "your GBIF user name"
+$env:GBIF_PWD = "your GBIF password"
+$env:GBIF_EMAIL = "the email on your GBIF account"
+.\run.ps1 species --shortlist runs\oresund_shortlist\shortlist.csv --out runs\oresund_species
+```
+Outputs: `site_components.csv` (patch × component), `site_species.csv` (species list per patch), `site_components.png`, `gbif_download.json` (key, DOI, citation). Re-run without a new download: add `--zip runs\oresund_species\gbif_download.zip`.
+
+No record means nobody reported one, not that the species is absent.

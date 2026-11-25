@@ -51,6 +51,7 @@ FILE_KEYS = [
     ("nest_candidates*.csv", ["gbif_occurrences", "inaturalist_observations"]),
     ("nest_candidates*.geojson", ["gbif_occurrences", "inaturalist_observations"]),
     ("datras_hauls*.csv", ["ices_datras", "worms"]),
+    ("gbif_download.zip", ["gbif_site_species"]),
 ]
 
 # result file name -> dataset keys its inputs came from (for backfill of runs/)
@@ -71,6 +72,8 @@ RESULT_KEYS = [
                     "helcom_zostera", "gbif_occurrences", "inaturalist_observations"]),
     ("drift_*", ["emodnet_substrate250k", "emodnet_seafloorgeology", "emodnet_dtm2024", "helcom_reefs1170",
                  "helcom_zostera", "cmems_bal_phy_my"]),
+    ("site_components*", ["gbif_site_species"]),
+    ("site_species*", ["gbif_site_species"]),
     ("trawl_*", ["ices_datras", "worms", "emodnet_substrate250k", "emodnet_seafloorgeology", "emodnet_dtm2024"]),
 ]
 
@@ -188,7 +191,9 @@ def write_md(folder):
         ref = refs.get(k)
         acc = sorted({r["accessed_utc"][:10] for r in rows if r["source_key"] == k and r["accessed_utc"]})
         files = sorted({r["file"] for r in rows if r["source_key"] == k and r["file"]})
+        dois = sorted({r["url"] for r in rows if r["source_key"] == k and "doi.org/" in r["url"]})
         lines.append(f"- **{k}**: {citation(ref) if ref else 'NOT IN citations/references.csv - add it'}"
+                     + (f" Download DOI: {', '.join(dois)}." if dois else "")
                      + (f" Accessed {', '.join(acc)}." if acc else "") + (f" Files: {', '.join(files)}." if files else ""))
     with open(os.path.join(folder, "SOURCES.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
