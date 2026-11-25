@@ -38,4 +38,14 @@ Outputs: `site_components.csv` (patch × component), `site_species.csv` (species
 No record means nobody reported one, not that the species is absent.
 
 ## Aerial photos of shallow reefs (`ortho`)
-Spring orthophotos from SDFI (Dataforsyningen) can show boulders at 0 to about 5 m in clear water. `.\run.ps1 ortho` fetches 1 km tiles at 0.4 m, only where the erratic grid has water shallower than 12 m. It outlines screen-score-3 cells on an overview. A free Dataforsyningen token is needed (`$env:DATAFORSYNINGEN_TOKEN`). Run `--list` to see the photo years: an older spring with clearer water can beat the latest. Cite as `sdfi_orto_foraar`.
+Spring orthophotos from SDFI (Dataforsyningen) can show boulders at 0 to about 5 m in clear water. `.\run.ps1 ortho` fetches 1 km tiles at 0.4 m, only where the erratic grid has water shallower than 12 m. It outlines screen-score-3 cells on an overview. A free Dataforsyningen token is needed; the script asks for it once and saves it. Run `--list` to see the photo years: an older spring with clearer water can beat the latest. Cite as `sdfi_orto_foraar`.
+
+### First look: Gilleleje to Hornbæk (spring photo, latest `orto_foraar`, fetched 2026-11-25)
+67 tiles, overview `runs/ortho_gilleleje_hornbaek/ortho_overview.png`. Tile names are the EPSG:25832 south-west corner in metres.
+- **Nakkehoved to Smidstrup Strand** (tiles `707000_6223000`, `708000_6223000`, `709000_6223000`, `708000_6224000`): clear dark, mottled patches from the shore to about 400 m out. This is the classic look of boulders with seaweed on them. It sits on the inshore edge of the score-3 strip, so photo and screen agree here. **Best place to look first.**
+- **West of Hornbæk** (tiles `712000_6221000`, `713000_6221000`): a smaller patch of dark mottling inside the small score-3 loop just west of the harbour.
+- **Dronningmølle to Hornbæk inshore**: pale lines with breaking waves are sand bars. The 0 to 2 m zone there is sand, so it is a nursery/beach zone, not a nest reef.
+- **Beyond about 5 to 6 m** the water is uniform dark blue, so the photo says nothing about the deeper score-3 cells (most of the red outline offshore).
+- Dark patches can also be eelgrass or mussel beds. On this exposed north coast boulders with Fucus or kelp are the more likely reading, and the GBIF records near #3 fit that (kelp, Fucus, red algae, corkwing, butterfish). Needs checking at full resolution (0.4 m tiles in QGIS): single boulders of 1 m or more show as separate dark dots with pale sand around them.
+- A few inland tiles (Søborg Sø basin) were fetched because the depth grid puts the drained lake bed below sea level. They are harmless.
+
