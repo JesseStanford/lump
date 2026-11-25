@@ -51,13 +51,17 @@ def main():
     ap.add_argument("--min-contrast", type=float, default=0.25)
     ap.add_argument("--bg-m", type=float, default=40, help="window for the local sand reference, m")
     ap.add_argument("--min-area", type=float, default=0.5); ap.add_argument("--max-area", type=float, default=12)
+    ap.add_argument("--min-px", type=int, help="smallest object in pixels (default: 6 on 0.4 m tiles, --min-area on fine tiles)")
+    ap.add_argument("--max-elong", type=float, default=3.0, help="drop thin streaks longer than this many times their width")
+    ap.add_argument("--core", type=float, default=0.1, help="object must have a core this much darker than --dark-ratio (drops threshold-edge specks)")
     ap.add_argument("--gap", type=float, default=2.5); ap.add_argument("--cluster-gap", type=float, default=1.0)
     ap.add_argument("--cell", type=float, default=50)
     ap.add_argument("--params", default=os.path.join(ROOT, "parameters", "parameters.csv"))
     ap.add_argument("--out", default="runs/boulders")
     a = ap.parse_args()
     sys.path.insert(0, HERE); import sources
-    os.makedirs(a.out, exist_ok=True); sources.carry_args(a.out, a)
+    os.makedirs(a.out, exist_ok=True)
+    sources.carry_args(a.out, argparse.Namespace(**{k: v for k, v in vars(a).items() if k != "params"}))   # our own rules file is not a data source
 
     import rasterio
     from rasterio import features as rf
@@ -125,7 +129,12 @@ def main():
     lab, nlab = ndi.label(dark, structure=np.ones((3, 3)))
     px = res * res
     areas = ndi.sum(np.ones_like(lab), lab, index=np.arange(1, nlab + 1)) * px
-    keep = np.flatnonzero((areas >= a.min_area) & (areas <= a.max_area)) + 1
+    npxs = areas / px
+    min_px = a.min_px or max(6, int(np.ceil(a.min_area / px)))
+    core = ndi.minimum(ratio, lab, index=np.arange(1, nlab + 1)) if nlab else np.array([])
+    keep = np.flatnonzero((areas >= a.min_area) & (areas <= a.max_area) & (npxs >= min_px) & (core <= a.dark_ratio - a.core)) + 1
+    print(f"Dark objects of boulder size: {int(((areas >= a.min_area) & (areas <= a.max_area)).sum())}; kept after pixel-count and dark-core checks: {len(keep)}", file=sys.stderr)
+    if res > 0.2: print(f"Note: tiles are {res:g} m/pixel, so a 1 m boulder is only {1 / res:.1f} pixels across. Fetch 0.125 m tiles (--layer orto_foraar_12_5 --res 0.125 --tile-m 250) for real boulder counts.", file=sys.stderr)
     objs = ndi.find_objects(lab)
     shore_d = ndi.distance_transform_edt(~land) * res if land.any() else np.full((H, W), np.nan)
     patch = ndi.binary_closing(dark, structure=np.ones((3, 3)), iterations=max(1, int(round(a.gap / 2 / res))))
@@ -148,6 +157,9 @@ def main():
                      "elongation": round(elong, 2), "depth_m": round(float(depth[ri, ci]), 1),
                      "dist_shore_m": round(float(shore_d[ri, ci]), 1) if land.any() else "",
                      "dist_patch_edge_m": round(float(edge_d[ri, ci]), 1) if patch[ri, ci] else ""})
+    nstreak = sum(r["elongation"] > a.max_elong for r in rows)
+    rows = [r for r in rows if r["elongation"] <= a.max_elong]
+    print(f"Dropped {nstreak} thin streaks (elongation > {a.max_elong:g}); {len(rows)} boulders left", file=sys.stderr)
     if not rows: raise SystemExit("No boulder-sized dark objects found: check --max-depth, or the water may be too murky in this photo.")
     xy = np.array([[r["x"], r["y"]] for r in rows]); rad = np.array([r["diameter_m"] / 2 for r in rows])
     lon, lat = transform(crs, "EPSG:4326", list(xy[:, 0]), list(xy[:, 1]))

@@ -71,7 +71,10 @@ Spring orthophotos from SDFI (Dataforsyningen) can show boulders at 0 to about 5
 `boulder_measure.py` uses the same dark-pixel rule as `ortho-compare` (not re-tuned) on the 0.4 m tiles, 0.3 to 5 m deep. Dark blobs of 0.5 to 12 m² count as boulders (about 0.8 to 3.9 m across). It writes every boulder with position in metres (EPSG:25832, ready for Rhino), plan diameter, elongation, depth, distance from shore, nearest neighbour and cluster; patch outlines; per-50 m cell density and cover; and a table set against rules R03 (diameter), R04 (boulders per cluster), R06 (cluster spacing), R08 (cover) and R15 (distance to the hard/soft edge).
 - Footprints only: no heights, crevices or overhangs. A dark blob can be a weed clump or a shadow.
 - Boulders that touch or sit closer than about 0.5 m merge into one object, so clusters read as fewer, larger boulders.
-- Synthetic test (160 boulders of 0.9 to 1.6 m planted on sand at 1 to 3.5 m, 5 brightness units of noise): 119 found (74%), median diameter 1.19 m against 1.28 m planted.
+- Objects must be at least 6 pixels (0.4 m tiles) or `--min-area` (fine tiles), have a core clearly darker than the threshold, and not be thin streaks.
+- Synthetic tests: on 0.125 m tiles, 158 of 187 planted boulders of 0.8 m or more were found (85%), median diameter 1.17 m. On 0.4 m tiles only boulders of about 1.1 m and more are kept. **Use 0.125 m tiles for boulder counts.**
+
+**First run, Nakkehoved (0.4 m tiles, before the object checks, 2026-11-25):** 12 dark patches of 300 m² to 24.6 ha between 0.3 and 5 m, almost solid dark inside (cover 0.89 to 1.0), with sand between. Dark cover per 50 m cell is either about 0 or about 1. The largest patch runs on past 5 m, and its edge at the foot of the cliff may partly be cliff shadow. The 331 single "boulders" were not reliable: 118 had identical repeated pixel shapes (noise at 0.4 m), and most sat on patch edges, so the size, cluster and spacing numbers from that run should not be used. Tentatively, natural hard ground here comes as dense fields of 0.03 to 25 ha separated by sand, not as scattered stones; the dark cover (boulders plus weed canopy) is well above the 0.3 to 0.5 in R08.
 
 ```
 .\run.ps1 boulders --tiles runs\ortho_gilleleje_hornbaek\tiles --erratic runs\dk_erratics\erratic_grid.tif --bbox 12.335 56.110 12.395 56.127 --out runs\boulders_nakkehoved
