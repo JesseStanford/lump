@@ -47,7 +47,8 @@ switch ($Task) {
         if (-not $dem) { throw "Usage: .\run.ps1 sample <site_id> <dem.tif> [--radius 15] [--reviewed-only]" }
         # Default: the reviewed nest list, confirmed rows only. Pass --points <file> to use another list.
         $pts = Join-Path $root "sites\nest_records\nest_candidates_reviewed.csv"
-        $filt = if ($more -contains "--points") { @() } else { @("--reviewed-only") }
+        [string[]] $filt = @()
+        if (-not ($more -contains "--points")) { $filt += "--reviewed-only" }
         & $py (Join-Path $seabed "sample_nest_sites.py") --run (Join-Path $root "runs\$id") --dem $dem --points $pts @filt @more
     }
     "fetch-uk" {
