@@ -27,6 +27,19 @@ $box = "11.9","55.95","12.7","56.2"
 .\run.ps1 nursery --bbox @box --data data\dk_test --out runs\dk_nursery_test
 ```
 
+## Mapped reefs vs the till screen vs nursery (all of Denmark)
+No Danish 1170 reef polygons are openly downloadable. The usable layer is **HELCOM HOLAS II Reefs (1170)**, a presence raster built from "polygon data on reefs found within Natura 2000 sites" supplied by the Danish Nature Agency. It covers the HELCOM area only (Kattegat, Belts, Øresund, Baltic), not Skagerrak or the North Sea. The Natura 2000 site boundaries (EEA service) mark where reefs were actually mapped, so the comparison only counts surveyed water. The EMODnet map library holds a Danish Annex I habitat map for the Wadden Sea only (DK004023).
+```powershell
+$dk = "7.5","54.4","15.3","57.9"
+.\run.ps1 nursery-inputs --out data\dk --what eelgrass reefs n2000 --bbox @dk
+.\run.ps1 nursery --bbox @dk --data data\dk --out runs\dk_nursery          # add --cell 200 if memory runs out
+.\run.ps1 reef-nursery --erratic runs\dk_erratics\erratic_grid.tif --reefs data\dk\reefs_helcom_1170.tif --surveyed data\dk\n2000_sites.geojson --nursery runs\dk_nursery\nursery_grid.tif --out runs\dk_reef_nursery
+```
+Outputs:
+- `screen_vs_mapped_reefs.csv`: recall, precision and lift of each screen score and category against mapped reefs.
+- `reef_to_nursery_distance.csv`: distance from screened and mapped reef cells to hard nursery and to eelgrass.
+- `reef_nursery_map.png`: the combined map.
+
 ## Parked: trawl presence/absence test
 `datras` downloads every ICES DATRAS survey haul in a box (NS-IBTS, BITS) with the lumpfish count, 0 included. `trawl-test` compares the distance to candidate reef ground for hauls with and without lumpfish, by quarter, with a depth-matched check. It is tested on synthetic hauls only.
 ```powershell

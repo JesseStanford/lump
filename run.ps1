@@ -13,8 +13,9 @@
 #   .\run.ps1 overlay   [options]                         sightings vs habitat/substrate polygons
 #   .\run.ps1 erratic-inputs --bbox ... --out data\dk     download all layers for the erratic screen
 #   .\run.ps1 erratics  [options]                         coarse substrate x glacial source x depth screening
-#   .\run.ps1 nursery-inputs --out data\dk                HELCOM eelgrass raster for the nursery proxy
+#   .\run.ps1 nursery-inputs --out data\dk [--what ...]   HELCOM eelgrass / reefs 1170, Natura 2000 sites
 #   .\run.ps1 nursery   [options]                         juvenile (nursery) habitat proxy map
+#   .\run.ps1 reef-nursery [options]                      screen vs mapped reefs; reef-to-nursery distance; map
 #   .\run.ps1 datras / trawl-test [options]               (parked) trawl hauls vs candidate reefs
 #   .\run.ps1 module    [options]                         20 x 40 m module: module.json + plan/section SVGs
 #
@@ -111,6 +112,10 @@ switch ($Task) {
         $extra = @($Rest | Where-Object { $_ })
         & $py (Join-Path $seabed "trawl_vs_reefs.py") @extra
     }
+    "reef-nursery" {
+        $extra = @($Rest | Where-Object { $_ })
+        & $py (Join-Path $seabed "reef_nursery_overlay.py") @extra
+    }
     "erratics" {
         $extra = @($Rest | Where-Object { $_ })
         & $py (Join-Path $seabed "erratic_overlay.py") @extra
@@ -124,7 +129,7 @@ switch ($Task) {
         & $py (Join-Path $root "scripts\schematics\module_layout.py") @extra
     }
     default {
-        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 20 | ForEach-Object { $_ -replace "^# ?", "" }
+        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 21 | ForEach-Object { $_ -replace "^# ?", "" }
         if (Test-Path $py) {
             Write-Host "`n--- classify options (seabed_classify.py) ---"
             & $py (Join-Path $seabed "seabed_classify.py") -h | Out-Host
