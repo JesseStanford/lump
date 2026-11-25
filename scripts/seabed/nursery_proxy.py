@@ -56,6 +56,11 @@ def main():
         reproject(s.read(1, masked=True).filled(np.nan).astype("float32"), elev, src_transform=s.transform, src_crs=s.crs,
                   dst_transform=tr, dst_crs=a.crs, src_nodata=np.nan, dst_nodata=np.nan, resampling=Resampling.bilinear)
     depth = -elev; water = np.isfinite(depth) & (depth > 0); land = np.isfinite(depth) & (depth <= 0)
+    lab, nlab = ndi.label(water)   # drop inland lakes: keep water connected to the box edge (the sea)
+    edge = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
+    lakes = water & ~np.isin(lab, list(edge))
+    if lakes.any(): print(f"Dropped {int(lakes.sum())} inland water cells (lakes)", file=sys.stderr)
+    water &= ~lakes; land |= lakes
     shore = water & ndi.binary_dilation(land, structure=np.ones((3, 3), bool))
 
     # substrate -> coarse flag, filled to the coast from the nearest mapped cell
