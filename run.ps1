@@ -11,6 +11,7 @@
 #   .\run.ps1 fetch-arcgis [options]                      list or download an ArcGIS REST layer (EMODnet glacial geology)
 #   .\run.ps1 fetch-wcs [options]                         generic WCS clip (point or --bbox), e.g. EMODnet depth
 #   .\run.ps1 overlay   [options]                         sightings vs habitat/substrate polygons
+#   .\run.ps1 erratic-inputs --bbox ... --out data\dk     download all layers for the erratic screen
 #   .\run.ps1 erratics  [options]                         coarse substrate x glacial source x depth screening
 #   .\run.ps1 module    [options]                         20 x 40 m module: module.json + plan/section SVGs
 #
@@ -87,6 +88,10 @@ switch ($Task) {
         & $py (Join-Path $seabed "fetch_wcs.py") @extra
         if ($LASTEXITCODE -ne 0) { throw "fetch-wcs failed" }
     }
+    "erratic-inputs" {
+        $extra = @($Rest | Where-Object { $_ })
+        & $py (Join-Path $seabed "fetch_erratic_inputs.py") @extra
+    }
     "erratics" {
         $extra = @($Rest | Where-Object { $_ })
         & $py (Join-Path $seabed "erratic_overlay.py") @extra
@@ -100,7 +105,7 @@ switch ($Task) {
         & $py (Join-Path $root "scripts\schematics\module_layout.py") @extra
     }
     default {
-        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 16 | ForEach-Object { $_ -replace "^# ?", "" }
+        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 17 | ForEach-Object { $_ -replace "^# ?", "" }
         if (Test-Path $py) {
             Write-Host "`n--- classify options (seabed_classify.py) ---"
             & $py (Join-Path $seabed "seabed_classify.py") -h | Out-Host

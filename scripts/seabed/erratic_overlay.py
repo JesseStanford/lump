@@ -29,6 +29,10 @@ Usage:
       --depth data/dk/emodnet_dtm.tif \\
       --points runs/nest_candidates.csv --months 2,3,4,5 --drop "cruise haul" --out runs/dk_erratics
 Omit a FIELD (pass "?") to print the layer's fields and the values of likely class fields.
+
+Short form, after fetch_erratic_inputs.py has filled a folder (fields are picked automatically):
+  python erratic_overlay.py --bbox 11.9 55.95 12.7 56.2 --data data/dk_test --points runs/nest_candidates.csv \
+      --months 2,3,4,5 --drop "cruise haul" --out runs/dk_erratics_test
 """
 import argparse, csv, json, os, re, sys
 from collections import Counter, defaultdict
@@ -61,14 +65,24 @@ def main():
     ap.add_argument("--depth", help="elevation GeoTIFF (negative below sea level) e.g. EMODnet DTM")
     ap.add_argument("--depth-positive", action="store_true", help="depth raster is positive down")
     ap.add_argument("--coarse-match", default=COARSE); ap.add_argument("--glacial-match", default=GLACIAL)
-    ap.add_argument("--line-match", default=r"morain|ice.?margin|end|terminal|push")
+    ap.add_argument("--line-match", default=r"morain|ice.?margin|terminal|push")
     ap.add_argument("--line-buffer", type=float, default=2000, help="metres from a moraine line that count as source")
     ap.add_argument("--wave-depth", type=float, default=10, help="winnowing depth limit, m")
     ap.add_argument("--max-depth", type=float, default=30, help="ignore water deeper than this, m")
     ap.add_argument("--points"); ap.add_argument("--months", default=""); ap.add_argument("--drop", default="")
     ap.add_argument("--min-evidence", type=int, default=0)
+    ap.add_argument("--data", help="folder from fetch_erratic_inputs.py; fills any layer not given explicitly")
     ap.add_argument("--out", default="runs/erratics")
     a = ap.parse_args()
+    if a.data:
+        d = lambda f: os.path.join(a.data, f)
+        if not a.substrate and os.path.exists(d("substrate.geojson")): a.substrate = [d("substrate.geojson"), "auto"]
+        if not a.glacial:
+            a.glacial = [[d(f), fl] for f, fl in (("quat_lithology.geojson", "lithology1"), ("geomorph_polys.geojson", "landform"))
+                         if os.path.exists(d(f))]
+        if not a.lines and os.path.exists(d("geomorph_lines.geojson")): a.lines = [[d("geomorph_lines.geojson"), "landform"]]
+        if not a.depth and os.path.exists(d("emodnet_dtm.tif")): a.depth = d("emodnet_dtm.tif")
+        print("Layers:", {"substrate": a.substrate, "glacial": a.glacial, "lines": a.lines, "depth": a.depth}, file=sys.stderr)
 
     import rasterio
     from rasterio import features as rf
@@ -96,6 +110,13 @@ def main():
     names = ["unmapped"]; sub = np.zeros(shape, "int32")
     if a.substrate:
         p, fld = a.substrate; idx = {}
+        if fld == "auto":
+            keys = [k for k in {k for f in cache[p][:200] for k in (f.get("properties") or {})}]
+            for pat in (r"folk.*7", r"folk.*5", r"folk", r"substrat", r"class"):
+                hit = sorted(k for k in keys if re.search(pat, k, re.I))
+                if hit: fld = hit[0]; break
+            else: raise SystemExit(f"No substrate class field found in {p}; fields are {sorted(keys)}. Pass it instead of 'auto'.")
+            print("Substrate field:", fld, file=sys.stderr)
         shapes = []
         for f in cache[p]:
             v = str((f.get("properties") or {}).get(fld)); i = idx.setdefault(v, len(idx) + 1)
@@ -111,15 +132,21 @@ def main():
     gre = re.compile(a.glacial_match, re.I); source = np.zeros(shape, bool); hits = Counter()
     for p, fld in a.glacial:
         shp = []
+        present = {k for f in cache[p][:200] for k in (f.get("properties") or {})}
+        flds = [k for k in fld.split(",") if k in present]
+        if not flds: print(f"  {fld} not in {p}; matching on all fields", file=sys.stderr); flds = sorted(present)
         for f in cache[p]:
             props = f.get("properties") or {}
-            v = " ".join(str(props.get(k, "")) for k in fld.split(","))
+            v = " ".join(str(props.get(k, "")) for k in flds)
             if gre.search(v): shp.append((geom(f["geometry"]), 1)); hits[v[:60]] += 1
         if shp: source |= rf.rasterize(shp, out_shape=shape, transform=tr, fill=0, dtype="uint8").astype(bool)
     lre = re.compile(a.line_match, re.I); line = np.zeros(shape, bool)
     for p, fld in a.lines:
+        present = {k for f in cache[p][:200] for k in (f.get("properties") or {})}
+        flds = sorted(present) if fld == "*" or fld not in present else [fld]
         shp = [(geom(f["geometry"]), 1) for f in cache[p]
-               if fld == "*" or lre.search(str((f.get("properties") or {}).get(fld, "")))]
+               if lre.search(" ".join(str((f.get("properties") or {}).get(k, "")) for k in flds))]
+        print(f"  {len(shp)} moraine lines from {p}", file=sys.stderr)
         if shp: line |= rf.rasterize(shp, out_shape=shape, transform=tr, fill=0, dtype="uint8", all_touched=True).astype(bool)
     d_line = ndi.distance_transform_edt(~line) * a.cell if line.any() else np.full(shape, np.inf)
     source_any = source | (d_line <= a.line_buffer)
@@ -133,6 +160,9 @@ def main():
             reproject(src, depth, src_transform=s.transform, src_crs=s.crs, dst_transform=tr, dst_crs=a.crs,
                       src_nodata=np.nan, dst_nodata=np.nan, resampling=Resampling.average)
         depth = depth if a.depth_positive else -depth
+        fin = depth[np.isfinite(depth)]
+        if fin.size: print(f"Depth on grid (positive down): p5 {np.percentile(fin, 5):.1f}  median {np.median(fin):.1f}  p95 {np.percentile(fin, 95):.1f} m"
+                           + ("  <- mostly negative: the raster may be positive-down already, try --depth-positive" if np.median(fin) < 0 else ""), file=sys.stderr)
     has_depth = np.isfinite(depth)
     water = (sub > 0) | source  # mapped seabed
     if a.depth:

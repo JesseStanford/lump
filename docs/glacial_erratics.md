@@ -33,31 +33,21 @@ Sightings are then cross-referenced in the same way as `overlay`: the share of s
 | GEUS national seabed screening for offshore wind, 2025 | Report https://doi.org/10.22008/gpub/34786 ; portal https://data.geus.dk/geusmap/?mapname=geoscreening_havvind&lang=da | Viewer only. It mentions moraine clay and large stones, so it is worth checking against the screen offshore. |
 
 ## Commands (PowerShell, from the lump folder)
-Start with a small box off north Zealand (Gilleleje) to check that every layer downloads. Then run the whole of Denmark.
+First update, and check that `VERSION.txt` shows the latest commit (`.\run.ps1 help` should list `erratic-inputs` and `erratics`).
+Start with a small box off north Zealand (Gilleleje). Once every layer downloads, run the whole of Denmark.
 ```powershell
+cd ..; .\update.ps1; cd lump
 $box = "11.9","55.95","12.7","56.2"        # north Zealand test box; Denmark: "7.5","54.4","15.3","57.9"
 
-# 1. glacial geology from EMODnet Geology (BGR ArcGIS)
-.\run.ps1 fetch-arcgis --list
-.\run.ps1 fetch-arcgis --layer 4 --bbox @box --out data\dk\quat_lithology.geojson
-.\run.ps1 fetch-arcgis --layer 2 --bbox @box --out data\dk\geomorph_polys.geojson
-.\run.ps1 fetch-arcgis --layer 0 --bbox @box --out data\dk\geomorph_lines.geojson
+# 1. download everything: glacial geology (BGR), seabed substrate (EMODnet WFS), depth (EMODnet WCS)
+.\run.ps1 erratic-inputs --bbox @box --out data\dk_test
 
-# 2. surface substrate (layer name from: .\run.ps1 fetch-wfs --url https://drive.emodnet-geology.eu/geoserver/gtk/wfs --list --grep substrate)
-.\run.ps1 fetch-wfs --url <wfs> --layer <substrate_layer> --bbox @box --out data\dk\substrate.geojson
-
-# 3. depth (coverage id from --list; tile is in degrees here)
-.\run.ps1 fetch-wcs --url https://ows.emodnet-bathymetry.eu/wcs --list
-.\run.ps1 fetch-wcs --url https://ows.emodnet-bathymetry.eu/wcs --coverage <id> --crs EPSG:4326 --axes Long Lat --bbox @box --tile 0.5 --out data\dk\emodnet_dtm.tif
-
-# 4. show fields and class values ("?" instead of a field name)
-.\run.ps1 erratics --bbox @box --substrate data\dk\substrate.geojson "?" --glacial data\dk\quat_lithology.geojson "?" --glacial data\dk\geomorph_polys.geojson "?" --lines data\dk\geomorph_lines.geojson "?"
-
-# 5. the screen, with spring sightings (trawl hauls dropped)
-.\run.ps1 erratics --bbox @box --substrate data\dk\substrate.geojson <folk_field> `
-  --glacial data\dk\quat_lithology.geojson lithology1 --glacial data\dk\geomorph_polys.geojson landform `
-  --lines data\dk\geomorph_lines.geojson landform --depth data\dk\emodnet_dtm.tif `
-  --points runs\nest_candidates.csv --months 2,3,4,5 --drop "cruise haul" --out runs\dk_erratics_test
+# 2. the screen, with spring sightings (trawl hauls dropped); class fields are picked automatically
+.\run.ps1 erratics --bbox @box --data data\dk_test --points runs\nest_candidates.csv --months 2,3,4,5 --drop "cruise haul" --out runs\dk_erratics_test
+```
+If a field is picked wrongly, show the fields and class values with `"?"` and pass the field name instead:
+```powershell
+.\run.ps1 erratics --bbox @box --substrate data\dk_test\substrate.geojson "?" --glacial data\dk_test\quat_lithology.geojson "?"
 ```
 Outputs in `--out`:
 - `erratic_grid.tif`: bands for score, category, depth and distance to a moraine line.
