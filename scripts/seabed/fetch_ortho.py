@@ -4,7 +4,7 @@ fetch_ortho.py - Danish aerial photos (orthophotos) of shallow candidate reefs, 
 
 Source: SDFI / Dataforsyningen WMS (free data, needs a free Dataforsyningen user and token):
   1. create a user at https://dataforsyningen.dk (log in -> "Mine tokens" / "Opret token")
-  2. in PowerShell:  $env:DATAFORSYNINGEN_TOKEN = "the token text"
+  2. run the ortho task; it asks for the token once and saves it in ~/.lump/dataforsyningen_token.txt
 Default service is the spring orthophoto (orto_foraar_DAF). Spring photos are taken before algae and
 plankton blooms, so the seabed is often visible down to a few metres. Run --list to see the layers
 (older years can be clearer than the latest).
@@ -30,15 +30,33 @@ warnings.filterwarnings("ignore", message="Dataset has no geotransform")
 HERE = os.path.dirname(os.path.abspath(__file__))
 WMS = "https://api.dataforsyningen.dk/orto_foraar_DAF"
 
-def token(a):
-    t = a.token or os.environ.get("DATAFORSYNINGEN_TOKEN")
-    if not t:
-        raise SystemExit("A Dataforsyningen token is needed (free). Create a user at https://dataforsyningen.dk, make a token\n"
-                         "under your user page, then in PowerShell:\n  $env:DATAFORSYNINGEN_TOKEN = \"the token text\"\nand run this again.")
-    if t.strip().lower() in ("the token text", "your token", "token"):
-        raise SystemExit("DATAFORSYNINGEN_TOKEN is still the example text. Copy your real token from your user page on "
-                         "dataforsyningen.dk and set it again.")
+TOKEN_FILE = os.path.join(os.path.expanduser("~"), ".lump", "dataforsyningen_token.txt")
+
+def looks_like_token(t):
+    """Dataforsyningen tokens are one long word of letters and digits (about 32 characters)."""
+    t = (t or "").strip()
+    return len(t) >= 20 and re.fullmatch(r"[A-Za-z0-9_\-]+", t) and not re.search(r"token|paste|your|here|text", t, re.I)
+
+def token(a, ask=True):
+    """Token from --token, then $env:DATAFORSYNINGEN_TOKEN, then the saved file; otherwise ask once and save it."""
+    for t in (a.token, os.environ.get("DATAFORSYNINGEN_TOKEN"), open(TOKEN_FILE).read() if os.path.exists(TOKEN_FILE) else None):
+        if t and looks_like_token(t): return t.strip()
+        if t: print("Ignoring a token value that is not a real token (it looks like example text).", file=sys.stderr)
+    if not ask or not sys.stdin.isatty():
+        raise SystemExit("No Dataforsyningen token. Run this again in a PowerShell window and paste the token when asked.")
+    print("A free Dataforsyningen token is needed for the photos.\n"
+          "  1. Log in at https://dataforsyningen.dk\n"
+          "  2. Open your user page and create a token (it is a long string of letters and digits)\n"
+          "  3. Copy it and paste it here, then press Enter. It is saved in " + TOKEN_FILE + " so you only do this once.",
+          file=sys.stderr)
+    t = input("Token: ").strip().strip('"').strip("'")
+    if not looks_like_token(t): raise SystemExit("That does not look like a token (expected one long word of letters and digits).")
+    os.makedirs(os.path.dirname(TOKEN_FILE), exist_ok=True)
+    with open(TOKEN_FILE, "w") as f: f.write(t)
     return t
+
+def forget_token():
+    if os.path.exists(TOKEN_FILE): os.remove(TOKEN_FILE)
 
 def fetch(url, params, tries=4):
     q = url + ("&" if "?" in url else "?") + urllib.parse.urlencode(params)
@@ -48,7 +66,11 @@ def fetch(url, params, tries=4):
                 return r.read(), r.headers.get("Content-Type", "")
         except urllib.error.HTTPError as e:
             body = e.read()[:400]
-            if e.code in (401, 403): raise SystemExit(f"Dataforsyningen refused the token (HTTP {e.code}): {body!r}")
+            if e.code in (401, 403):
+                forget_token()
+                raise SystemExit(f"Dataforsyningen refused the token (HTTP {e.code}). Check you copied the token itself, not your "
+                                 "user name or password. Clear the old one with  Remove-Item Env:DATAFORSYNINGEN_TOKEN  "
+                                 "and run again; you will be asked to paste it.")
             err = f"HTTP {e.code} {body!r}"
         except Exception as e:
             err = str(e)
@@ -72,6 +94,9 @@ def main():
     ap.add_argument("--mosaic-res", type=float, default=1.0)
     ap.add_argument("--out", default="runs/ortho")
     a = ap.parse_args()
+    if a.list:   # GetCapabilities works without a token
+        names = layers(a.url, a.token or "")
+        print("\n".join(f"{n}  ({t})" for n, t in names) or "No layers found in GetCapabilities."); return
     tok = token(a)
     names = layers(a.url, tok)
     if a.list or not names:
