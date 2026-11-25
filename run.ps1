@@ -6,6 +6,7 @@
 #   .\run.ps1 nests     [options]                         pull nest candidates from GBIF + iNaturalist
 #   .\run.ps1 sample    <site_id> <dem.tif> [options]     nest vs background seabed stats for a site
 #   .\run.ps1 fetch-uk  <site_id> <lat> <lon> [size_m]    2 m England SurfZone DEM clip -> data\<site_id>
+#   .\run.ps1 fetch-lidar <site_id> <lat> <lon> [size_m]  1 m England lidar DTM clip -> data\<site_id>
 #
 # Extra options are passed straight to the Python script (see .\run.ps1 help).
 param(
@@ -57,8 +58,15 @@ switch ($Task) {
         $out = Join-Path $root "data\$id\surfzone_2m.tif"
         & $py (Join-Path $seabed "fetch_wcs.py") --lat $lat --lon $lon --half-size $half --out $out
     }
+    "fetch-lidar" {
+        $id = $Rest[0]; $lat = $Rest[1]; $lon = $Rest[2]; $half = if ($Rest.Count -gt 3) { $Rest[3] } else { "1000" }
+        if (-not $lon) { throw "Usage: .\run.ps1 fetch-lidar <site_id> <lat> <lon> [half_size_m]" }
+        $out = Join-Path $root "data\$id\lidar_dtm_1m.tif"
+        $url = "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs"
+        & $py (Join-Path $seabed "fetch_wcs.py") --url $url --lat $lat --lon $lon --half-size $half --out $out
+    }
     default {
-        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 9 | ForEach-Object { $_ -replace "^# ?", "" }
+        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 10 | ForEach-Object { $_ -replace "^# ?", "" }
         if (Test-Path $py) {
             Write-Host "`n--- classify options (seabed_classify.py) ---"
             & $py (Join-Path $seabed "seabed_classify.py") -h | Out-Host
