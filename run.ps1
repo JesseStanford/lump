@@ -9,6 +9,7 @@
 #   .\run.ps1 fetch-lidar <site_id> <lat> <lon> [size_m]  1 m England lidar DTM clip -> data\<site_id>
 #   .\run.ps1 fetch-wfs [options]                         list or download a WFS map layer (GeoJSON)
 #   .\run.ps1 overlay   [options]                         sightings vs habitat/substrate polygons
+#   .\run.ps1 module    [options]                         20 x 40 m module: module.json + plan/section SVGs
 #
 # Extra options are passed straight to the Python script (see .\run.ps1 help).
 param(
@@ -77,8 +78,12 @@ switch ($Task) {
         $extra = @($Rest | Where-Object { $_ })
         & $py (Join-Path $seabed "overlay_points.py") @extra
     }
+    "module" {
+        $extra = @($Rest | Where-Object { $_ })
+        & $py (Join-Path $root "scripts\schematics\module_layout.py") @extra
+    }
     default {
-        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 12 | ForEach-Object { $_ -replace "^# ?", "" }
+        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 13 | ForEach-Object { $_ -replace "^# ?", "" }
         if (Test-Path $py) {
             Write-Host "`n--- classify options (seabed_classify.py) ---"
             & $py (Join-Path $seabed "seabed_classify.py") -h | Out-Host

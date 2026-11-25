@@ -1,0 +1,6735 @@
+{
+ "schema": "lumpfish-module/v1",
+ "convention": "m; origin shoreline MSL; +X offshore; +Y alongshore; z negative = depth",
+ "module": {
+  "x": [
+   117.29,
+   137.29
+  ],
+  "y": [
+   0.0,
+   40.0
+  ],
+  "z_landward": -6.0,
+  "slope": 0.0665,
+  "current_deg": 90.0,
+  "seed": 1
+ },
+ "seabed_profile": [
+  [
+   0,
+   0
+  ],
+  [
+   57.14,
+   -2
+  ],
+  [
+   117.29,
+   -6.0
+  ],
+  [
+   137.29,
+   -7.33
+  ],
+  [
+   197.29,
+   -11.32
+  ]
+ ],
+ "zones": {
+  "Z1": 0.0,
+  "Z2": [
+   -2.0,
+   -5.0
+  ],
+  "Z3": [
+   -5.0,
+   -10.0
+  ],
+  "Z4": [
+   -10.0,
+   -15.0
+  ]
+ },
+ "cobble_apron": {
+  "layer": "substrate::cobble",
+  "patches": [
+   {
+    "id": "patch_1",
+    "x": [
+     117.29323308270676,
+     137.29323308270676
+    ],
+    "y": [
+     0.0,
+     12.0
+    ]
+   },
+   {
+    "id": "patch_2",
+    "x": [
+     117.29323308270676,
+     137.29323308270676
+    ],
+    "y": [
+     14.0,
+     26.0
+    ]
+   },
+   {
+    "id": "patch_3",
+    "x": [
+     117.29323308270676,
+     137.29323308270676
+    ],
+    "y": [
+     28.0,
+     40.0
+    ]
+   }
+  ],
+  "thickness": 0.3,
+  "cobble_size": 0.15000000000000002
+ },
+ "sand_lanes": [
+  {
+   "id": "sand_lane_1",
+   "x": [
+    117.29323308270676,
+    137.29323308270676
+   ],
+   "y": [
+    12.0,
+    14.0
+   ],
+   "layer": "substrate::sand"
+  },
+  {
+   "id": "sand_lane_2",
+   "x": [
+    117.29323308270676,
+    137.29323308270676
+   ],
+   "y": [
+    26.0,
+    28.0
+   ],
+   "layer": "substrate::sand"
+  }
+ ],
+ "nest_clusters": [
+  {
+   "id": "patch_1_c11",
+   "x": 121.074,
+   "y": 4.208,
+   "crevice_axis_deg": 7.9,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_1_c11_b1",
+    "patch_1_c11_b2",
+    "patch_1_c11_b3",
+    "patch_1_c11_b4"
+   ],
+   "nest_point": [
+    121.074,
+    4.208,
+    -5.951
+   ],
+   "edge_distance_m": 3.78
+  },
+  {
+   "id": "patch_1_c12",
+   "x": 121.253,
+   "y": 8.157,
+   "crevice_axis_deg": 165.1,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_1_c12_b1",
+    "patch_1_c12_b2",
+    "patch_1_c12_b3",
+    "patch_1_c12_b4"
+   ],
+   "nest_point": [
+    121.253,
+    8.157,
+    -5.963
+   ],
+   "edge_distance_m": 3.84
+  },
+  {
+   "id": "patch_1_c21",
+   "x": 125.557,
+   "y": 3.929,
+   "crevice_axis_deg": 171.5,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_1_c21_b1",
+    "patch_1_c21_b2",
+    "patch_1_c21_b3",
+    "patch_1_c21_b4"
+   ],
+   "nest_point": [
+    125.557,
+    3.929,
+    -6.25
+   ],
+   "edge_distance_m": 3.93
+  },
+  {
+   "id": "patch_1_c22",
+   "x": 125.269,
+   "y": 7.874,
+   "crevice_axis_deg": 165.6,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_1_c22_b1",
+    "patch_1_c22_b2",
+    "patch_1_c22_b3",
+    "patch_1_c22_b4"
+   ],
+   "nest_point": [
+    125.269,
+    7.874,
+    -6.23
+   ],
+   "edge_distance_m": 4.13
+  },
+  {
+   "id": "patch_1_c31",
+   "x": 129.426,
+   "y": 4.127,
+   "crevice_axis_deg": 13.1,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_1_c31_b1",
+    "patch_1_c31_b2",
+    "patch_1_c31_b3",
+    "patch_1_c31_b4"
+   ],
+   "nest_point": [
+    129.426,
+    4.127,
+    -6.507
+   ],
+   "edge_distance_m": 4.13
+  },
+  {
+   "id": "patch_1_c32",
+   "x": 129.347,
+   "y": 7.721,
+   "crevice_axis_deg": 172.3,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_1_c32_b1",
+    "patch_1_c32_b2",
+    "patch_1_c32_b3",
+    "patch_1_c32_b4"
+   ],
+   "nest_point": [
+    129.347,
+    7.721,
+    -6.502
+   ],
+   "edge_distance_m": 4.28
+  },
+  {
+   "id": "patch_1_c41",
+   "x": 133.298,
+   "y": 4.167,
+   "crevice_axis_deg": 0.6,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_1_c41_b1",
+    "patch_1_c41_b2",
+    "patch_1_c41_b3",
+    "patch_1_c41_b4"
+   ],
+   "nest_point": [
+    133.298,
+    4.167,
+    -6.764
+   ],
+   "edge_distance_m": 3.99
+  },
+  {
+   "id": "patch_1_c42",
+   "x": 133.095,
+   "y": 8.001,
+   "crevice_axis_deg": 14.5,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_1_c42_b1",
+    "patch_1_c42_b2",
+    "patch_1_c42_b3",
+    "patch_1_c42_b4"
+   ],
+   "nest_point": [
+    133.095,
+    8.001,
+    -6.751
+   ],
+   "edge_distance_m": 4.0
+  },
+  {
+   "id": "patch_2_c11",
+   "x": 121.155,
+   "y": 18.029,
+   "crevice_axis_deg": 13.7,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_2_c11_b1",
+    "patch_2_c11_b2",
+    "patch_2_c11_b3",
+    "patch_2_c11_b4"
+   ],
+   "nest_point": [
+    121.155,
+    18.029,
+    -5.957
+   ],
+   "edge_distance_m": 3.86
+  },
+  {
+   "id": "patch_2_c12",
+   "x": 121.249,
+   "y": 21.734,
+   "crevice_axis_deg": 11.1,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_2_c12_b1",
+    "patch_2_c12_b2",
+    "patch_2_c12_b3",
+    "patch_2_c12_b4"
+   ],
+   "nest_point": [
+    121.249,
+    21.734,
+    -5.963
+   ],
+   "edge_distance_m": 3.96
+  },
+  {
+   "id": "patch_2_c21",
+   "x": 125.361,
+   "y": 17.975,
+   "crevice_axis_deg": 165.8,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_2_c21_b1",
+    "patch_2_c21_b2",
+    "patch_2_c21_b3",
+    "patch_2_c21_b4"
+   ],
+   "nest_point": [
+    125.361,
+    17.975,
+    -6.236
+   ],
+   "edge_distance_m": 3.97
+  },
+  {
+   "id": "patch_2_c22",
+   "x": 125.498,
+   "y": 22.104,
+   "crevice_axis_deg": 167.5,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_2_c22_b1",
+    "patch_2_c22_b2",
+    "patch_2_c22_b3",
+    "patch_2_c22_b4"
+   ],
+   "nest_point": [
+    125.498,
+    22.104,
+    -6.246
+   ],
+   "edge_distance_m": 3.9
+  },
+  {
+   "id": "patch_2_c31",
+   "x": 129.089,
+   "y": 18.016,
+   "crevice_axis_deg": 170.0,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_2_c31_b1",
+    "patch_2_c31_b2",
+    "patch_2_c31_b3",
+    "patch_2_c31_b4"
+   ],
+   "nest_point": [
+    129.089,
+    18.016,
+    -6.484
+   ],
+   "edge_distance_m": 4.02
+  },
+  {
+   "id": "patch_2_c32",
+   "x": 129.106,
+   "y": 21.765,
+   "crevice_axis_deg": 12.0,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_2_c32_b1",
+    "patch_2_c32_b2",
+    "patch_2_c32_b3",
+    "patch_2_c32_b4"
+   ],
+   "nest_point": [
+    129.106,
+    21.765,
+    -6.486
+   ],
+   "edge_distance_m": 4.23
+  },
+  {
+   "id": "patch_2_c41",
+   "x": 133.089,
+   "y": 18.123,
+   "crevice_axis_deg": 5.3,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_2_c41_b1",
+    "patch_2_c41_b2",
+    "patch_2_c41_b3",
+    "patch_2_c41_b4"
+   ],
+   "nest_point": [
+    133.089,
+    18.123,
+    -6.75
+   ],
+   "edge_distance_m": 4.12
+  },
+  {
+   "id": "patch_2_c42",
+   "x": 133.339,
+   "y": 21.893,
+   "crevice_axis_deg": 3.9,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_2_c42_b1",
+    "patch_2_c42_b2",
+    "patch_2_c42_b3",
+    "patch_2_c42_b4"
+   ],
+   "nest_point": [
+    133.339,
+    21.893,
+    -6.767
+   ],
+   "edge_distance_m": 3.95
+  },
+  {
+   "id": "patch_3_c11",
+   "x": 121.44,
+   "y": 31.95,
+   "crevice_axis_deg": 172.6,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_3_c11_b1",
+    "patch_3_c11_b2",
+    "patch_3_c11_b3",
+    "patch_3_c11_b4"
+   ],
+   "nest_point": [
+    121.44,
+    31.95,
+    -5.976
+   ],
+   "edge_distance_m": 3.95
+  },
+  {
+   "id": "patch_3_c12",
+   "x": 121.577,
+   "y": 36.122,
+   "crevice_axis_deg": 0.3,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_3_c12_b1",
+    "patch_3_c12_b2",
+    "patch_3_c12_b3",
+    "patch_3_c12_b4"
+   ],
+   "nest_point": [
+    121.577,
+    36.122,
+    -5.985
+   ],
+   "edge_distance_m": 3.88
+  },
+  {
+   "id": "patch_3_c21",
+   "x": 125.171,
+   "y": 32.0,
+   "crevice_axis_deg": 174.8,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_3_c21_b1",
+    "patch_3_c21_b2",
+    "patch_3_c21_b3",
+    "patch_3_c21_b4"
+   ],
+   "nest_point": [
+    125.171,
+    32.0,
+    -6.224
+   ],
+   "edge_distance_m": 4.0
+  },
+  {
+   "id": "patch_3_c22",
+   "x": 125.121,
+   "y": 36.105,
+   "crevice_axis_deg": 10.1,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_3_c22_b1",
+    "patch_3_c22_b2",
+    "patch_3_c22_b3",
+    "patch_3_c22_b4"
+   ],
+   "nest_point": [
+    125.121,
+    36.105,
+    -6.221
+   ],
+   "edge_distance_m": 3.9
+  },
+  {
+   "id": "patch_3_c31",
+   "x": 129.044,
+   "y": 31.802,
+   "crevice_axis_deg": 12.3,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_3_c31_b1",
+    "patch_3_c31_b2",
+    "patch_3_c31_b3",
+    "patch_3_c31_b4"
+   ],
+   "nest_point": [
+    129.044,
+    31.802,
+    -6.481
+   ],
+   "edge_distance_m": 3.8
+  },
+  {
+   "id": "patch_3_c32",
+   "x": 129.356,
+   "y": 36.273,
+   "crevice_axis_deg": 11.6,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_3_c32_b1",
+    "patch_3_c32_b2",
+    "patch_3_c32_b3",
+    "patch_3_c32_b4"
+   ],
+   "nest_point": [
+    129.356,
+    36.273,
+    -6.502
+   ],
+   "edge_distance_m": 3.73
+  },
+  {
+   "id": "patch_3_c41",
+   "x": 133.198,
+   "y": 32.069,
+   "crevice_axis_deg": 8.5,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_3_c41_b1",
+    "patch_3_c41_b2",
+    "patch_3_c41_b3",
+    "patch_3_c41_b4"
+   ],
+   "nest_point": [
+    133.198,
+    32.069,
+    -6.758
+   ],
+   "edge_distance_m": 4.07
+  },
+  {
+   "id": "patch_3_c42",
+   "x": 133.268,
+   "y": 35.866,
+   "crevice_axis_deg": 8.6,
+   "crevice_width": 0.2,
+   "crevice_depth": 0.35,
+   "boulders": [
+    "patch_3_c42_b1",
+    "patch_3_c42_b2",
+    "patch_3_c42_b3",
+    "patch_3_c42_b4"
+   ],
+   "nest_point": [
+    133.268,
+    35.866,
+    -6.762
+   ],
+   "edge_distance_m": 4.03
+  }
+ ],
+ "boulders": [
+  {
+   "id": "patch_1_c11_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 121.729,
+   "y": 4.931,
+   "z_base": -6.145,
+   "diameter": 1.051,
+   "height": 0.84,
+   "z_top": -5.305,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_1_c11_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 121.932,
+   "y": 3.677,
+   "z_base": -6.158,
+   "diameter": 1.09,
+   "height": 0.905,
+   "z_top": -5.254,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_1_c11_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 120.708,
+   "y": 4.843,
+   "z_base": -6.077,
+   "diameter": 1.158,
+   "height": 0.832,
+   "z_top": -5.245,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_1_c11_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 120.92,
+   "y": 3.578,
+   "z_base": -6.091,
+   "diameter": 1.006,
+   "height": 0.872,
+   "z_top": -5.219,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_1_c12_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 122.169,
+   "y": 8.58,
+   "z_base": -6.174,
+   "diameter": 1.089,
+   "height": 0.92,
+   "z_top": -5.255,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_1_c12_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 121.812,
+   "y": 7.363,
+   "z_base": -6.151,
+   "diameter": 1.046,
+   "height": 0.93,
+   "z_top": -5.221,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_1_c12_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 121.16,
+   "y": 8.896,
+   "z_base": -6.107,
+   "diameter": 1.18,
+   "height": 0.833,
+   "z_top": -5.274,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_1_c12_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 120.867,
+   "y": 7.637,
+   "z_base": -6.088,
+   "diameter": 1.005,
+   "height": 0.812,
+   "z_top": -5.275,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_1_c21_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 126.416,
+   "y": 4.45,
+   "z_base": -6.457,
+   "diameter": 1.084,
+   "height": 0.765,
+   "z_top": -5.691,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_1_c21_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 126.201,
+   "y": 3.203,
+   "z_base": -6.442,
+   "diameter": 1.044,
+   "height": 0.822,
+   "z_top": -5.62,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_1_c21_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 125.395,
+   "y": 4.61,
+   "z_base": -6.389,
+   "diameter": 1.099,
+   "height": 0.821,
+   "z_top": -5.568,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_1_c21_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 125.219,
+   "y": 3.349,
+   "z_base": -6.377,
+   "diameter": 1.046,
+   "height": 0.778,
+   "z_top": -5.599,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_1_c22_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 126.244,
+   "y": 8.33,
+   "z_base": -6.445,
+   "diameter": 1.168,
+   "height": 0.947,
+   "z_top": -5.498,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_1_c22_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 125.883,
+   "y": 7.031,
+   "z_base": -6.421,
+   "diameter": 1.128,
+   "height": 0.832,
+   "z_top": -5.589,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_1_c22_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 125.167,
+   "y": 8.622,
+   "z_base": -6.374,
+   "diameter": 1.199,
+   "height": 1.045,
+   "z_top": -5.328,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_1_c22_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 124.882,
+   "y": 7.341,
+   "z_base": -6.355,
+   "diameter": 1.024,
+   "height": 0.785,
+   "z_top": -5.57,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_1_c31_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 130.033,
+   "y": 4.927,
+   "z_base": -6.697,
+   "diameter": 1.084,
+   "height": 0.939,
+   "z_top": -5.758,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_1_c31_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 130.364,
+   "y": 3.66,
+   "z_base": -6.719,
+   "diameter": 1.134,
+   "height": 0.863,
+   "z_top": -5.857,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_1_c31_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 129.018,
+   "y": 4.708,
+   "z_base": -6.63,
+   "diameter": 1.118,
+   "height": 0.979,
+   "z_top": -5.65,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_1_c31_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 129.311,
+   "y": 3.397,
+   "z_base": -6.649,
+   "diameter": 1.169,
+   "height": 0.937,
+   "z_top": -5.713,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_1_c32_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 130.257,
+   "y": 8.283,
+   "z_base": -6.712,
+   "diameter": 1.159,
+   "height": 0.908,
+   "z_top": -5.804,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_1_c32_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 129.994,
+   "y": 7.01,
+   "z_base": -6.695,
+   "diameter": 1.035,
+   "height": 0.838,
+   "z_top": -5.857,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_1_c32_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 129.168,
+   "y": 8.421,
+   "z_base": -6.64,
+   "diameter": 1.141,
+   "height": 0.952,
+   "z_top": -5.687,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_1_c32_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 129.008,
+   "y": 7.123,
+   "z_base": -6.629,
+   "diameter": 1.075,
+   "height": 0.847,
+   "z_top": -5.782,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_1_c41_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 134.06,
+   "y": 4.815,
+   "z_base": -6.965,
+   "diameter": 1.079,
+   "height": 0.861,
+   "z_top": -6.104,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_1_c41_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 134.022,
+   "y": 3.572,
+   "z_base": -6.962,
+   "diameter": 1.006,
+   "height": 0.713,
+   "z_top": -6.25,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_1_c41_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 133.02,
+   "y": 4.834,
+   "z_base": -6.896,
+   "diameter": 1.141,
+   "height": 1.023,
+   "z_top": -5.873,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_1_c41_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 133.04,
+   "y": 3.505,
+   "z_base": -6.897,
+   "diameter": 1.119,
+   "height": 0.871,
+   "z_top": -6.026,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_1_c42_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 133.723,
+   "y": 8.862,
+   "z_base": -6.943,
+   "diameter": 1.154,
+   "height": 0.932,
+   "z_top": -6.01,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_1_c42_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 134.075,
+   "y": 7.546,
+   "z_base": -6.966,
+   "diameter": 1.172,
+   "height": 0.875,
+   "z_top": -6.091,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_1_c42_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 132.679,
+   "y": 8.567,
+   "z_base": -6.873,
+   "diameter": 1.103,
+   "height": 0.982,
+   "z_top": -5.891,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_1_c42_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 133.003,
+   "y": 7.298,
+   "z_base": -6.895,
+   "diameter": 1.116,
+   "height": 0.883,
+   "z_top": -6.011,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c11_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 121.705,
+   "y": 18.781,
+   "z_base": -6.143,
+   "diameter": 1.001,
+   "height": 0.858,
+   "z_top": -5.286,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_2_c11_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 122.122,
+   "y": 17.563,
+   "z_base": -6.171,
+   "diameter": 1.164,
+   "height": 1.021,
+   "z_top": -5.15,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_2_c11_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 120.73,
+   "y": 18.619,
+   "z_base": -6.079,
+   "diameter": 1.148,
+   "height": 0.989,
+   "z_top": -5.089,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c11_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 121.055,
+   "y": 17.333,
+   "z_base": -6.1,
+   "diameter": 1.104,
+   "height": 0.897,
+   "z_top": -5.204,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c12_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 121.901,
+   "y": 22.531,
+   "z_base": -6.156,
+   "diameter": 1.114,
+   "height": 0.824,
+   "z_top": -5.332,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c12_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 122.144,
+   "y": 21.246,
+   "z_base": -6.173,
+   "diameter": 1.101,
+   "height": 0.877,
+   "z_top": -5.295,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c12_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 120.877,
+   "y": 22.308,
+   "z_base": -6.088,
+   "diameter": 1.071,
+   "height": 0.824,
+   "z_top": -5.264,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_2_c12_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 121.117,
+   "y": 21.041,
+   "z_base": -6.104,
+   "diameter": 1.108,
+   "height": 0.914,
+   "z_top": -5.191,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c21_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 126.236,
+   "y": 18.397,
+   "z_base": -6.445,
+   "diameter": 1.046,
+   "height": 0.769,
+   "z_top": -5.675,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_2_c21_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 125.971,
+   "y": 17.142,
+   "z_base": -6.427,
+   "diameter": 1.117,
+   "height": 0.974,
+   "z_top": -5.453,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c21_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 125.26,
+   "y": 18.701,
+   "z_base": -6.38,
+   "diameter": 1.16,
+   "height": 0.997,
+   "z_top": -5.383,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_2_c21_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 124.926,
+   "y": 17.382,
+   "z_base": -6.358,
+   "diameter": 1.163,
+   "height": 0.874,
+   "z_top": -5.484,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_2_c22_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 126.326,
+   "y": 22.537,
+   "z_base": -6.451,
+   "diameter": 1.003,
+   "height": 0.705,
+   "z_top": -5.745,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_2_c22_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 126.153,
+   "y": 21.267,
+   "z_base": -6.439,
+   "diameter": 1.151,
+   "height": 0.863,
+   "z_top": -5.576,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c22_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 125.394,
+   "y": 22.753,
+   "z_base": -6.389,
+   "diameter": 1.022,
+   "height": 0.843,
+   "z_top": -5.546,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_2_c22_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 125.113,
+   "y": 21.539,
+   "z_base": -6.37,
+   "diameter": 1.069,
+   "height": 0.763,
+   "z_top": -5.607,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_2_c31_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 129.938,
+   "y": 18.504,
+   "z_base": -6.691,
+   "diameter": 1.055,
+   "height": 0.888,
+   "z_top": -5.803,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_2_c31_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 129.743,
+   "y": 17.246,
+   "z_base": -6.678,
+   "diameter": 1.091,
+   "height": 0.834,
+   "z_top": -5.844,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_2_c31_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 128.945,
+   "y": 18.699,
+   "z_base": -6.625,
+   "diameter": 1.095,
+   "height": 0.772,
+   "z_top": -5.853,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_2_c31_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 128.727,
+   "y": 17.432,
+   "z_base": -6.61,
+   "diameter": 1.077,
+   "height": 0.845,
+   "z_top": -5.766,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_2_c32_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 129.739,
+   "y": 22.565,
+   "z_base": -6.678,
+   "diameter": 1.102,
+   "height": 0.818,
+   "z_top": -5.86,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c32_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 130.025,
+   "y": 21.285,
+   "z_base": -6.697,
+   "diameter": 1.121,
+   "height": 0.968,
+   "z_top": -5.729,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c32_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 128.748,
+   "y": 22.305,
+   "z_base": -6.612,
+   "diameter": 1.004,
+   "height": 0.707,
+   "z_top": -5.905,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_2_c32_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 128.995,
+   "y": 21.113,
+   "z_base": -6.628,
+   "diameter": 1.029,
+   "height": 0.868,
+   "z_top": -5.76,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_2_c41_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 133.815,
+   "y": 18.848,
+   "z_base": -6.949,
+   "diameter": 1.109,
+   "height": 0.825,
+   "z_top": -6.124,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c41_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 134.002,
+   "y": 17.508,
+   "z_base": -6.961,
+   "diameter": 1.195,
+   "height": 1.027,
+   "z_top": -5.934,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_2_c41_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 132.768,
+   "y": 18.747,
+   "z_base": -6.879,
+   "diameter": 1.103,
+   "height": 0.822,
+   "z_top": -6.057,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c41_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 132.884,
+   "y": 17.436,
+   "z_base": -6.887,
+   "diameter": 1.13,
+   "height": 0.88,
+   "z_top": -6.007,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_2_c42_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 134.016,
+   "y": 22.547,
+   "z_base": -6.962,
+   "diameter": 1.012,
+   "height": 0.769,
+   "z_top": -6.193,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_2_c42_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 134.235,
+   "y": 21.256,
+   "z_base": -6.977,
+   "diameter": 1.194,
+   "height": 1.045,
+   "z_top": -5.932,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_2_c42_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 133.044,
+   "y": 22.505,
+   "z_base": -6.897,
+   "diameter": 1.061,
+   "height": 0.925,
+   "z_top": -5.972,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_2_c42_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 133.13,
+   "y": 21.246,
+   "z_base": -6.903,
+   "diameter": 1.062,
+   "height": 0.943,
+   "z_top": -5.96,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c11_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 122.225,
+   "y": 32.453,
+   "z_base": -6.178,
+   "diameter": 1.002,
+   "height": 0.877,
+   "z_top": -5.301,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_3_c11_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 122.073,
+   "y": 31.258,
+   "z_base": -6.168,
+   "diameter": 1.008,
+   "height": 0.87,
+   "z_top": -5.297,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_3_c11_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 121.249,
+   "y": 32.677,
+   "z_base": -6.113,
+   "diameter": 1.192,
+   "height": 0.971,
+   "z_top": -5.142,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_3_c11_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 121.116,
+   "y": 31.369,
+   "z_base": -6.104,
+   "diameter": 1.034,
+   "height": 0.904,
+   "z_top": -5.201,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_3_c12_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 122.341,
+   "y": 36.764,
+   "z_base": -6.186,
+   "diameter": 1.076,
+   "height": 0.828,
+   "z_top": -5.358,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c12_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 122.322,
+   "y": 35.505,
+   "z_base": -6.184,
+   "diameter": 1.041,
+   "height": 0.869,
+   "z_top": -5.315,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c12_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 121.316,
+   "y": 36.765,
+   "z_base": -6.118,
+   "diameter": 1.087,
+   "height": 0.803,
+   "z_top": -5.315,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c12_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 121.338,
+   "y": 35.511,
+   "z_base": -6.119,
+   "diameter": 1.021,
+   "height": 0.851,
+   "z_top": -5.268,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_3_c21_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 126.067,
+   "y": 32.608,
+   "z_base": -6.433,
+   "diameter": 1.174,
+   "height": 1.033,
+   "z_top": -5.4,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_3_c21_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 125.828,
+   "y": 31.335,
+   "z_base": -6.418,
+   "diameter": 1.004,
+   "height": 0.743,
+   "z_top": -5.675,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_3_c21_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 124.977,
+   "y": 32.653,
+   "z_base": -6.361,
+   "diameter": 1.066,
+   "height": 0.956,
+   "z_top": -5.405,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c21_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 124.835,
+   "y": 31.35,
+   "z_base": -6.352,
+   "diameter": 1.157,
+   "height": 0.888,
+   "z_top": -5.464,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_3_c22_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 125.831,
+   "y": 36.936,
+   "z_base": -6.418,
+   "diameter": 1.186,
+   "height": 0.912,
+   "z_top": -5.506,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_3_c22_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 126.067,
+   "y": 35.575,
+   "z_base": -6.433,
+   "diameter": 1.176,
+   "height": 0.985,
+   "z_top": -5.448,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_3_c22_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 124.751,
+   "y": 36.697,
+   "z_base": -6.346,
+   "diameter": 1.097,
+   "height": 0.984,
+   "z_top": -5.362,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c22_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 124.986,
+   "y": 35.447,
+   "z_base": -6.362,
+   "diameter": 1.047,
+   "height": 0.885,
+   "z_top": -5.477,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c31_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 129.637,
+   "y": 32.567,
+   "z_base": -6.671,
+   "diameter": 1.043,
+   "height": 0.888,
+   "z_top": -5.783,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c31_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 129.965,
+   "y": 31.327,
+   "z_base": -6.693,
+   "diameter": 1.12,
+   "height": 0.972,
+   "z_top": -5.72,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_3_c31_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 128.659,
+   "y": 32.369,
+   "z_base": -6.606,
+   "diameter": 1.074,
+   "height": 0.825,
+   "z_top": -5.781,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c31_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 128.933,
+   "y": 31.134,
+   "z_base": -6.624,
+   "diameter": 1.058,
+   "height": 0.924,
+   "z_top": -5.7,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c32_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 129.949,
+   "y": 37.021,
+   "z_base": -6.692,
+   "diameter": 1.027,
+   "height": 0.832,
+   "z_top": -5.859,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_3_c32_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 130.191,
+   "y": 35.821,
+   "z_base": -6.708,
+   "diameter": 1.021,
+   "height": 0.723,
+   "z_top": -5.985,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_3_c32_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 128.997,
+   "y": 36.819,
+   "z_base": -6.628,
+   "diameter": 1.015,
+   "height": 0.886,
+   "z_top": -5.742,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_3_c32_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 129.223,
+   "y": 35.552,
+   "z_base": -6.643,
+   "diameter": 1.158,
+   "height": 1.002,
+   "z_top": -5.641,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_3_c41_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 133.862,
+   "y": 32.813,
+   "z_base": -6.952,
+   "diameter": 1.076,
+   "height": 0.876,
+   "z_top": -6.076,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c41_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 134.026,
+   "y": 31.563,
+   "z_base": -6.963,
+   "diameter": 1.045,
+   "height": 0.748,
+   "z_top": -6.214,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c41_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 132.858,
+   "y": 32.652,
+   "z_base": -6.885,
+   "diameter": 1.053,
+   "height": 0.925,
+   "z_top": -5.96,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "patch_3_c41_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 133.033,
+   "y": 31.381,
+   "z_base": -6.897,
+   "diameter": 1.113,
+   "height": 0.985,
+   "z_top": -5.912,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_3_c42_b1",
+   "layer": "substrate::boulder_nest",
+   "x": 133.987,
+   "y": 36.666,
+   "z_base": -6.96,
+   "diameter": 1.166,
+   "height": 0.819,
+   "z_top": -6.141,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "patch_3_c42_b2",
+   "layer": "substrate::boulder_nest",
+   "x": 134.167,
+   "y": 35.328,
+   "z_base": -6.972,
+   "diameter": 1.134,
+   "height": 0.815,
+   "z_top": -6.157,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "patch_3_c42_b3",
+   "layer": "substrate::boulder_nest",
+   "x": 132.936,
+   "y": 36.435,
+   "z_base": -6.89,
+   "diameter": 1.023,
+   "height": 0.897,
+   "z_top": -5.993,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "patch_3_c42_b4",
+   "layer": "substrate::boulder_nest",
+   "x": 133.122,
+   "y": 35.233,
+   "z_base": -6.903,
+   "diameter": 1.008,
+   "height": 0.754,
+   "z_top": -6.149,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_97",
+   "layer": "substrate::boulder_fill",
+   "x": 125.871,
+   "y": 30.156,
+   "z_base": -6.42,
+   "diameter": 0.617,
+   "height": 0.408,
+   "z_top": -6.013,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_98",
+   "layer": "substrate::boulder_fill",
+   "x": 123.954,
+   "y": 17.076,
+   "z_base": -6.293,
+   "diameter": 0.722,
+   "height": 0.438,
+   "z_top": -5.855,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_99",
+   "layer": "substrate::boulder_fill",
+   "x": 131.37,
+   "y": 18.203,
+   "z_base": -6.786,
+   "diameter": 0.774,
+   "height": 0.541,
+   "z_top": -6.245,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_100",
+   "layer": "substrate::boulder_fill",
+   "x": 134.734,
+   "y": 10.698,
+   "z_base": -7.01,
+   "diameter": 1.179,
+   "height": 0.74,
+   "z_top": -6.27,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "fill_101",
+   "layer": "substrate::boulder_fill",
+   "x": 123.825,
+   "y": 3.464,
+   "z_base": -6.284,
+   "diameter": 0.557,
+   "height": 0.373,
+   "z_top": -5.911,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_102",
+   "layer": "substrate::boulder_fill",
+   "x": 119.922,
+   "y": 20.744,
+   "z_base": -6.025,
+   "diameter": 0.737,
+   "height": 0.484,
+   "z_top": -5.541,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_103",
+   "layer": "substrate::boulder_fill",
+   "x": 119.032,
+   "y": 16.868,
+   "z_base": -5.966,
+   "diameter": 1.055,
+   "height": 0.786,
+   "z_top": -5.18,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_104",
+   "layer": "substrate::boulder_fill",
+   "x": 122.718,
+   "y": 16.009,
+   "z_base": -6.211,
+   "diameter": 0.928,
+   "height": 0.744,
+   "z_top": -5.467,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_105",
+   "layer": "substrate::boulder_fill",
+   "x": 122.705,
+   "y": 1.204,
+   "z_base": -6.21,
+   "diameter": 0.671,
+   "height": 0.415,
+   "z_top": -5.795,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_106",
+   "layer": "substrate::boulder_fill",
+   "x": 123.528,
+   "y": 8.922,
+   "z_base": -6.265,
+   "diameter": 0.845,
+   "height": 0.689,
+   "z_top": -5.575,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_107",
+   "layer": "substrate::boulder_fill",
+   "x": 120.11,
+   "y": 8.777,
+   "z_base": -6.037,
+   "diameter": 0.73,
+   "height": 0.531,
+   "z_top": -5.507,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_108",
+   "layer": "substrate::boulder_fill",
+   "x": 123.794,
+   "y": 22.093,
+   "z_base": -6.282,
+   "diameter": 1.084,
+   "height": 0.814,
+   "z_top": -5.469,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_109",
+   "layer": "substrate::boulder_fill",
+   "x": 134.381,
+   "y": 2.417,
+   "z_base": -6.986,
+   "diameter": 1.137,
+   "height": 0.691,
+   "z_top": -6.295,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "fill_110",
+   "layer": "substrate::boulder_fill",
+   "x": 123.674,
+   "y": 6.375,
+   "z_base": -6.274,
+   "diameter": 0.534,
+   "height": 0.435,
+   "z_top": -5.839,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_111",
+   "layer": "substrate::boulder_fill",
+   "x": 118.489,
+   "y": 23.363,
+   "z_base": -5.93,
+   "diameter": 0.62,
+   "height": 0.447,
+   "z_top": -5.482,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_112",
+   "layer": "substrate::boulder_fill",
+   "x": 135.081,
+   "y": 38.763,
+   "z_base": -7.033,
+   "diameter": 0.513,
+   "height": 0.397,
+   "z_top": -6.636,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_113",
+   "layer": "substrate::boulder_fill",
+   "x": 120.782,
+   "y": 30.251,
+   "z_base": -6.082,
+   "diameter": 0.681,
+   "height": 0.55,
+   "z_top": -5.532,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_114",
+   "layer": "substrate::boulder_fill",
+   "x": 118.428,
+   "y": 20.287,
+   "z_base": -5.925,
+   "diameter": 0.851,
+   "height": 0.648,
+   "z_top": -5.277,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_115",
+   "layer": "substrate::boulder_fill",
+   "x": 127.205,
+   "y": 19.788,
+   "z_base": -6.509,
+   "diameter": 0.658,
+   "height": 0.462,
+   "z_top": -6.047,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_116",
+   "layer": "substrate::boulder_fill",
+   "x": 122.244,
+   "y": 38.216,
+   "z_base": -6.179,
+   "diameter": 1.034,
+   "height": 0.787,
+   "z_top": -5.392,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_117",
+   "layer": "substrate::boulder_fill",
+   "x": 123.67,
+   "y": 17.996,
+   "z_base": -6.274,
+   "diameter": 0.887,
+   "height": 0.569,
+   "z_top": -5.705,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_118",
+   "layer": "substrate::boulder_fill",
+   "x": 131.549,
+   "y": 34.946,
+   "z_base": -6.798,
+   "diameter": 1.099,
+   "height": 0.906,
+   "z_top": -5.892,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_119",
+   "layer": "substrate::boulder_fill",
+   "x": 135.244,
+   "y": 8.196,
+   "z_base": -7.044,
+   "diameter": 1.048,
+   "height": 0.758,
+   "z_top": -6.286,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_120",
+   "layer": "substrate::boulder_fill",
+   "x": 128.089,
+   "y": 10.943,
+   "z_base": -6.568,
+   "diameter": 0.867,
+   "height": 0.54,
+   "z_top": -6.028,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_121",
+   "layer": "substrate::boulder_fill",
+   "x": 130.901,
+   "y": 33.451,
+   "z_base": -6.755,
+   "diameter": 1.147,
+   "height": 0.967,
+   "z_top": -5.788,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "fill_122",
+   "layer": "substrate::boulder_fill",
+   "x": 135.213,
+   "y": 24.034,
+   "z_base": -7.042,
+   "diameter": 0.778,
+   "height": 0.644,
+   "z_top": -6.398,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_123",
+   "layer": "substrate::boulder_fill",
+   "x": 120.567,
+   "y": 24.089,
+   "z_base": -6.068,
+   "diameter": 1.172,
+   "height": 0.738,
+   "z_top": -5.33,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "fill_124",
+   "layer": "substrate::boulder_fill",
+   "x": 127.906,
+   "y": 38.093,
+   "z_base": -6.556,
+   "diameter": 0.962,
+   "height": 0.644,
+   "z_top": -5.912,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_125",
+   "layer": "substrate::boulder_fill",
+   "x": 131.786,
+   "y": 15.04,
+   "z_base": -6.814,
+   "diameter": 0.633,
+   "height": 0.449,
+   "z_top": -6.365,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_126",
+   "layer": "substrate::boulder_fill",
+   "x": 118.848,
+   "y": 10.731,
+   "z_base": -5.953,
+   "diameter": 0.67,
+   "height": 0.445,
+   "z_top": -5.508,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_127",
+   "layer": "substrate::boulder_fill",
+   "x": 131.927,
+   "y": 37.324,
+   "z_base": -6.823,
+   "diameter": 0.812,
+   "height": 0.662,
+   "z_top": -6.161,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_128",
+   "layer": "substrate::boulder_fill",
+   "x": 128.11,
+   "y": 5.908,
+   "z_base": -6.569,
+   "diameter": 1.099,
+   "height": 0.871,
+   "z_top": -5.699,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_129",
+   "layer": "substrate::boulder_fill",
+   "x": 131.992,
+   "y": 38.735,
+   "z_base": -6.827,
+   "diameter": 0.596,
+   "height": 0.432,
+   "z_top": -6.396,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_130",
+   "layer": "substrate::boulder_fill",
+   "x": 124.12,
+   "y": 30.239,
+   "z_base": -6.304,
+   "diameter": 1.003,
+   "height": 0.689,
+   "z_top": -5.615,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_131",
+   "layer": "substrate::boulder_fill",
+   "x": 118.363,
+   "y": 31.776,
+   "z_base": -5.921,
+   "diameter": 0.919,
+   "height": 0.754,
+   "z_top": -5.167,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_132",
+   "layer": "substrate::boulder_fill",
+   "x": 130.945,
+   "y": 19.494,
+   "z_base": -6.758,
+   "diameter": 0.968,
+   "height": 0.629,
+   "z_top": -6.129,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_133",
+   "layer": "substrate::boulder_fill",
+   "x": 118.357,
+   "y": 32.892,
+   "z_base": -5.921,
+   "diameter": 0.798,
+   "height": 0.56,
+   "z_top": -5.361,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_134",
+   "layer": "substrate::boulder_fill",
+   "x": 119.513,
+   "y": 38.876,
+   "z_base": -5.998,
+   "diameter": 0.673,
+   "height": 0.567,
+   "z_top": -5.431,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_135",
+   "layer": "substrate::boulder_fill",
+   "x": 121.346,
+   "y": 20.103,
+   "z_base": -6.12,
+   "diameter": 0.69,
+   "height": 0.431,
+   "z_top": -5.689,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_136",
+   "layer": "substrate::boulder_fill",
+   "x": 127.799,
+   "y": 3.372,
+   "z_base": -6.549,
+   "diameter": 0.734,
+   "height": 0.453,
+   "z_top": -6.096,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_137",
+   "layer": "substrate::boulder_fill",
+   "x": 133.245,
+   "y": 34.232,
+   "z_base": -6.911,
+   "diameter": 0.758,
+   "height": 0.552,
+   "z_top": -6.359,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_138",
+   "layer": "substrate::boulder_fill",
+   "x": 123.149,
+   "y": 35.097,
+   "z_base": -6.239,
+   "diameter": 0.662,
+   "height": 0.49,
+   "z_top": -5.749,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_139",
+   "layer": "substrate::boulder_fill",
+   "x": 118.843,
+   "y": 37.994,
+   "z_base": -5.953,
+   "diameter": 0.936,
+   "height": 0.635,
+   "z_top": -5.318,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_140",
+   "layer": "substrate::boulder_fill",
+   "x": 135.089,
+   "y": 17.484,
+   "z_base": -7.033,
+   "diameter": 0.688,
+   "height": 0.426,
+   "z_top": -6.608,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_141",
+   "layer": "substrate::boulder_fill",
+   "x": 121.275,
+   "y": 38.73,
+   "z_base": -6.115,
+   "diameter": 0.811,
+   "height": 0.671,
+   "z_top": -5.443,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_142",
+   "layer": "substrate::boulder_fill",
+   "x": 120.788,
+   "y": 2.381,
+   "z_base": -6.082,
+   "diameter": 1.001,
+   "height": 0.691,
+   "z_top": -5.391,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_143",
+   "layer": "substrate::boulder_fill",
+   "x": 135.489,
+   "y": 1.45,
+   "z_base": -7.06,
+   "diameter": 1.067,
+   "height": 0.646,
+   "z_top": -6.414,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_144",
+   "layer": "substrate::boulder_fill",
+   "x": 130.593,
+   "y": 5.945,
+   "z_base": -6.734,
+   "diameter": 0.87,
+   "height": 0.679,
+   "z_top": -6.055,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_145",
+   "layer": "substrate::boulder_fill",
+   "x": 130.761,
+   "y": 29.952,
+   "z_base": -6.746,
+   "diameter": 0.78,
+   "height": 0.564,
+   "z_top": -6.181,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_146",
+   "layer": "substrate::boulder_fill",
+   "x": 131.804,
+   "y": 24.734,
+   "z_base": -6.815,
+   "diameter": 0.665,
+   "height": 0.446,
+   "z_top": -6.369,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_147",
+   "layer": "substrate::boulder_fill",
+   "x": 127.227,
+   "y": 16.109,
+   "z_base": -6.511,
+   "diameter": 0.65,
+   "height": 0.403,
+   "z_top": -6.108,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_148",
+   "layer": "substrate::boulder_fill",
+   "x": 132.647,
+   "y": 9.576,
+   "z_base": -6.871,
+   "diameter": 0.724,
+   "height": 0.504,
+   "z_top": -6.367,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_149",
+   "layer": "substrate::boulder_fill",
+   "x": 123.463,
+   "y": 30.959,
+   "z_base": -6.26,
+   "diameter": 0.612,
+   "height": 0.493,
+   "z_top": -5.767,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_150",
+   "layer": "substrate::boulder_fill",
+   "x": 134.067,
+   "y": 6.426,
+   "z_base": -6.965,
+   "diameter": 0.895,
+   "height": 0.594,
+   "z_top": -6.371,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_151",
+   "layer": "substrate::boulder_fill",
+   "x": 127.692,
+   "y": 29.608,
+   "z_base": -6.542,
+   "diameter": 0.747,
+   "height": 0.525,
+   "z_top": -6.016,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_152",
+   "layer": "substrate::boulder_fill",
+   "x": 122.822,
+   "y": 10.764,
+   "z_base": -6.218,
+   "diameter": 0.606,
+   "height": 0.503,
+   "z_top": -5.715,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_153",
+   "layer": "substrate::boulder_fill",
+   "x": 133.632,
+   "y": 15.528,
+   "z_base": -6.937,
+   "diameter": 0.564,
+   "height": 0.453,
+   "z_top": -6.484,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_154",
+   "layer": "substrate::boulder_fill",
+   "x": 125.664,
+   "y": 2.264,
+   "z_base": -6.407,
+   "diameter": 0.545,
+   "height": 0.368,
+   "z_top": -6.038,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_155",
+   "layer": "substrate::boulder_fill",
+   "x": 127.9,
+   "y": 33.176,
+   "z_base": -6.555,
+   "diameter": 0.723,
+   "height": 0.483,
+   "z_top": -6.072,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_156",
+   "layer": "substrate::boulder_fill",
+   "x": 134.894,
+   "y": 9.014,
+   "z_base": -7.02,
+   "diameter": 0.594,
+   "height": 0.434,
+   "z_top": -6.586,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_157",
+   "layer": "substrate::boulder_fill",
+   "x": 127.872,
+   "y": 16.678,
+   "z_base": -6.553,
+   "diameter": 0.604,
+   "height": 0.466,
+   "z_top": -6.087,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_158",
+   "layer": "substrate::boulder_fill",
+   "x": 123.076,
+   "y": 30.069,
+   "z_base": -6.235,
+   "diameter": 0.683,
+   "height": 0.518,
+   "z_top": -5.717,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_159",
+   "layer": "substrate::boulder_fill",
+   "x": 128.92,
+   "y": 10.0,
+   "z_base": -6.623,
+   "diameter": 0.841,
+   "height": 0.674,
+   "z_top": -5.949,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_160",
+   "layer": "substrate::boulder_fill",
+   "x": 125.625,
+   "y": 15.083,
+   "z_base": -6.404,
+   "diameter": 0.872,
+   "height": 0.606,
+   "z_top": -5.798,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_161",
+   "layer": "substrate::boulder_fill",
+   "x": 128.816,
+   "y": 29.401,
+   "z_base": -6.616,
+   "diameter": 1.096,
+   "height": 0.783,
+   "z_top": -5.833,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_162",
+   "layer": "substrate::boulder_fill",
+   "x": 123.378,
+   "y": 33.114,
+   "z_base": -6.255,
+   "diameter": 1.158,
+   "height": 0.963,
+   "z_top": -5.292,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "fill_163",
+   "layer": "substrate::boulder_fill",
+   "x": 122.936,
+   "y": 20.138,
+   "z_base": -6.225,
+   "diameter": 1.018,
+   "height": 0.786,
+   "z_top": -5.439,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_164",
+   "layer": "substrate::boulder_fill",
+   "x": 124.339,
+   "y": 24.14,
+   "z_base": -6.319,
+   "diameter": 0.651,
+   "height": 0.525,
+   "z_top": -5.793,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_165",
+   "layer": "substrate::boulder_fill",
+   "x": 131.184,
+   "y": 15.914,
+   "z_base": -6.774,
+   "diameter": 0.591,
+   "height": 0.497,
+   "z_top": -6.277,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_166",
+   "layer": "substrate::boulder_fill",
+   "x": 131.436,
+   "y": 2.033,
+   "z_base": -6.791,
+   "diameter": 0.609,
+   "height": 0.483,
+   "z_top": -6.307,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_167",
+   "layer": "substrate::boulder_fill",
+   "x": 125.992,
+   "y": 10.548,
+   "z_base": -6.428,
+   "diameter": 0.536,
+   "height": 0.351,
+   "z_top": -6.078,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_168",
+   "layer": "substrate::boulder_fill",
+   "x": 131.515,
+   "y": 7.791,
+   "z_base": -6.796,
+   "diameter": 1.084,
+   "height": 0.852,
+   "z_top": -5.944,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_169",
+   "layer": "substrate::boulder_fill",
+   "x": 129.066,
+   "y": 38.601,
+   "z_base": -6.633,
+   "diameter": 0.873,
+   "height": 0.657,
+   "z_top": -5.976,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_170",
+   "layer": "substrate::boulder_fill",
+   "x": 135.319,
+   "y": 3.702,
+   "z_base": -7.049,
+   "diameter": 0.836,
+   "height": 0.566,
+   "z_top": -6.483,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_171",
+   "layer": "substrate::boulder_fill",
+   "x": 130.788,
+   "y": 34.348,
+   "z_base": -6.747,
+   "diameter": 0.541,
+   "height": 0.368,
+   "z_top": -6.379,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_172",
+   "layer": "substrate::boulder_fill",
+   "x": 127.992,
+   "y": 36.029,
+   "z_base": -6.561,
+   "diameter": 0.894,
+   "height": 0.69,
+   "z_top": -5.872,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_173",
+   "layer": "substrate::boulder_fill",
+   "x": 130.546,
+   "y": 24.85,
+   "z_base": -6.731,
+   "diameter": 0.739,
+   "height": 0.554,
+   "z_top": -6.177,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_174",
+   "layer": "substrate::boulder_fill",
+   "x": 125.12,
+   "y": 30.217,
+   "z_base": -6.37,
+   "diameter": 0.743,
+   "height": 0.467,
+   "z_top": -5.904,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_175",
+   "layer": "substrate::boulder_fill",
+   "x": 130.555,
+   "y": 1.41,
+   "z_base": -6.732,
+   "diameter": 0.554,
+   "height": 0.433,
+   "z_top": -6.299,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_176",
+   "layer": "substrate::boulder_fill",
+   "x": 118.653,
+   "y": 34.388,
+   "z_base": -5.94,
+   "diameter": 1.161,
+   "height": 0.773,
+   "z_top": -5.168,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "fill_177",
+   "layer": "substrate::boulder_fill",
+   "x": 135.888,
+   "y": 32.631,
+   "z_base": -7.087,
+   "diameter": 0.889,
+   "height": 0.712,
+   "z_top": -6.374,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_178",
+   "layer": "substrate::boulder_fill",
+   "x": 123.149,
+   "y": 7.669,
+   "z_base": -6.239,
+   "diameter": 1.06,
+   "height": 0.796,
+   "z_top": -5.444,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_179",
+   "layer": "substrate::boulder_fill",
+   "x": 127.964,
+   "y": 1.097,
+   "z_base": -6.56,
+   "diameter": 1.071,
+   "height": 0.678,
+   "z_top": -5.882,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_180",
+   "layer": "substrate::boulder_fill",
+   "x": 125.604,
+   "y": 19.62,
+   "z_base": -6.403,
+   "diameter": 0.569,
+   "height": 0.453,
+   "z_top": -5.95,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_181",
+   "layer": "substrate::boulder_fill",
+   "x": 130.968,
+   "y": 29.006,
+   "z_base": -6.759,
+   "diameter": 0.529,
+   "height": 0.332,
+   "z_top": -6.427,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_182",
+   "layer": "substrate::boulder_fill",
+   "x": 127.841,
+   "y": 8.632,
+   "z_base": -6.551,
+   "diameter": 0.886,
+   "height": 0.705,
+   "z_top": -5.847,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_183",
+   "layer": "substrate::boulder_fill",
+   "x": 135.429,
+   "y": 37.72,
+   "z_base": -7.056,
+   "diameter": 0.581,
+   "height": 0.355,
+   "z_top": -6.701,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_184",
+   "layer": "substrate::boulder_fill",
+   "x": 123.94,
+   "y": 37.798,
+   "z_base": -6.292,
+   "diameter": 0.742,
+   "height": 0.567,
+   "z_top": -5.725,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_185",
+   "layer": "substrate::boulder_fill",
+   "x": 131.928,
+   "y": 16.215,
+   "z_base": -6.823,
+   "diameter": 0.908,
+   "height": 0.654,
+   "z_top": -6.169,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_186",
+   "layer": "substrate::boulder_fill",
+   "x": 134.816,
+   "y": 16.543,
+   "z_base": -7.015,
+   "diameter": 0.867,
+   "height": 0.543,
+   "z_top": -6.472,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_187",
+   "layer": "substrate::boulder_fill",
+   "x": 118.631,
+   "y": 18.965,
+   "z_base": -5.939,
+   "diameter": 0.944,
+   "height": 0.74,
+   "z_top": -5.199,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_188",
+   "layer": "substrate::boulder_fill",
+   "x": 127.972,
+   "y": 4.908,
+   "z_base": -6.56,
+   "diameter": 0.504,
+   "height": 0.403,
+   "z_top": -6.157,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_189",
+   "layer": "substrate::boulder_fill",
+   "x": 119.662,
+   "y": 6.364,
+   "z_base": -6.008,
+   "diameter": 0.89,
+   "height": 0.57,
+   "z_top": -5.437,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_190",
+   "layer": "substrate::boulder_fill",
+   "x": 128.83,
+   "y": 20.131,
+   "z_base": -6.617,
+   "diameter": 0.799,
+   "height": 0.638,
+   "z_top": -5.979,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_191",
+   "layer": "substrate::boulder_fill",
+   "x": 136.261,
+   "y": 29.772,
+   "z_base": -7.111,
+   "diameter": 0.779,
+   "height": 0.558,
+   "z_top": -6.554,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_192",
+   "layer": "substrate::boulder_fill",
+   "x": 132.963,
+   "y": 29.45,
+   "z_base": -6.892,
+   "diameter": 0.863,
+   "height": 0.685,
+   "z_top": -6.207,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_193",
+   "layer": "substrate::boulder_fill",
+   "x": 128.497,
+   "y": 23.448,
+   "z_base": -6.595,
+   "diameter": 1.046,
+   "height": 0.791,
+   "z_top": -5.804,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_194",
+   "layer": "substrate::boulder_fill",
+   "x": 124.783,
+   "y": 38.284,
+   "z_base": -6.348,
+   "diameter": 0.681,
+   "height": 0.452,
+   "z_top": -5.897,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_195",
+   "layer": "substrate::boulder_fill",
+   "x": 119.779,
+   "y": 10.347,
+   "z_base": -6.015,
+   "diameter": 0.607,
+   "height": 0.466,
+   "z_top": -5.55,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_196",
+   "layer": "substrate::boulder_fill",
+   "x": 131.727,
+   "y": 4.826,
+   "z_base": -6.81,
+   "diameter": 0.978,
+   "height": 0.731,
+   "z_top": -6.079,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_197",
+   "layer": "substrate::boulder_fill",
+   "x": 124.717,
+   "y": 23.386,
+   "z_base": -6.344,
+   "diameter": 0.658,
+   "height": 0.511,
+   "z_top": -5.833,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_198",
+   "layer": "substrate::boulder_fill",
+   "x": 127.151,
+   "y": 17.918,
+   "z_base": -6.506,
+   "diameter": 0.86,
+   "height": 0.58,
+   "z_top": -5.925,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_199",
+   "layer": "substrate::boulder_fill",
+   "x": 120.148,
+   "y": 32.726,
+   "z_base": -6.04,
+   "diameter": 0.811,
+   "height": 0.612,
+   "z_top": -5.428,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_200",
+   "layer": "substrate::boulder_fill",
+   "x": 122.876,
+   "y": 29.036,
+   "z_base": -6.221,
+   "diameter": 0.585,
+   "height": 0.38,
+   "z_top": -5.841,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_201",
+   "layer": "substrate::boulder_fill",
+   "x": 125.098,
+   "y": 33.82,
+   "z_base": -6.369,
+   "diameter": 0.93,
+   "height": 0.62,
+   "z_top": -5.749,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_202",
+   "layer": "substrate::boulder_fill",
+   "x": 121.653,
+   "y": 1.159,
+   "z_base": -6.14,
+   "diameter": 1.028,
+   "height": 0.742,
+   "z_top": -5.398,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_203",
+   "layer": "substrate::boulder_fill",
+   "x": 119.986,
+   "y": 7.781,
+   "z_base": -6.029,
+   "diameter": 0.53,
+   "height": 0.374,
+   "z_top": -5.655,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_204",
+   "layer": "substrate::boulder_fill",
+   "x": 134.088,
+   "y": 38.815,
+   "z_base": -6.967,
+   "diameter": 1.044,
+   "height": 0.643,
+   "z_top": -6.324,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_205",
+   "layer": "substrate::boulder_fill",
+   "x": 126.546,
+   "y": 9.341,
+   "z_base": -6.465,
+   "diameter": 0.624,
+   "height": 0.397,
+   "z_top": -6.068,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_206",
+   "layer": "substrate::boulder_fill",
+   "x": 135.592,
+   "y": 15.491,
+   "z_base": -7.067,
+   "diameter": 1.163,
+   "height": 0.952,
+   "z_top": -6.115,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "fill_207",
+   "layer": "substrate::boulder_fill",
+   "x": 125.332,
+   "y": 20.198,
+   "z_base": -6.385,
+   "diameter": 0.517,
+   "height": 0.385,
+   "z_top": -5.999,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_208",
+   "layer": "substrate::boulder_fill",
+   "x": 135.085,
+   "y": 22.503,
+   "z_base": -7.033,
+   "diameter": 0.524,
+   "height": 0.363,
+   "z_top": -6.67,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_209",
+   "layer": "substrate::boulder_fill",
+   "x": 127.022,
+   "y": 7.344,
+   "z_base": -6.497,
+   "diameter": 1.093,
+   "height": 0.778,
+   "z_top": -5.719,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_210",
+   "layer": "substrate::boulder_fill",
+   "x": 136.215,
+   "y": 23.519,
+   "z_base": -7.108,
+   "diameter": 0.926,
+   "height": 0.564,
+   "z_top": -6.544,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_211",
+   "layer": "substrate::boulder_fill",
+   "x": 131.048,
+   "y": 10.044,
+   "z_base": -6.765,
+   "diameter": 1.167,
+   "height": 0.821,
+   "z_top": -5.944,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "fill_212",
+   "layer": "substrate::boulder_fill",
+   "x": 129.623,
+   "y": 34.259,
+   "z_base": -6.67,
+   "diameter": 0.629,
+   "height": 0.519,
+   "z_top": -6.15,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_213",
+   "layer": "substrate::boulder_fill",
+   "x": 135.616,
+   "y": 18.349,
+   "z_base": -7.068,
+   "diameter": 1.175,
+   "height": 0.917,
+   "z_top": -6.151,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "fill_214",
+   "layer": "substrate::boulder_fill",
+   "x": 134.954,
+   "y": 7.354,
+   "z_base": -7.024,
+   "diameter": 0.51,
+   "height": 0.368,
+   "z_top": -6.656,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_215",
+   "layer": "substrate::boulder_fill",
+   "x": 122.853,
+   "y": 6.52,
+   "z_base": -6.22,
+   "diameter": 0.506,
+   "height": 0.401,
+   "z_top": -5.819,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_216",
+   "layer": "substrate::boulder_fill",
+   "x": 125.966,
+   "y": 33.74,
+   "z_base": -6.427,
+   "diameter": 0.516,
+   "height": 0.312,
+   "z_top": -6.114,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_217",
+   "layer": "substrate::boulder_fill",
+   "x": 128.438,
+   "y": 34.504,
+   "z_base": -6.591,
+   "diameter": 0.851,
+   "height": 0.612,
+   "z_top": -5.979,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_218",
+   "layer": "substrate::boulder_fill",
+   "x": 123.721,
+   "y": 36.649,
+   "z_base": -6.277,
+   "diameter": 0.777,
+   "height": 0.571,
+   "z_top": -5.706,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_219",
+   "layer": "substrate::boulder_fill",
+   "x": 123.878,
+   "y": 21.046,
+   "z_base": -6.288,
+   "diameter": 0.532,
+   "height": 0.38,
+   "z_top": -5.908,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_220",
+   "layer": "substrate::boulder_fill",
+   "x": 119.486,
+   "y": 36.811,
+   "z_base": -5.996,
+   "diameter": 0.706,
+   "height": 0.496,
+   "z_top": -5.5,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_221",
+   "layer": "substrate::boulder_fill",
+   "x": 122.48,
+   "y": 24.624,
+   "z_base": -6.195,
+   "diameter": 0.99,
+   "height": 0.64,
+   "z_top": -5.555,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_222",
+   "layer": "substrate::boulder_fill",
+   "x": 135.218,
+   "y": 5.077,
+   "z_base": -7.042,
+   "diameter": 0.662,
+   "height": 0.404,
+   "z_top": -6.638,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_223",
+   "layer": "substrate::boulder_fill",
+   "x": 134.118,
+   "y": 29.015,
+   "z_base": -6.969,
+   "diameter": 0.993,
+   "height": 0.672,
+   "z_top": -6.297,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_224",
+   "layer": "substrate::boulder_fill",
+   "x": 129.79,
+   "y": 2.15,
+   "z_base": -6.681,
+   "diameter": 0.654,
+   "height": 0.492,
+   "z_top": -6.189,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_225",
+   "layer": "substrate::boulder_fill",
+   "x": 120.994,
+   "y": 15.431,
+   "z_base": -6.096,
+   "diameter": 0.7,
+   "height": 0.481,
+   "z_top": -5.616,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_226",
+   "layer": "substrate::boulder_fill",
+   "x": 119.9,
+   "y": 31.002,
+   "z_base": -6.023,
+   "diameter": 0.659,
+   "height": 0.426,
+   "z_top": -5.597,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_227",
+   "layer": "substrate::boulder_fill",
+   "x": 124.157,
+   "y": 4.572,
+   "z_base": -6.306,
+   "diameter": 1.035,
+   "height": 0.86,
+   "z_top": -5.447,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_228",
+   "layer": "substrate::boulder_fill",
+   "x": 133.269,
+   "y": 5.893,
+   "z_base": -6.912,
+   "diameter": 0.741,
+   "height": 0.477,
+   "z_top": -6.435,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_229",
+   "layer": "substrate::boulder_fill",
+   "x": 127.496,
+   "y": 18.703,
+   "z_base": -6.528,
+   "diameter": 0.712,
+   "height": 0.481,
+   "z_top": -6.048,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_230",
+   "layer": "substrate::boulder_fill",
+   "x": 118.923,
+   "y": 29.469,
+   "z_base": -5.958,
+   "diameter": 1.169,
+   "height": 0.891,
+   "z_top": -5.068,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "fill_231",
+   "layer": "substrate::boulder_fill",
+   "x": 135.618,
+   "y": 34.077,
+   "z_base": -7.069,
+   "diameter": 1.109,
+   "height": 0.903,
+   "z_top": -6.165,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "fill_232",
+   "layer": "substrate::boulder_fill",
+   "x": 131.102,
+   "y": 36.983,
+   "z_base": -6.768,
+   "diameter": 0.544,
+   "height": 0.44,
+   "z_top": -6.328,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_233",
+   "layer": "substrate::boulder_fill",
+   "x": 124.18,
+   "y": 19.03,
+   "z_base": -6.308,
+   "diameter": 0.752,
+   "height": 0.46,
+   "z_top": -5.848,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_234",
+   "layer": "substrate::boulder_fill",
+   "x": 130.852,
+   "y": 15.068,
+   "z_base": -6.752,
+   "diameter": 0.568,
+   "height": 0.36,
+   "z_top": -6.392,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_235",
+   "layer": "substrate::boulder_fill",
+   "x": 122.21,
+   "y": 9.897,
+   "z_base": -6.177,
+   "diameter": 0.886,
+   "height": 0.732,
+   "z_top": -5.445,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_236",
+   "layer": "substrate::boulder_fill",
+   "x": 127.188,
+   "y": 31.813,
+   "z_base": -6.508,
+   "diameter": 0.679,
+   "height": 0.437,
+   "z_top": -6.071,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_237",
+   "layer": "substrate::boulder_fill",
+   "x": 133.281,
+   "y": 10.711,
+   "z_base": -6.913,
+   "diameter": 0.67,
+   "height": 0.524,
+   "z_top": -6.389,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_238",
+   "layer": "substrate::boulder_fill",
+   "x": 119.715,
+   "y": 1.705,
+   "z_base": -6.011,
+   "diameter": 0.864,
+   "height": 0.62,
+   "z_top": -5.391,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_239",
+   "layer": "substrate::boulder_fill",
+   "x": 128.505,
+   "y": 24.699,
+   "z_base": -6.596,
+   "diameter": 0.621,
+   "height": 0.449,
+   "z_top": -6.147,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_240",
+   "layer": "substrate::boulder_fill",
+   "x": 123.84,
+   "y": 34.544,
+   "z_base": -6.285,
+   "diameter": 0.799,
+   "height": 0.571,
+   "z_top": -5.714,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_241",
+   "layer": "substrate::boulder_fill",
+   "x": 127.982,
+   "y": 2.373,
+   "z_base": -6.561,
+   "diameter": 0.778,
+   "height": 0.559,
+   "z_top": -6.002,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_242",
+   "layer": "substrate::boulder_fill",
+   "x": 120.123,
+   "y": 29.538,
+   "z_base": -6.038,
+   "diameter": 0.828,
+   "height": 0.689,
+   "z_top": -5.349,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_243",
+   "layer": "substrate::boulder_fill",
+   "x": 124.256,
+   "y": 15.96,
+   "z_base": -6.313,
+   "diameter": 0.781,
+   "height": 0.638,
+   "z_top": -5.675,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_244",
+   "layer": "substrate::boulder_fill",
+   "x": 124.592,
+   "y": 2.372,
+   "z_base": -6.335,
+   "diameter": 0.635,
+   "height": 0.506,
+   "z_top": -5.829,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_245",
+   "layer": "substrate::boulder_fill",
+   "x": 120.192,
+   "y": 16.234,
+   "z_base": -6.043,
+   "diameter": 0.723,
+   "height": 0.614,
+   "z_top": -5.429,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_246",
+   "layer": "substrate::boulder_fill",
+   "x": 135.42,
+   "y": 20.59,
+   "z_base": -7.055,
+   "diameter": 0.945,
+   "height": 0.738,
+   "z_top": -6.318,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_247",
+   "layer": "substrate::boulder_fill",
+   "x": 121.784,
+   "y": 2.647,
+   "z_base": -6.149,
+   "diameter": 0.876,
+   "height": 0.737,
+   "z_top": -5.411,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_248",
+   "layer": "substrate::boulder_fill",
+   "x": 120.45,
+   "y": 6.85,
+   "z_base": -6.06,
+   "diameter": 0.591,
+   "height": 0.374,
+   "z_top": -5.686,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_249",
+   "layer": "substrate::boulder_fill",
+   "x": 119.909,
+   "y": 34.329,
+   "z_base": -6.024,
+   "diameter": 0.895,
+   "height": 0.569,
+   "z_top": -5.455,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_250",
+   "layer": "substrate::boulder_fill",
+   "x": 125.199,
+   "y": 1.298,
+   "z_base": -6.376,
+   "diameter": 0.823,
+   "height": 0.534,
+   "z_top": -5.841,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_251",
+   "layer": "substrate::boulder_fill",
+   "x": 126.066,
+   "y": 38.648,
+   "z_base": -6.433,
+   "diameter": 0.564,
+   "height": 0.407,
+   "z_top": -6.026,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_252",
+   "layer": "substrate::boulder_fill",
+   "x": 123.133,
+   "y": 2.738,
+   "z_base": -6.238,
+   "diameter": 0.994,
+   "height": 0.71,
+   "z_top": -5.529,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_253",
+   "layer": "substrate::boulder_fill",
+   "x": 131.969,
+   "y": 21.665,
+   "z_base": -6.826,
+   "diameter": 0.79,
+   "height": 0.609,
+   "z_top": -6.217,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_254",
+   "layer": "substrate::boulder_fill",
+   "x": 134.12,
+   "y": 30.385,
+   "z_base": -6.969,
+   "diameter": 0.851,
+   "height": 0.54,
+   "z_top": -6.429,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_255",
+   "layer": "substrate::boulder_fill",
+   "x": 120.997,
+   "y": 37.656,
+   "z_base": -6.096,
+   "diameter": 0.563,
+   "height": 0.387,
+   "z_top": -5.709,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_256",
+   "layer": "substrate::boulder_fill",
+   "x": 119.317,
+   "y": 24.917,
+   "z_base": -5.985,
+   "diameter": 0.802,
+   "height": 0.675,
+   "z_top": -5.31,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_257",
+   "layer": "substrate::boulder_fill",
+   "x": 132.114,
+   "y": 1.34,
+   "z_base": -6.836,
+   "diameter": 0.946,
+   "height": 0.762,
+   "z_top": -6.073,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_258",
+   "layer": "substrate::boulder_fill",
+   "x": 126.52,
+   "y": 23.65,
+   "z_base": -6.464,
+   "diameter": 0.592,
+   "height": 0.482,
+   "z_top": -5.981,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_259",
+   "layer": "substrate::boulder_fill",
+   "x": 124.103,
+   "y": 32.018,
+   "z_base": -6.303,
+   "diameter": 0.503,
+   "height": 0.363,
+   "z_top": -5.94,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_260",
+   "layer": "substrate::boulder_fill",
+   "x": 132.422,
+   "y": 30.476,
+   "z_base": -6.856,
+   "diameter": 0.669,
+   "height": 0.428,
+   "z_top": -6.428,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_261",
+   "layer": "substrate::boulder_fill",
+   "x": 118.989,
+   "y": 3.16,
+   "z_base": -5.963,
+   "diameter": 1.053,
+   "height": 0.816,
+   "z_top": -5.147,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_262",
+   "layer": "substrate::boulder_fill",
+   "x": 118.469,
+   "y": 24.53,
+   "z_base": -5.928,
+   "diameter": 0.821,
+   "height": 0.603,
+   "z_top": -5.325,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_263",
+   "layer": "substrate::boulder_fill",
+   "x": 119.056,
+   "y": 15.769,
+   "z_base": -5.967,
+   "diameter": 0.817,
+   "height": 0.552,
+   "z_top": -5.415,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_264",
+   "layer": "substrate::boulder_fill",
+   "x": 122.387,
+   "y": 33.752,
+   "z_base": -6.189,
+   "diameter": 1.086,
+   "height": 0.91,
+   "z_top": -5.279,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_265",
+   "layer": "substrate::boulder_fill",
+   "x": 119.223,
+   "y": 32.172,
+   "z_base": -5.978,
+   "diameter": 0.653,
+   "height": 0.457,
+   "z_top": -5.522,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_266",
+   "layer": "substrate::boulder_fill",
+   "x": 126.84,
+   "y": 34.122,
+   "z_base": -6.485,
+   "diameter": 0.757,
+   "height": 0.609,
+   "z_top": -5.876,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_267",
+   "layer": "substrate::boulder_fill",
+   "x": 124.699,
+   "y": 24.932,
+   "z_base": -6.342,
+   "diameter": 0.896,
+   "height": 0.622,
+   "z_top": -5.72,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_268",
+   "layer": "substrate::boulder_fill",
+   "x": 127.188,
+   "y": 38.782,
+   "z_base": -6.508,
+   "diameter": 0.822,
+   "height": 0.516,
+   "z_top": -5.992,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_269",
+   "layer": "substrate::boulder_fill",
+   "x": 127.725,
+   "y": 35.15,
+   "z_base": -6.544,
+   "diameter": 0.734,
+   "height": 0.546,
+   "z_top": -5.998,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_270",
+   "layer": "substrate::boulder_fill",
+   "x": 123.455,
+   "y": 1.248,
+   "z_base": -6.26,
+   "diameter": 0.559,
+   "height": 0.423,
+   "z_top": -5.837,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_271",
+   "layer": "substrate::boulder_fill",
+   "x": 123.033,
+   "y": 9.766,
+   "z_base": -6.232,
+   "diameter": 0.612,
+   "height": 0.52,
+   "z_top": -5.712,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_272",
+   "layer": "substrate::boulder_fill",
+   "x": 129.391,
+   "y": 24.118,
+   "z_base": -6.654,
+   "diameter": 0.998,
+   "height": 0.792,
+   "z_top": -5.863,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_273",
+   "layer": "substrate::boulder_fill",
+   "x": 127.098,
+   "y": 22.039,
+   "z_base": -6.502,
+   "diameter": 0.524,
+   "height": 0.324,
+   "z_top": -6.178,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_274",
+   "layer": "substrate::boulder_fill",
+   "x": 130.861,
+   "y": 23.6,
+   "z_base": -6.752,
+   "diameter": 0.977,
+   "height": 0.722,
+   "z_top": -6.03,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_275",
+   "layer": "substrate::boulder_fill",
+   "x": 123.922,
+   "y": 35.859,
+   "z_base": -6.291,
+   "diameter": 0.519,
+   "height": 0.403,
+   "z_top": -5.888,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_276",
+   "layer": "substrate::boulder_fill",
+   "x": 135.299,
+   "y": 36.318,
+   "z_base": -7.047,
+   "diameter": 0.909,
+   "height": 0.7,
+   "z_top": -6.347,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_277",
+   "layer": "substrate::boulder_fill",
+   "x": 127.589,
+   "y": 21.126,
+   "z_base": -6.535,
+   "diameter": 1.077,
+   "height": 0.691,
+   "z_top": -5.844,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_278",
+   "layer": "substrate::boulder_fill",
+   "x": 118.967,
+   "y": 35.576,
+   "z_base": -5.961,
+   "diameter": 0.531,
+   "height": 0.373,
+   "z_top": -5.588,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_279",
+   "layer": "substrate::boulder_fill",
+   "x": 134.05,
+   "y": 23.655,
+   "z_base": -6.964,
+   "diameter": 0.62,
+   "height": 0.501,
+   "z_top": -6.464,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_280",
+   "layer": "substrate::boulder_fill",
+   "x": 118.427,
+   "y": 36.08,
+   "z_base": -5.925,
+   "diameter": 0.838,
+   "height": 0.637,
+   "z_top": -5.288,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_281",
+   "layer": "substrate::boulder_fill",
+   "x": 131.714,
+   "y": 29.402,
+   "z_base": -6.809,
+   "diameter": 1.057,
+   "height": 0.886,
+   "z_top": -5.923,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_282",
+   "layer": "substrate::boulder_fill",
+   "x": 125.48,
+   "y": 29.099,
+   "z_base": -6.394,
+   "diameter": 0.852,
+   "height": 0.512,
+   "z_top": -5.882,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_283",
+   "layer": "substrate::boulder_fill",
+   "x": 123.005,
+   "y": 17.123,
+   "z_base": -6.23,
+   "diameter": 0.683,
+   "height": 0.417,
+   "z_top": -5.813,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_284",
+   "layer": "substrate::boulder_fill",
+   "x": 122.04,
+   "y": 23.635,
+   "z_base": -6.166,
+   "diameter": 0.528,
+   "height": 0.361,
+   "z_top": -5.804,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_285",
+   "layer": "substrate::boulder_fill",
+   "x": 132.974,
+   "y": 24.078,
+   "z_base": -6.893,
+   "diameter": 0.797,
+   "height": 0.551,
+   "z_top": -6.342,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_286",
+   "layer": "substrate::boulder_fill",
+   "x": 129.238,
+   "y": 16.127,
+   "z_base": -6.644,
+   "diameter": 0.66,
+   "height": 0.51,
+   "z_top": -6.135,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_287",
+   "layer": "substrate::boulder_fill",
+   "x": 125.105,
+   "y": 10.427,
+   "z_base": -6.369,
+   "diameter": 0.894,
+   "height": 0.578,
+   "z_top": -5.792,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_288",
+   "layer": "substrate::boulder_fill",
+   "x": 135.685,
+   "y": 24.916,
+   "z_base": -7.073,
+   "diameter": 1.026,
+   "height": 0.763,
+   "z_top": -6.31,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_289",
+   "layer": "substrate::boulder_fill",
+   "x": 131.078,
+   "y": 31.207,
+   "z_base": -6.767,
+   "diameter": 0.588,
+   "height": 0.44,
+   "z_top": -6.327,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_290",
+   "layer": "substrate::boulder_fill",
+   "x": 118.811,
+   "y": 21.454,
+   "z_base": -5.951,
+   "diameter": 0.966,
+   "height": 0.674,
+   "z_top": -5.277,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_291",
+   "layer": "substrate::boulder_fill",
+   "x": 130.002,
+   "y": 33.561,
+   "z_base": -6.695,
+   "diameter": 0.556,
+   "height": 0.434,
+   "z_top": -6.261,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_292",
+   "layer": "substrate::boulder_fill",
+   "x": 136.076,
+   "y": 5.133,
+   "z_base": -7.099,
+   "diameter": 0.689,
+   "height": 0.565,
+   "z_top": -6.534,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_293",
+   "layer": "substrate::boulder_fill",
+   "x": 120.583,
+   "y": 1.334,
+   "z_base": -6.069,
+   "diameter": 0.695,
+   "height": 0.464,
+   "z_top": -5.604,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_294",
+   "layer": "substrate::boulder_fill",
+   "x": 135.251,
+   "y": 19.328,
+   "z_base": -7.044,
+   "diameter": 0.778,
+   "height": 0.6,
+   "z_top": -6.444,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_295",
+   "layer": "substrate::boulder_fill",
+   "x": 120.296,
+   "y": 35.381,
+   "z_base": -6.05,
+   "diameter": 0.578,
+   "height": 0.373,
+   "z_top": -5.677,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_296",
+   "layer": "substrate::boulder_fill",
+   "x": 130.095,
+   "y": 9.594,
+   "z_base": -6.701,
+   "diameter": 0.563,
+   "height": 0.341,
+   "z_top": -6.36,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_297",
+   "layer": "substrate::boulder_fill",
+   "x": 136.183,
+   "y": 21.425,
+   "z_base": -7.106,
+   "diameter": 1.146,
+   "height": 0.801,
+   "z_top": -6.305,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "fill_298",
+   "layer": "substrate::boulder_fill",
+   "x": 131.966,
+   "y": 6.435,
+   "z_base": -6.826,
+   "diameter": 1.006,
+   "height": 0.768,
+   "z_top": -6.058,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_299",
+   "layer": "substrate::boulder_fill",
+   "x": 127.456,
+   "y": 10.112,
+   "z_base": -6.526,
+   "diameter": 0.674,
+   "height": 0.431,
+   "z_top": -6.095,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_300",
+   "layer": "substrate::boulder_fill",
+   "x": 132.955,
+   "y": 16.109,
+   "z_base": -6.891,
+   "diameter": 0.54,
+   "height": 0.411,
+   "z_top": -6.48,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_301",
+   "layer": "substrate::boulder_fill",
+   "x": 128.29,
+   "y": 15.898,
+   "z_base": -6.581,
+   "diameter": 0.987,
+   "height": 0.624,
+   "z_top": -5.957,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_302",
+   "layer": "substrate::boulder_fill",
+   "x": 127.126,
+   "y": 5.612,
+   "z_base": -6.504,
+   "diameter": 0.85,
+   "height": 0.592,
+   "z_top": -5.912,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_303",
+   "layer": "substrate::boulder_fill",
+   "x": 126.255,
+   "y": 24.991,
+   "z_base": -6.446,
+   "diameter": 0.543,
+   "height": 0.422,
+   "z_top": -6.024,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_304",
+   "layer": "substrate::boulder_fill",
+   "x": 126.436,
+   "y": 1.439,
+   "z_base": -6.458,
+   "diameter": 0.612,
+   "height": 0.518,
+   "z_top": -5.939,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_305",
+   "layer": "substrate::boulder_fill",
+   "x": 127.197,
+   "y": 30.919,
+   "z_base": -6.509,
+   "diameter": 0.554,
+   "height": 0.372,
+   "z_top": -6.137,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_306",
+   "layer": "substrate::boulder_fill",
+   "x": 135.864,
+   "y": 17.327,
+   "z_base": -7.085,
+   "diameter": 0.52,
+   "height": 0.428,
+   "z_top": -6.657,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_307",
+   "layer": "substrate::boulder_fill",
+   "x": 129.083,
+   "y": 1.617,
+   "z_base": -6.634,
+   "diameter": 0.669,
+   "height": 0.434,
+   "z_top": -6.2,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_308",
+   "layer": "substrate::boulder_fill",
+   "x": 118.963,
+   "y": 9.529,
+   "z_base": -5.961,
+   "diameter": 0.819,
+   "height": 0.665,
+   "z_top": -5.296,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_309",
+   "layer": "substrate::boulder_fill",
+   "x": 124.149,
+   "y": 20.06,
+   "z_base": -6.306,
+   "diameter": 0.598,
+   "height": 0.367,
+   "z_top": -5.939,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_310",
+   "layer": "substrate::boulder_fill",
+   "x": 130.811,
+   "y": 32.12,
+   "z_base": -6.749,
+   "diameter": 0.676,
+   "height": 0.466,
+   "z_top": -6.283,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_311",
+   "layer": "substrate::boulder_fill",
+   "x": 126.781,
+   "y": 29.485,
+   "z_base": -6.481,
+   "diameter": 0.871,
+   "height": 0.63,
+   "z_top": -5.851,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_312",
+   "layer": "substrate::boulder_fill",
+   "x": 122.267,
+   "y": 15.1,
+   "z_base": -6.181,
+   "diameter": 0.959,
+   "height": 0.661,
+   "z_top": -5.52,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_313",
+   "layer": "substrate::boulder_fill",
+   "x": 121.073,
+   "y": 33.94,
+   "z_base": -6.101,
+   "diameter": 0.609,
+   "height": 0.375,
+   "z_top": -5.727,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_314",
+   "layer": "substrate::boulder_fill",
+   "x": 132.144,
+   "y": 35.683,
+   "z_base": -6.838,
+   "diameter": 0.645,
+   "height": 0.54,
+   "z_top": -6.297,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_315",
+   "layer": "substrate::boulder_fill",
+   "x": 126.748,
+   "y": 19.272,
+   "z_base": -6.479,
+   "diameter": 0.548,
+   "height": 0.458,
+   "z_top": -6.021,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_316",
+   "layer": "substrate::boulder_fill",
+   "x": 127.043,
+   "y": 32.905,
+   "z_base": -6.498,
+   "diameter": 0.72,
+   "height": 0.484,
+   "z_top": -6.015,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_317",
+   "layer": "substrate::boulder_fill",
+   "x": 135.887,
+   "y": 9.947,
+   "z_base": -7.086,
+   "diameter": 0.997,
+   "height": 0.805,
+   "z_top": -6.281,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_318",
+   "layer": "substrate::boulder_fill",
+   "x": 118.645,
+   "y": 1.771,
+   "z_base": -5.94,
+   "diameter": 0.626,
+   "height": 0.45,
+   "z_top": -5.49,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_319",
+   "layer": "substrate::boulder_fill",
+   "x": 118.492,
+   "y": 5.701,
+   "z_base": -5.93,
+   "diameter": 0.639,
+   "height": 0.412,
+   "z_top": -5.517,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_320",
+   "layer": "substrate::boulder_fill",
+   "x": 123.089,
+   "y": 5.198,
+   "z_base": -6.235,
+   "diameter": 0.58,
+   "height": 0.487,
+   "z_top": -5.749,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_321",
+   "layer": "substrate::boulder_fill",
+   "x": 131.258,
+   "y": 20.982,
+   "z_base": -6.779,
+   "diameter": 0.951,
+   "height": 0.651,
+   "z_top": -6.128,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_322",
+   "layer": "substrate::boulder_fill",
+   "x": 124.534,
+   "y": 20.871,
+   "z_base": -6.332,
+   "diameter": 0.555,
+   "height": 0.365,
+   "z_top": -5.966,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_323",
+   "layer": "substrate::boulder_fill",
+   "x": 119.88,
+   "y": 4.122,
+   "z_base": -6.022,
+   "diameter": 0.759,
+   "height": 0.478,
+   "z_top": -5.544,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_324",
+   "layer": "substrate::boulder_fill",
+   "x": 123.125,
+   "y": 38.524,
+   "z_base": -6.238,
+   "diameter": 0.637,
+   "height": 0.478,
+   "z_top": -5.76,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_325",
+   "layer": "substrate::boulder_fill",
+   "x": 136.175,
+   "y": 6.64,
+   "z_base": -7.106,
+   "diameter": 0.656,
+   "height": 0.449,
+   "z_top": -6.657,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_326",
+   "layer": "substrate::boulder_fill",
+   "x": 136.161,
+   "y": 2.374,
+   "z_base": -7.105,
+   "diameter": 0.655,
+   "height": 0.544,
+   "z_top": -6.561,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_327",
+   "layer": "substrate::boulder_fill",
+   "x": 133.463,
+   "y": 1.626,
+   "z_base": -6.925,
+   "diameter": 1.102,
+   "height": 0.806,
+   "z_top": -6.119,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "fill_328",
+   "layer": "substrate::boulder_fill",
+   "x": 118.32,
+   "y": 6.812,
+   "z_base": -5.918,
+   "diameter": 1.151,
+   "height": 0.742,
+   "z_top": -5.176,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "fill_329",
+   "layer": "substrate::boulder_fill",
+   "x": 122.034,
+   "y": 29.574,
+   "z_base": -6.165,
+   "diameter": 0.603,
+   "height": 0.421,
+   "z_top": -5.744,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_330",
+   "layer": "substrate::boulder_fill",
+   "x": 131.46,
+   "y": 3.288,
+   "z_base": -6.792,
+   "diameter": 0.652,
+   "height": 0.554,
+   "z_top": -6.238,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_331",
+   "layer": "substrate::boulder_fill",
+   "x": 131.13,
+   "y": 36.163,
+   "z_base": -6.77,
+   "diameter": 0.665,
+   "height": 0.539,
+   "z_top": -6.231,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_332",
+   "layer": "substrate::boulder_fill",
+   "x": 121.011,
+   "y": 10.349,
+   "z_base": -6.097,
+   "diameter": 0.961,
+   "height": 0.735,
+   "z_top": -5.362,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_333",
+   "layer": "substrate::boulder_fill",
+   "x": 123.503,
+   "y": 23.972,
+   "z_base": -6.263,
+   "diameter": 0.7,
+   "height": 0.45,
+   "z_top": -5.813,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_334",
+   "layer": "substrate::boulder_fill",
+   "x": 132.294,
+   "y": 2.338,
+   "z_base": -6.848,
+   "diameter": 0.79,
+   "height": 0.606,
+   "z_top": -6.241,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_335",
+   "layer": "substrate::boulder_fill",
+   "x": 129.622,
+   "y": 19.428,
+   "z_base": -6.67,
+   "diameter": 0.511,
+   "height": 0.397,
+   "z_top": -6.273,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_336",
+   "layer": "substrate::boulder_fill",
+   "x": 118.772,
+   "y": 4.873,
+   "z_base": -5.948,
+   "diameter": 0.7,
+   "height": 0.541,
+   "z_top": -5.408,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_337",
+   "layer": "substrate::boulder_fill",
+   "x": 135.26,
+   "y": 30.572,
+   "z_base": -7.045,
+   "diameter": 0.537,
+   "height": 0.386,
+   "z_top": -6.659,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_338",
+   "layer": "substrate::boulder_fill",
+   "x": 127.342,
+   "y": 24.596,
+   "z_base": -6.518,
+   "diameter": 0.872,
+   "height": 0.687,
+   "z_top": -5.831,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_339",
+   "layer": "substrate::boulder_fill",
+   "x": 119.521,
+   "y": 23.585,
+   "z_base": -5.998,
+   "diameter": 0.561,
+   "height": 0.453,
+   "z_top": -5.545,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_340",
+   "layer": "substrate::boulder_fill",
+   "x": 132.911,
+   "y": 38.964,
+   "z_base": -6.889,
+   "diameter": 1.094,
+   "height": 0.692,
+   "z_top": -6.197,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_341",
+   "layer": "substrate::boulder_fill",
+   "x": 135.539,
+   "y": 29.956,
+   "z_base": -7.063,
+   "diameter": 0.584,
+   "height": 0.424,
+   "z_top": -6.639,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_342",
+   "layer": "substrate::boulder_fill",
+   "x": 126.056,
+   "y": 6.016,
+   "z_base": -6.433,
+   "diameter": 0.814,
+   "height": 0.585,
+   "z_top": -5.847,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_343",
+   "layer": "substrate::boulder_fill",
+   "x": 134.162,
+   "y": 24.629,
+   "z_base": -6.972,
+   "diameter": 0.555,
+   "height": 0.339,
+   "z_top": -6.633,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_344",
+   "layer": "substrate::boulder_fill",
+   "x": 135.974,
+   "y": 38.624,
+   "z_base": -7.092,
+   "diameter": 0.787,
+   "height": 0.549,
+   "z_top": -6.544,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_345",
+   "layer": "substrate::boulder_fill",
+   "x": 119.18,
+   "y": 7.025,
+   "z_base": -5.975,
+   "diameter": 0.504,
+   "height": 0.39,
+   "z_top": -5.585,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_346",
+   "layer": "substrate::boulder_fill",
+   "x": 132.468,
+   "y": 34.375,
+   "z_base": -6.859,
+   "diameter": 0.707,
+   "height": 0.466,
+   "z_top": -6.393,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_347",
+   "layer": "substrate::boulder_fill",
+   "x": 122.958,
+   "y": 3.676,
+   "z_base": -6.227,
+   "diameter": 0.809,
+   "height": 0.675,
+   "z_top": -5.552,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_348",
+   "layer": "substrate::boulder_fill",
+   "x": 135.784,
+   "y": 31.404,
+   "z_base": -7.08,
+   "diameter": 0.576,
+   "height": 0.392,
+   "z_top": -6.688,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_349",
+   "layer": "substrate::boulder_fill",
+   "x": 134.401,
+   "y": 15.582,
+   "z_base": -6.988,
+   "diameter": 0.729,
+   "height": 0.517,
+   "z_top": -6.47,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_350",
+   "layer": "substrate::boulder_fill",
+   "x": 131.517,
+   "y": 22.647,
+   "z_base": -6.796,
+   "diameter": 1.193,
+   "height": 1.003,
+   "z_top": -5.793,
+   "kelp_stipes": 11
+  },
+  {
+   "id": "fill_351",
+   "layer": "substrate::boulder_fill",
+   "x": 130.862,
+   "y": 16.546,
+   "z_base": -6.752,
+   "diameter": 0.662,
+   "height": 0.496,
+   "z_top": -6.256,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_352",
+   "layer": "substrate::boulder_fill",
+   "x": 119.394,
+   "y": 22.317,
+   "z_base": -5.99,
+   "diameter": 0.551,
+   "height": 0.332,
+   "z_top": -5.658,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_353",
+   "layer": "substrate::boulder_fill",
+   "x": 118.923,
+   "y": 8.048,
+   "z_base": -5.958,
+   "diameter": 1.057,
+   "height": 0.736,
+   "z_top": -5.223,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_354",
+   "layer": "substrate::boulder_fill",
+   "x": 131.974,
+   "y": 4.049,
+   "z_base": -6.826,
+   "diameter": 0.525,
+   "height": 0.329,
+   "z_top": -6.497,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_355",
+   "layer": "substrate::boulder_fill",
+   "x": 124.557,
+   "y": 5.668,
+   "z_base": -6.333,
+   "diameter": 1.011,
+   "height": 0.712,
+   "z_top": -5.621,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_356",
+   "layer": "substrate::boulder_fill",
+   "x": 126.788,
+   "y": 37.261,
+   "z_base": -6.481,
+   "diameter": 0.632,
+   "height": 0.459,
+   "z_top": -6.023,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_357",
+   "layer": "substrate::boulder_fill",
+   "x": 127.314,
+   "y": 23.153,
+   "z_base": -6.516,
+   "diameter": 1.085,
+   "height": 0.691,
+   "z_top": -5.826,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_358",
+   "layer": "substrate::boulder_fill",
+   "x": 118.448,
+   "y": 30.409,
+   "z_base": -5.927,
+   "diameter": 0.502,
+   "height": 0.305,
+   "z_top": -5.622,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_359",
+   "layer": "substrate::boulder_fill",
+   "x": 119.96,
+   "y": 21.945,
+   "z_base": -6.027,
+   "diameter": 0.59,
+   "height": 0.464,
+   "z_top": -5.563,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_360",
+   "layer": "substrate::boulder_fill",
+   "x": 133.747,
+   "y": 20.039,
+   "z_base": -6.944,
+   "diameter": 1.022,
+   "height": 0.806,
+   "z_top": -6.138,
+   "kelp_stipes": 8
+  },
+  {
+   "id": "fill_361",
+   "layer": "substrate::boulder_fill",
+   "x": 136.283,
+   "y": 36.448,
+   "z_base": -7.113,
+   "diameter": 0.853,
+   "height": 0.56,
+   "z_top": -6.553,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_362",
+   "layer": "substrate::boulder_fill",
+   "x": 135.973,
+   "y": 16.432,
+   "z_base": -7.092,
+   "diameter": 0.587,
+   "height": 0.42,
+   "z_top": -6.672,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_363",
+   "layer": "substrate::boulder_fill",
+   "x": 118.298,
+   "y": 22.555,
+   "z_base": -5.917,
+   "diameter": 0.594,
+   "height": 0.474,
+   "z_top": -5.443,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_364",
+   "layer": "substrate::boulder_fill",
+   "x": 119.368,
+   "y": 19.75,
+   "z_base": -5.988,
+   "diameter": 0.898,
+   "height": 0.719,
+   "z_top": -5.269,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_365",
+   "layer": "substrate::boulder_fill",
+   "x": 129.02,
+   "y": 15.37,
+   "z_base": -6.63,
+   "diameter": 0.582,
+   "height": 0.405,
+   "z_top": -6.224,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_366",
+   "layer": "substrate::boulder_fill",
+   "x": 135.868,
+   "y": 22.514,
+   "z_base": -7.085,
+   "diameter": 0.61,
+   "height": 0.44,
+   "z_top": -6.645,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_367",
+   "layer": "substrate::boulder_fill",
+   "x": 120.071,
+   "y": 38.372,
+   "z_base": -6.035,
+   "diameter": 0.655,
+   "height": 0.518,
+   "z_top": -5.517,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_368",
+   "layer": "substrate::boulder_fill",
+   "x": 125.114,
+   "y": 15.974,
+   "z_base": -6.37,
+   "diameter": 0.734,
+   "height": 0.555,
+   "z_top": -5.815,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_369",
+   "layer": "substrate::boulder_fill",
+   "x": 129.788,
+   "y": 30.031,
+   "z_base": -6.681,
+   "diameter": 0.917,
+   "height": 0.698,
+   "z_top": -5.982,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_370",
+   "layer": "substrate::boulder_fill",
+   "x": 129.554,
+   "y": 5.811,
+   "z_base": -6.665,
+   "diameter": 0.689,
+   "height": 0.524,
+   "z_top": -6.141,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_371",
+   "layer": "substrate::boulder_fill",
+   "x": 120.179,
+   "y": 10.973,
+   "z_base": -6.042,
+   "diameter": 0.638,
+   "height": 0.42,
+   "z_top": -5.622,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_372",
+   "layer": "substrate::boulder_fill",
+   "x": 126.906,
+   "y": 15.106,
+   "z_base": -6.489,
+   "diameter": 0.885,
+   "height": 0.542,
+   "z_top": -5.947,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_373",
+   "layer": "substrate::boulder_fill",
+   "x": 131.688,
+   "y": 30.56,
+   "z_base": -6.807,
+   "diameter": 0.539,
+   "height": 0.383,
+   "z_top": -6.424,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_374",
+   "layer": "substrate::boulder_fill",
+   "x": 123.063,
+   "y": 36.126,
+   "z_base": -6.234,
+   "diameter": 0.582,
+   "height": 0.362,
+   "z_top": -5.872,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_375",
+   "layer": "substrate::boulder_fill",
+   "x": 131.58,
+   "y": 32.624,
+   "z_base": -6.8,
+   "diameter": 0.526,
+   "height": 0.344,
+   "z_top": -6.457,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_376",
+   "layer": "substrate::boulder_fill",
+   "x": 131.462,
+   "y": 8.858,
+   "z_base": -6.792,
+   "diameter": 0.654,
+   "height": 0.455,
+   "z_top": -6.337,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_377",
+   "layer": "substrate::boulder_fill",
+   "x": 130.264,
+   "y": 38.43,
+   "z_base": -6.713,
+   "diameter": 1.062,
+   "height": 0.705,
+   "z_top": -6.008,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_378",
+   "layer": "substrate::boulder_fill",
+   "x": 124.08,
+   "y": 10.425,
+   "z_base": -6.301,
+   "diameter": 0.801,
+   "height": 0.497,
+   "z_top": -5.804,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_379",
+   "layer": "substrate::boulder_fill",
+   "x": 122.706,
+   "y": 18.907,
+   "z_base": -6.21,
+   "diameter": 0.526,
+   "height": 0.35,
+   "z_top": -5.86,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_380",
+   "layer": "substrate::boulder_fill",
+   "x": 134.389,
+   "y": 37.899,
+   "z_base": -6.987,
+   "diameter": 0.56,
+   "height": 0.372,
+   "z_top": -6.615,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_381",
+   "layer": "substrate::boulder_fill",
+   "x": 128.019,
+   "y": 20.118,
+   "z_base": -6.563,
+   "diameter": 0.62,
+   "height": 0.511,
+   "z_top": -6.053,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_382",
+   "layer": "substrate::boulder_fill",
+   "x": 131.651,
+   "y": 31.866,
+   "z_base": -6.805,
+   "diameter": 0.862,
+   "height": 0.719,
+   "z_top": -6.085,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_383",
+   "layer": "substrate::boulder_fill",
+   "x": 134.208,
+   "y": 33.843,
+   "z_base": -6.975,
+   "diameter": 0.828,
+   "height": 0.697,
+   "z_top": -6.278,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_384",
+   "layer": "substrate::boulder_fill",
+   "x": 131.733,
+   "y": 17.206,
+   "z_base": -6.81,
+   "diameter": 0.9,
+   "height": 0.759,
+   "z_top": -6.051,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_385",
+   "layer": "substrate::boulder_fill",
+   "x": 119.203,
+   "y": 30.556,
+   "z_base": -5.977,
+   "diameter": 0.598,
+   "height": 0.5,
+   "z_top": -5.477,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_386",
+   "layer": "substrate::boulder_fill",
+   "x": 135.441,
+   "y": 2.72,
+   "z_base": -7.057,
+   "diameter": 0.598,
+   "height": 0.506,
+   "z_top": -6.551,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_387",
+   "layer": "substrate::boulder_fill",
+   "x": 121.446,
+   "y": 24.848,
+   "z_base": -6.126,
+   "diameter": 0.529,
+   "height": 0.424,
+   "z_top": -5.702,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_388",
+   "layer": "substrate::boulder_fill",
+   "x": 128.017,
+   "y": 6.986,
+   "z_base": -6.563,
+   "diameter": 0.648,
+   "height": 0.515,
+   "z_top": -6.048,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_389",
+   "layer": "substrate::boulder_fill",
+   "x": 128.036,
+   "y": 31.387,
+   "z_base": -6.564,
+   "diameter": 0.564,
+   "height": 0.446,
+   "z_top": -6.119,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_390",
+   "layer": "substrate::boulder_fill",
+   "x": 124.178,
+   "y": 9.315,
+   "z_base": -6.308,
+   "diameter": 0.502,
+   "height": 0.317,
+   "z_top": -5.991,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_391",
+   "layer": "substrate::boulder_fill",
+   "x": 123.27,
+   "y": 4.509,
+   "z_base": -6.247,
+   "diameter": 0.506,
+   "height": 0.385,
+   "z_top": -5.862,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_392",
+   "layer": "substrate::boulder_fill",
+   "x": 126.033,
+   "y": 16.018,
+   "z_base": -6.431,
+   "diameter": 0.71,
+   "height": 0.466,
+   "z_top": -5.965,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_393",
+   "layer": "substrate::boulder_fill",
+   "x": 119.306,
+   "y": 33.163,
+   "z_base": -5.984,
+   "diameter": 0.828,
+   "height": 0.66,
+   "z_top": -5.324,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_394",
+   "layer": "substrate::boulder_fill",
+   "x": 136.254,
+   "y": 8.941,
+   "z_base": -7.111,
+   "diameter": 0.684,
+   "height": 0.55,
+   "z_top": -6.561,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_395",
+   "layer": "substrate::boulder_fill",
+   "x": 119.984,
+   "y": 17.161,
+   "z_base": -6.029,
+   "diameter": 0.816,
+   "height": 0.636,
+   "z_top": -5.393,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_396",
+   "layer": "substrate::boulder_fill",
+   "x": 130.077,
+   "y": 15.7,
+   "z_base": -6.7,
+   "diameter": 0.93,
+   "height": 0.79,
+   "z_top": -5.91,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_397",
+   "layer": "substrate::boulder_fill",
+   "x": 130.57,
+   "y": 34.934,
+   "z_base": -6.733,
+   "diameter": 0.527,
+   "height": 0.395,
+   "z_top": -6.338,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_398",
+   "layer": "substrate::boulder_fill",
+   "x": 123.188,
+   "y": 22.903,
+   "z_base": -6.242,
+   "diameter": 0.78,
+   "height": 0.547,
+   "z_top": -5.695,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_399",
+   "layer": "substrate::boulder_fill",
+   "x": 121.821,
+   "y": 10.932,
+   "z_base": -6.151,
+   "diameter": 0.801,
+   "height": 0.647,
+   "z_top": -5.504,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_400",
+   "layer": "substrate::boulder_fill",
+   "x": 136.242,
+   "y": 35.296,
+   "z_base": -7.11,
+   "diameter": 0.775,
+   "height": 0.596,
+   "z_top": -6.514,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_401",
+   "layer": "substrate::boulder_fill",
+   "x": 124.048,
+   "y": 29.274,
+   "z_base": -6.299,
+   "diameter": 0.732,
+   "height": 0.522,
+   "z_top": -5.777,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_402",
+   "layer": "substrate::boulder_fill",
+   "x": 131.843,
+   "y": 10.889,
+   "z_base": -6.818,
+   "diameter": 0.737,
+   "height": 0.587,
+   "z_top": -6.23,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_403",
+   "layer": "substrate::boulder_fill",
+   "x": 123.674,
+   "y": 15.01,
+   "z_base": -6.274,
+   "diameter": 0.534,
+   "height": 0.339,
+   "z_top": -5.935,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_404",
+   "layer": "substrate::boulder_fill",
+   "x": 127.915,
+   "y": 38.928,
+   "z_base": -6.556,
+   "diameter": 0.544,
+   "height": 0.353,
+   "z_top": -6.203,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_405",
+   "layer": "substrate::boulder_fill",
+   "x": 119.115,
+   "y": 17.891,
+   "z_base": -5.971,
+   "diameter": 0.878,
+   "height": 0.625,
+   "z_top": -5.346,
+   "kelp_stipes": 6
+  },
+  {
+   "id": "fill_406",
+   "layer": "substrate::boulder_fill",
+   "x": 126.936,
+   "y": 36.474,
+   "z_base": -6.491,
+   "diameter": 0.538,
+   "height": 0.376,
+   "z_top": -6.116,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_407",
+   "layer": "substrate::boulder_fill",
+   "x": 127.072,
+   "y": 10.983,
+   "z_base": -6.5,
+   "diameter": 0.833,
+   "height": 0.657,
+   "z_top": -5.843,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_408",
+   "layer": "substrate::boulder_fill",
+   "x": 121.116,
+   "y": 23.194,
+   "z_base": -6.104,
+   "diameter": 0.55,
+   "height": 0.408,
+   "z_top": -5.696,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_409",
+   "layer": "substrate::boulder_fill",
+   "x": 130.062,
+   "y": 10.899,
+   "z_base": -6.699,
+   "diameter": 1.129,
+   "height": 0.84,
+   "z_top": -5.859,
+   "kelp_stipes": 10
+  },
+  {
+   "id": "fill_410",
+   "layer": "substrate::boulder_fill",
+   "x": 127.59,
+   "y": 36.9,
+   "z_base": -6.535,
+   "diameter": 0.68,
+   "height": 0.552,
+   "z_top": -5.982,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_411",
+   "layer": "substrate::boulder_fill",
+   "x": 118.634,
+   "y": 4.006,
+   "z_base": -5.939,
+   "diameter": 0.679,
+   "height": 0.546,
+   "z_top": -5.393,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_412",
+   "layer": "substrate::boulder_fill",
+   "x": 133.179,
+   "y": 37.408,
+   "z_base": -6.906,
+   "diameter": 0.764,
+   "height": 0.581,
+   "z_top": -6.325,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_413",
+   "layer": "substrate::boulder_fill",
+   "x": 122.253,
+   "y": 30.309,
+   "z_base": -6.18,
+   "diameter": 0.624,
+   "height": 0.42,
+   "z_top": -5.76,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_414",
+   "layer": "substrate::boulder_fill",
+   "x": 122.19,
+   "y": 5.958,
+   "z_base": -6.176,
+   "diameter": 1.073,
+   "height": 0.777,
+   "z_top": -5.399,
+   "kelp_stipes": 9
+  },
+  {
+   "id": "fill_415",
+   "layer": "substrate::boulder_fill",
+   "x": 128.09,
+   "y": 30.694,
+   "z_base": -6.568,
+   "diameter": 0.648,
+   "height": 0.508,
+   "z_top": -6.06,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_416",
+   "layer": "substrate::boulder_fill",
+   "x": 124.823,
+   "y": 19.656,
+   "z_base": -6.351,
+   "diameter": 0.772,
+   "height": 0.652,
+   "z_top": -5.698,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_417",
+   "layer": "substrate::boulder_fill",
+   "x": 130.917,
+   "y": 4.687,
+   "z_base": -6.756,
+   "diameter": 0.555,
+   "height": 0.377,
+   "z_top": -6.379,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_418",
+   "layer": "substrate::boulder_fill",
+   "x": 126.413,
+   "y": 37.958,
+   "z_base": -6.456,
+   "diameter": 0.673,
+   "height": 0.408,
+   "z_top": -6.049,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_419",
+   "layer": "substrate::boulder_fill",
+   "x": 120.131,
+   "y": 37.314,
+   "z_base": -6.039,
+   "diameter": 0.634,
+   "height": 0.409,
+   "z_top": -5.63,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_420",
+   "layer": "substrate::boulder_fill",
+   "x": 119.565,
+   "y": 36.057,
+   "z_base": -6.001,
+   "diameter": 0.529,
+   "height": 0.411,
+   "z_top": -5.59,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_421",
+   "layer": "substrate::boulder_fill",
+   "x": 125.692,
+   "y": 24.222,
+   "z_base": -6.408,
+   "diameter": 0.938,
+   "height": 0.63,
+   "z_top": -5.779,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_422",
+   "layer": "substrate::boulder_fill",
+   "x": 132.129,
+   "y": 20.825,
+   "z_base": -6.837,
+   "diameter": 0.674,
+   "height": 0.436,
+   "z_top": -6.401,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_423",
+   "layer": "substrate::boulder_fill",
+   "x": 124.425,
+   "y": 6.547,
+   "z_base": -6.324,
+   "diameter": 0.642,
+   "height": 0.398,
+   "z_top": -5.926,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_424",
+   "layer": "substrate::boulder_fill",
+   "x": 132.938,
+   "y": 15.393,
+   "z_base": -6.89,
+   "diameter": 0.571,
+   "height": 0.459,
+   "z_top": -6.432,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_425",
+   "layer": "substrate::boulder_fill",
+   "x": 118.674,
+   "y": 37.108,
+   "z_base": -5.942,
+   "diameter": 0.545,
+   "height": 0.391,
+   "z_top": -5.55,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_426",
+   "layer": "substrate::boulder_fill",
+   "x": 136.003,
+   "y": 4.283,
+   "z_base": -7.094,
+   "diameter": 0.618,
+   "height": 0.494,
+   "z_top": -6.6,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_427",
+   "layer": "substrate::boulder_fill",
+   "x": 127.105,
+   "y": 1.256,
+   "z_base": -6.502,
+   "diameter": 0.565,
+   "height": 0.427,
+   "z_top": -6.076,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_428",
+   "layer": "substrate::boulder_fill",
+   "x": 120.331,
+   "y": 23.104,
+   "z_base": -6.052,
+   "diameter": 0.703,
+   "height": 0.575,
+   "z_top": -5.477,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_429",
+   "layer": "substrate::boulder_fill",
+   "x": 127.216,
+   "y": 30.142,
+   "z_base": -6.51,
+   "diameter": 0.569,
+   "height": 0.37,
+   "z_top": -6.14,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_430",
+   "layer": "substrate::boulder_fill",
+   "x": 135.434,
+   "y": 35.187,
+   "z_base": -7.056,
+   "diameter": 0.724,
+   "height": 0.474,
+   "z_top": -6.582,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_431",
+   "layer": "substrate::boulder_fill",
+   "x": 134.109,
+   "y": 9.841,
+   "z_base": -6.968,
+   "diameter": 0.554,
+   "height": 0.339,
+   "z_top": -6.629,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_432",
+   "layer": "substrate::boulder_fill",
+   "x": 123.2,
+   "y": 37.406,
+   "z_base": -6.243,
+   "diameter": 0.709,
+   "height": 0.486,
+   "z_top": -5.757,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_433",
+   "layer": "substrate::boulder_fill",
+   "x": 129.18,
+   "y": 33.511,
+   "z_base": -6.64,
+   "diameter": 0.715,
+   "height": 0.444,
+   "z_top": -6.197,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_434",
+   "layer": "substrate::boulder_fill",
+   "x": 134.29,
+   "y": 1.066,
+   "z_base": -6.98,
+   "diameter": 0.517,
+   "height": 0.436,
+   "z_top": -6.544,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_435",
+   "layer": "substrate::boulder_fill",
+   "x": 124.35,
+   "y": 15.148,
+   "z_base": -6.319,
+   "diameter": 0.605,
+   "height": 0.433,
+   "z_top": -5.886,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_436",
+   "layer": "substrate::boulder_fill",
+   "x": 135.247,
+   "y": 6.161,
+   "z_base": -7.044,
+   "diameter": 0.693,
+   "height": 0.521,
+   "z_top": -6.523,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_437",
+   "layer": "substrate::boulder_fill",
+   "x": 120.208,
+   "y": 31.613,
+   "z_base": -6.044,
+   "diameter": 0.599,
+   "height": 0.481,
+   "z_top": -5.563,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_438",
+   "layer": "substrate::boulder_fill",
+   "x": 132.589,
+   "y": 24.991,
+   "z_base": -6.867,
+   "diameter": 0.61,
+   "height": 0.434,
+   "z_top": -6.433,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_439",
+   "layer": "substrate::boulder_fill",
+   "x": 123.929,
+   "y": 23.241,
+   "z_base": -6.291,
+   "diameter": 0.536,
+   "height": 0.398,
+   "z_top": -5.893,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_440",
+   "layer": "substrate::boulder_fill",
+   "x": 120.99,
+   "y": 29.417,
+   "z_base": -6.096,
+   "diameter": 0.539,
+   "height": 0.408,
+   "z_top": -5.688,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_441",
+   "layer": "substrate::boulder_fill",
+   "x": 134.766,
+   "y": 34.42,
+   "z_base": -7.012,
+   "diameter": 0.573,
+   "height": 0.382,
+   "z_top": -6.629,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_442",
+   "layer": "substrate::boulder_fill",
+   "x": 127.084,
+   "y": 3.622,
+   "z_base": -6.501,
+   "diameter": 0.519,
+   "height": 0.438,
+   "z_top": -6.064,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_443",
+   "layer": "substrate::boulder_fill",
+   "x": 120.264,
+   "y": 20.086,
+   "z_base": -6.048,
+   "diameter": 0.639,
+   "height": 0.427,
+   "z_top": -5.621,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_444",
+   "layer": "substrate::boulder_fill",
+   "x": 132.01,
+   "y": 33.37,
+   "z_base": -6.829,
+   "diameter": 0.731,
+   "height": 0.469,
+   "z_top": -6.36,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_445",
+   "layer": "substrate::boulder_fill",
+   "x": 136.193,
+   "y": 3.545,
+   "z_base": -7.107,
+   "diameter": 0.658,
+   "height": 0.472,
+   "z_top": -6.635,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_446",
+   "layer": "substrate::boulder_fill",
+   "x": 125.735,
+   "y": 9.913,
+   "z_base": -6.411,
+   "diameter": 0.584,
+   "height": 0.429,
+   "z_top": -5.983,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_447",
+   "layer": "substrate::boulder_fill",
+   "x": 124.048,
+   "y": 7.719,
+   "z_base": -6.299,
+   "diameter": 0.636,
+   "height": 0.417,
+   "z_top": -5.882,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_448",
+   "layer": "substrate::boulder_fill",
+   "x": 119.76,
+   "y": 18.775,
+   "z_base": -6.014,
+   "diameter": 0.518,
+   "height": 0.364,
+   "z_top": -5.65,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_449",
+   "layer": "substrate::boulder_fill",
+   "x": 127.614,
+   "y": 33.932,
+   "z_base": -6.536,
+   "diameter": 0.731,
+   "height": 0.48,
+   "z_top": -6.057,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_450",
+   "layer": "substrate::boulder_fill",
+   "x": 133.328,
+   "y": 30.165,
+   "z_base": -6.916,
+   "diameter": 0.613,
+   "height": 0.454,
+   "z_top": -6.462,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_451",
+   "layer": "substrate::boulder_fill",
+   "x": 131.75,
+   "y": 23.912,
+   "z_base": -6.811,
+   "diameter": 0.563,
+   "height": 0.42,
+   "z_top": -6.391,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_452",
+   "layer": "substrate::boulder_fill",
+   "x": 130.682,
+   "y": 17.657,
+   "z_base": -6.74,
+   "diameter": 0.729,
+   "height": 0.539,
+   "z_top": -6.201,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_453",
+   "layer": "substrate::boulder_fill",
+   "x": 119.929,
+   "y": 15.05,
+   "z_base": -6.025,
+   "diameter": 0.929,
+   "height": 0.748,
+   "z_top": -5.277,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_454",
+   "layer": "substrate::boulder_fill",
+   "x": 134.803,
+   "y": 32.932,
+   "z_base": -7.014,
+   "diameter": 0.517,
+   "height": 0.375,
+   "z_top": -6.64,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_455",
+   "layer": "substrate::boulder_fill",
+   "x": 136.229,
+   "y": 10.746,
+   "z_base": -7.109,
+   "diameter": 0.587,
+   "height": 0.378,
+   "z_top": -6.731,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_456",
+   "layer": "substrate::boulder_fill",
+   "x": 121.368,
+   "y": 16.151,
+   "z_base": -6.121,
+   "diameter": 0.538,
+   "height": 0.397,
+   "z_top": -5.724,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_457",
+   "layer": "substrate::boulder_fill",
+   "x": 127.927,
+   "y": 9.539,
+   "z_base": -6.557,
+   "diameter": 0.568,
+   "height": 0.436,
+   "z_top": -6.122,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_458",
+   "layer": "substrate::boulder_fill",
+   "x": 118.32,
+   "y": 8.885,
+   "z_base": -5.918,
+   "diameter": 0.665,
+   "height": 0.476,
+   "z_top": -5.442,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_459",
+   "layer": "substrate::boulder_fill",
+   "x": 123.977,
+   "y": 38.959,
+   "z_base": -6.294,
+   "diameter": 0.793,
+   "height": 0.645,
+   "z_top": -5.649,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_460",
+   "layer": "substrate::boulder_fill",
+   "x": 127.79,
+   "y": 15.093,
+   "z_base": -6.548,
+   "diameter": 0.631,
+   "height": 0.426,
+   "z_top": -6.122,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_461",
+   "layer": "substrate::boulder_fill",
+   "x": 130.514,
+   "y": 2.254,
+   "z_base": -6.729,
+   "diameter": 0.549,
+   "height": 0.406,
+   "z_top": -6.323,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_462",
+   "layer": "substrate::boulder_fill",
+   "x": 123.894,
+   "y": 1.924,
+   "z_base": -6.289,
+   "diameter": 0.516,
+   "height": 0.403,
+   "z_top": -5.886,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_463",
+   "layer": "substrate::boulder_fill",
+   "x": 123.228,
+   "y": 31.835,
+   "z_base": -6.245,
+   "diameter": 0.968,
+   "height": 0.74,
+   "z_top": -5.504,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_464",
+   "layer": "substrate::boulder_fill",
+   "x": 134.882,
+   "y": 37.364,
+   "z_base": -7.02,
+   "diameter": 0.58,
+   "height": 0.489,
+   "z_top": -6.53,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_465",
+   "layer": "substrate::boulder_fill",
+   "x": 127.666,
+   "y": 4.35,
+   "z_base": -6.54,
+   "diameter": 0.649,
+   "height": 0.54,
+   "z_top": -6.0,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_466",
+   "layer": "substrate::boulder_fill",
+   "x": 132.3,
+   "y": 23.383,
+   "z_base": -6.848,
+   "diameter": 0.508,
+   "height": 0.371,
+   "z_top": -6.477,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_467",
+   "layer": "substrate::boulder_fill",
+   "x": 122.572,
+   "y": 4.682,
+   "z_base": -6.201,
+   "diameter": 0.55,
+   "height": 0.452,
+   "z_top": -5.749,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_468",
+   "layer": "substrate::boulder_fill",
+   "x": 134.772,
+   "y": 24.902,
+   "z_base": -7.012,
+   "diameter": 0.619,
+   "height": 0.52,
+   "z_top": -6.492,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_469",
+   "layer": "substrate::boulder_fill",
+   "x": 127.098,
+   "y": 35.728,
+   "z_base": -6.502,
+   "diameter": 0.752,
+   "height": 0.49,
+   "z_top": -6.012,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_470",
+   "layer": "substrate::boulder_fill",
+   "x": 119.201,
+   "y": 1.16,
+   "z_base": -5.977,
+   "diameter": 0.508,
+   "height": 0.369,
+   "z_top": -5.608,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_471",
+   "layer": "substrate::boulder_fill",
+   "x": 119.483,
+   "y": 5.215,
+   "z_base": -5.996,
+   "diameter": 0.559,
+   "height": 0.418,
+   "z_top": -5.578,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_472",
+   "layer": "substrate::boulder_fill",
+   "x": 135.046,
+   "y": 29.22,
+   "z_base": -7.031,
+   "diameter": 0.759,
+   "height": 0.515,
+   "z_top": -6.516,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_473",
+   "layer": "substrate::boulder_fill",
+   "x": 131.722,
+   "y": 38.017,
+   "z_base": -6.81,
+   "diameter": 0.505,
+   "height": 0.328,
+   "z_top": -6.482,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_474",
+   "layer": "substrate::boulder_fill",
+   "x": 135.973,
+   "y": 5.94,
+   "z_base": -7.092,
+   "diameter": 0.602,
+   "height": 0.402,
+   "z_top": -6.69,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_475",
+   "layer": "substrate::boulder_fill",
+   "x": 125.968,
+   "y": 34.46,
+   "z_base": -6.427,
+   "diameter": 0.78,
+   "height": 0.473,
+   "z_top": -5.954,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_476",
+   "layer": "substrate::boulder_fill",
+   "x": 122.759,
+   "y": 22.032,
+   "z_base": -6.213,
+   "diameter": 0.766,
+   "height": 0.569,
+   "z_top": -5.644,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_477",
+   "layer": "substrate::boulder_fill",
+   "x": 133.383,
+   "y": 23.413,
+   "z_base": -6.92,
+   "diameter": 0.546,
+   "height": 0.369,
+   "z_top": -6.551,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_478",
+   "layer": "substrate::boulder_fill",
+   "x": 126.286,
+   "y": 20.104,
+   "z_base": -6.448,
+   "diameter": 0.547,
+   "height": 0.338,
+   "z_top": -6.11,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_479",
+   "layer": "substrate::boulder_fill",
+   "x": 124.288,
+   "y": 1.273,
+   "z_base": -6.315,
+   "diameter": 0.57,
+   "height": 0.479,
+   "z_top": -5.836,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_480",
+   "layer": "substrate::boulder_fill",
+   "x": 118.492,
+   "y": 15.053,
+   "z_base": -5.93,
+   "diameter": 0.663,
+   "height": 0.433,
+   "z_top": -5.497,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_481",
+   "layer": "substrate::boulder_fill",
+   "x": 121.043,
+   "y": 5.83,
+   "z_base": -6.099,
+   "diameter": 0.797,
+   "height": 0.487,
+   "z_top": -5.612,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_482",
+   "layer": "substrate::boulder_fill",
+   "x": 129.231,
+   "y": 2.487,
+   "z_base": -6.644,
+   "diameter": 0.526,
+   "height": 0.401,
+   "z_top": -6.243,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_483",
+   "layer": "substrate::boulder_fill",
+   "x": 134.836,
+   "y": 32.155,
+   "z_base": -7.017,
+   "diameter": 0.702,
+   "height": 0.589,
+   "z_top": -6.427,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_484",
+   "layer": "substrate::boulder_fill",
+   "x": 135.786,
+   "y": 7.23,
+   "z_base": -7.08,
+   "diameter": 0.561,
+   "height": 0.35,
+   "z_top": -6.73,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_485",
+   "layer": "substrate::boulder_fill",
+   "x": 128.107,
+   "y": 7.798,
+   "z_base": -6.569,
+   "diameter": 0.6,
+   "height": 0.485,
+   "z_top": -6.085,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_486",
+   "layer": "substrate::boulder_fill",
+   "x": 136.251,
+   "y": 30.644,
+   "z_base": -7.111,
+   "diameter": 0.618,
+   "height": 0.474,
+   "z_top": -6.637,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_487",
+   "layer": "substrate::boulder_fill",
+   "x": 132.136,
+   "y": 18.004,
+   "z_base": -6.837,
+   "diameter": 0.585,
+   "height": 0.427,
+   "z_top": -6.41,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_488",
+   "layer": "substrate::boulder_fill",
+   "x": 132.199,
+   "y": 19.595,
+   "z_base": -6.841,
+   "diameter": 0.673,
+   "height": 0.511,
+   "z_top": -6.33,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_489",
+   "layer": "substrate::boulder_fill",
+   "x": 131.737,
+   "y": 36.494,
+   "z_base": -6.811,
+   "diameter": 0.573,
+   "height": 0.48,
+   "z_top": -6.331,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_490",
+   "layer": "substrate::boulder_fill",
+   "x": 123.576,
+   "y": 24.825,
+   "z_base": -6.268,
+   "diameter": 0.758,
+   "height": 0.584,
+   "z_top": -5.683,
+   "kelp_stipes": 5
+  },
+  {
+   "id": "fill_491",
+   "layer": "substrate::boulder_fill",
+   "x": 123.376,
+   "y": 19.305,
+   "z_base": -6.255,
+   "diameter": 0.576,
+   "height": 0.421,
+   "z_top": -5.833,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_492",
+   "layer": "substrate::boulder_fill",
+   "x": 119.985,
+   "y": 9.536,
+   "z_base": -6.029,
+   "diameter": 0.62,
+   "height": 0.465,
+   "z_top": -5.564,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_493",
+   "layer": "substrate::boulder_fill",
+   "x": 121.55,
+   "y": 34.524,
+   "z_base": -6.133,
+   "diameter": 0.659,
+   "height": 0.443,
+   "z_top": -5.69,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_494",
+   "layer": "substrate::boulder_fill",
+   "x": 133.31,
+   "y": 24.948,
+   "z_base": -6.915,
+   "diameter": 0.609,
+   "height": 0.371,
+   "z_top": -6.544,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_495",
+   "layer": "substrate::boulder_fill",
+   "x": 126.62,
+   "y": 2.258,
+   "z_base": -6.47,
+   "diameter": 0.689,
+   "height": 0.572,
+   "z_top": -5.898,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_496",
+   "layer": "substrate::boulder_fill",
+   "x": 124.791,
+   "y": 9.663,
+   "z_base": -6.349,
+   "diameter": 0.619,
+   "height": 0.483,
+   "z_top": -5.865,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_497",
+   "layer": "substrate::boulder_fill",
+   "x": 134.794,
+   "y": 23.075,
+   "z_base": -7.014,
+   "diameter": 0.574,
+   "height": 0.407,
+   "z_top": -6.607,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_498",
+   "layer": "substrate::boulder_fill",
+   "x": 130.064,
+   "y": 20.134,
+   "z_base": -6.699,
+   "diameter": 0.621,
+   "height": 0.421,
+   "z_top": -6.278,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_499",
+   "layer": "substrate::boulder_fill",
+   "x": 120.449,
+   "y": 36.558,
+   "z_base": -6.06,
+   "diameter": 0.558,
+   "height": 0.342,
+   "z_top": -5.717,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_500",
+   "layer": "substrate::boulder_fill",
+   "x": 123.741,
+   "y": 5.281,
+   "z_base": -6.279,
+   "diameter": 0.502,
+   "height": 0.419,
+   "z_top": -5.86,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_501",
+   "layer": "substrate::boulder_fill",
+   "x": 131.167,
+   "y": 38.441,
+   "z_base": -6.773,
+   "diameter": 0.572,
+   "height": 0.372,
+   "z_top": -6.401,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_502",
+   "layer": "substrate::boulder_fill",
+   "x": 136.024,
+   "y": 37.356,
+   "z_base": -7.096,
+   "diameter": 0.574,
+   "height": 0.357,
+   "z_top": -6.739,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_503",
+   "layer": "substrate::boulder_fill",
+   "x": 118.294,
+   "y": 35.253,
+   "z_base": -5.917,
+   "diameter": 0.517,
+   "height": 0.321,
+   "z_top": -5.595,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_504",
+   "layer": "substrate::boulder_fill",
+   "x": 128.591,
+   "y": 9.294,
+   "z_base": -6.601,
+   "diameter": 0.566,
+   "height": 0.365,
+   "z_top": -6.236,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_505",
+   "layer": "substrate::boulder_fill",
+   "x": 122.076,
+   "y": 19.957,
+   "z_base": -6.168,
+   "diameter": 0.542,
+   "height": 0.406,
+   "z_top": -5.762,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_506",
+   "layer": "substrate::boulder_fill",
+   "x": 132.833,
+   "y": 20.133,
+   "z_base": -6.883,
+   "diameter": 0.68,
+   "height": 0.454,
+   "z_top": -6.429,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_507",
+   "layer": "substrate::boulder_fill",
+   "x": 134.996,
+   "y": 9.69,
+   "z_base": -7.027,
+   "diameter": 0.512,
+   "height": 0.383,
+   "z_top": -6.644,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_508",
+   "layer": "substrate::boulder_fill",
+   "x": 130.87,
+   "y": 7.047,
+   "z_base": -6.753,
+   "diameter": 0.581,
+   "height": 0.433,
+   "z_top": -6.32,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_509",
+   "layer": "substrate::boulder_fill",
+   "x": 118.318,
+   "y": 17.732,
+   "z_base": -5.918,
+   "diameter": 0.527,
+   "height": 0.321,
+   "z_top": -5.597,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_510",
+   "layer": "substrate::boulder_fill",
+   "x": 130.021,
+   "y": 29.002,
+   "z_base": -6.696,
+   "diameter": 0.964,
+   "height": 0.743,
+   "z_top": -5.954,
+   "kelp_stipes": 7
+  },
+  {
+   "id": "fill_511",
+   "layer": "substrate::boulder_fill",
+   "x": 130.862,
+   "y": 37.682,
+   "z_base": -6.752,
+   "diameter": 0.677,
+   "height": 0.428,
+   "z_top": -6.324,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_512",
+   "layer": "substrate::boulder_fill",
+   "x": 131.947,
+   "y": 9.519,
+   "z_base": -6.824,
+   "diameter": 0.539,
+   "height": 0.366,
+   "z_top": -6.458,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_513",
+   "layer": "substrate::boulder_fill",
+   "x": 134.082,
+   "y": 16.286,
+   "z_base": -6.966,
+   "diameter": 0.515,
+   "height": 0.335,
+   "z_top": -6.632,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_514",
+   "layer": "substrate::boulder_fill",
+   "x": 122.407,
+   "y": 2.075,
+   "z_base": -6.19,
+   "diameter": 0.554,
+   "height": 0.372,
+   "z_top": -5.818,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_515",
+   "layer": "substrate::boulder_fill",
+   "x": 121.575,
+   "y": 30.307,
+   "z_base": -6.135,
+   "diameter": 0.617,
+   "height": 0.39,
+   "z_top": -5.745,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_516",
+   "layer": "substrate::boulder_fill",
+   "x": 136.144,
+   "y": 19.211,
+   "z_base": -7.104,
+   "diameter": 0.548,
+   "height": 0.402,
+   "z_top": -6.702,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_517",
+   "layer": "substrate::boulder_fill",
+   "x": 134.577,
+   "y": 20.133,
+   "z_base": -6.999,
+   "diameter": 0.539,
+   "height": 0.329,
+   "z_top": -6.67,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_518",
+   "layer": "substrate::boulder_fill",
+   "x": 131.23,
+   "y": 1.131,
+   "z_base": -6.777,
+   "diameter": 0.549,
+   "height": 0.39,
+   "z_top": -6.387,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_519",
+   "layer": "substrate::boulder_fill",
+   "x": 132.732,
+   "y": 10.359,
+   "z_base": -6.877,
+   "diameter": 0.52,
+   "height": 0.344,
+   "z_top": -6.533,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_520",
+   "layer": "substrate::boulder_fill",
+   "x": 119.611,
+   "y": 22.885,
+   "z_base": -6.004,
+   "diameter": 0.503,
+   "height": 0.346,
+   "z_top": -5.659,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_521",
+   "layer": "substrate::boulder_fill",
+   "x": 127.312,
+   "y": 17.11,
+   "z_base": -6.516,
+   "diameter": 0.562,
+   "height": 0.348,
+   "z_top": -6.168,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_522",
+   "layer": "substrate::boulder_fill",
+   "x": 119.06,
+   "y": 31.169,
+   "z_base": -5.968,
+   "diameter": 0.558,
+   "height": 0.384,
+   "z_top": -5.583,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_523",
+   "layer": "substrate::boulder_fill",
+   "x": 125.574,
+   "y": 38.223,
+   "z_base": -6.401,
+   "diameter": 0.625,
+   "height": 0.496,
+   "z_top": -5.905,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_524",
+   "layer": "substrate::boulder_fill",
+   "x": 123.194,
+   "y": 21.062,
+   "z_base": -6.242,
+   "diameter": 0.622,
+   "height": 0.513,
+   "z_top": -5.729,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_525",
+   "layer": "substrate::boulder_fill",
+   "x": 124.72,
+   "y": 29.189,
+   "z_base": -6.344,
+   "diameter": 0.509,
+   "height": 0.325,
+   "z_top": -6.019,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_526",
+   "layer": "substrate::boulder_fill",
+   "x": 118.685,
+   "y": 38.808,
+   "z_base": -5.943,
+   "diameter": 0.503,
+   "height": 0.393,
+   "z_top": -5.549,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_527",
+   "layer": "substrate::boulder_fill",
+   "x": 120.17,
+   "y": 33.548,
+   "z_base": -6.041,
+   "diameter": 0.628,
+   "height": 0.461,
+   "z_top": -5.581,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_528",
+   "layer": "substrate::boulder_fill",
+   "x": 132.123,
+   "y": 31.202,
+   "z_base": -6.836,
+   "diameter": 0.599,
+   "height": 0.363,
+   "z_top": -6.473,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_529",
+   "layer": "substrate::boulder_fill",
+   "x": 125.102,
+   "y": 37.703,
+   "z_base": -6.369,
+   "diameter": 0.521,
+   "height": 0.437,
+   "z_top": -5.933,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_530",
+   "layer": "substrate::boulder_fill",
+   "x": 124.659,
+   "y": 22.356,
+   "z_base": -6.34,
+   "diameter": 0.511,
+   "height": 0.377,
+   "z_top": -5.962,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_531",
+   "layer": "substrate::boulder_fill",
+   "x": 127.889,
+   "y": 18.109,
+   "z_base": -6.555,
+   "diameter": 0.54,
+   "height": 0.445,
+   "z_top": -6.11,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_532",
+   "layer": "substrate::boulder_fill",
+   "x": 135.213,
+   "y": 21.761,
+   "z_base": -7.042,
+   "diameter": 0.513,
+   "height": 0.314,
+   "z_top": -6.728,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_533",
+   "layer": "substrate::boulder_fill",
+   "x": 118.294,
+   "y": 10.046,
+   "z_base": -5.917,
+   "diameter": 0.639,
+   "height": 0.525,
+   "z_top": -5.391,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_534",
+   "layer": "substrate::boulder_fill",
+   "x": 124.061,
+   "y": 33.734,
+   "z_base": -6.3,
+   "diameter": 0.502,
+   "height": 0.353,
+   "z_top": -5.947,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_535",
+   "layer": "substrate::boulder_fill",
+   "x": 130.692,
+   "y": 22.036,
+   "z_base": -6.741,
+   "diameter": 0.511,
+   "height": 0.41,
+   "z_top": -6.331,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_536",
+   "layer": "substrate::boulder_fill",
+   "x": 119.503,
+   "y": 35.288,
+   "z_base": -5.997,
+   "diameter": 0.551,
+   "height": 0.451,
+   "z_top": -5.546,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_537",
+   "layer": "substrate::boulder_fill",
+   "x": 119.818,
+   "y": 2.558,
+   "z_base": -6.018,
+   "diameter": 0.654,
+   "height": 0.509,
+   "z_top": -5.508,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_538",
+   "layer": "substrate::boulder_fill",
+   "x": 134.867,
+   "y": 31.132,
+   "z_base": -7.019,
+   "diameter": 0.601,
+   "height": 0.383,
+   "z_top": -6.636,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_539",
+   "layer": "substrate::boulder_fill",
+   "x": 120.897,
+   "y": 19.547,
+   "z_base": -6.09,
+   "diameter": 0.579,
+   "height": 0.442,
+   "z_top": -5.648,
+   "kelp_stipes": 3
+  },
+  {
+   "id": "fill_540",
+   "layer": "substrate::boulder_fill",
+   "x": 127.135,
+   "y": 2.934,
+   "z_base": -6.504,
+   "diameter": 0.671,
+   "height": 0.481,
+   "z_top": -6.024,
+   "kelp_stipes": 4
+  },
+  {
+   "id": "fill_541",
+   "layer": "substrate::boulder_fill",
+   "x": 127.092,
+   "y": 6.351,
+   "z_base": -6.502,
+   "diameter": 0.521,
+   "height": 0.41,
+   "z_top": -6.091,
+   "kelp_stipes": 2
+  },
+  {
+   "id": "fill_542",
+   "layer": "substrate::boulder_fill",
+   "x": 127.268,
+   "y": 9.42,
+   "z_base": -6.513,
+   "diameter": 0.652,
+   "height": 0.463,
+   "z_top": -6.051,
+   "kelp_stipes": 3
+  }
+ ],
+ "checks": {
+  "boulder_cover_R08": [
+   0.394,
+   "0.3-0.5",
+   true
+  ],
+  "max_edge_distance_R15_m": [
+   4.28,
+   "<= 10.0",
+   true
+  ],
+  "relief_R07a_m": [
+   1.2,
+   "0.5-2.0",
+   true
+  ],
+  "surface_clearance_R07b_m": [
+   5.07,
+   ">= 3.0",
+   true
+  ],
+  "module_depth_band_Z3": [
+   [
+    -6.0,
+    -7.33
+   ],
+   "-5 to -10",
+   true
+  ]
+ },
+ "rules_used": {
+  "R02": {
+   "min": 0.033,
+   "lo": 0.033,
+   "hi": 0.1,
+   "max": 0.1,
+   "unit": "rise/run",
+   "var": "seabed_slope_Z3"
+  },
+  "R03": {
+   "min": 0.5,
+   "lo": 0.8,
+   "hi": 1.2,
+   "max": 1.5,
+   "unit": "m",
+   "var": "nest_boulder_diameter"
+  },
+  "R04": {
+   "min": 3.0,
+   "lo": 3.0,
+   "hi": 5.0,
+   "max": 5.0,
+   "unit": "count",
+   "var": "boulders_per_nest_cluster"
+  },
+  "R05a": {
+   "min": 0.1,
+   "lo": 0.15,
+   "hi": 0.25,
+   "max": 0.3,
+   "unit": "m",
+   "var": "crevice_width"
+  },
+  "R05b": {
+   "min": 0.2,
+   "lo": 0.3,
+   "hi": 0.4,
+   "max": 0.5,
+   "unit": "m",
+   "var": "crevice_depth"
+  },
+  "R06": {
+   "min": 2.0,
+   "lo": 3.0,
+   "hi": 4.0,
+   "max": 5.0,
+   "unit": "m",
+   "var": "nest_cluster_spacing"
+  },
+  "R07a": {
+   "min": 0.5,
+   "lo": 1.0,
+   "hi": 1.5,
+   "max": 2.0,
+   "unit": "m",
+   "var": "reef_relief"
+  },
+  "R07b": {
+   "min": 3.0,
+   "lo": null,
+   "hi": null,
+   "max": null,
+   "unit": "m",
+   "var": "surface_clearance_min"
+  },
+  "R08": {
+   "min": 0.3,
+   "lo": 0.3,
+   "hi": 0.5,
+   "max": 0.5,
+   "unit": "fraction",
+   "var": "boulder_cover_fraction"
+  },
+  "R09a": {
+   "min": 0.06,
+   "lo": 0.1,
+   "hi": 0.2,
+   "max": 0.25,
+   "unit": "m",
+   "var": "cobble_size"
+  },
+  "R09b": {
+   "min": 0.2,
+   "lo": 0.3,
+   "hi": 0.3,
+   "max": 0.5,
+   "unit": "m",
+   "var": "cobble_apron_thickness"
+  },
+  "R09c": {
+   "min": 1.0,
+   "lo": 2.0,
+   "hi": 2.0,
+   "max": 3.0,
+   "unit": "m",
+   "var": "cobble_apron_margin"
+  },
+  "R10": {
+   "min": 60.0,
+   "lo": 75.0,
+   "hi": 105.0,
+   "max": 120.0,
+   "unit": "deg",
+   "var": "crevice_angle_to_current"
+  },
+  "R11": {
+   "min": 5.0,
+   "lo": 8.0,
+   "hi": 12.0,
+   "max": 15.0,
+   "unit": "per m2 boulder top",
+   "var": "kelp_stipe_density"
+  },
+  "R14a": {
+   "min": 20.0,
+   "lo": 40.0,
+   "hi": 40.0,
+   "max": 100.0,
+   "unit": "m",
+   "var": "module_length_alongshore"
+  },
+  "R14b": {
+   "min": 10.0,
+   "lo": 20.0,
+   "hi": 20.0,
+   "max": 40.0,
+   "unit": "m",
+   "var": "module_width_offshore"
+  },
+  "R15": {
+   "min": 0.0,
+   "lo": 0.0,
+   "hi": 10.0,
+   "max": 25.0,
+   "unit": "m",
+   "var": "nest_to_hard_soft_edge_distance"
+  }
+ }
+}
