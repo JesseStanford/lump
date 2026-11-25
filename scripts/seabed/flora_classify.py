@@ -12,7 +12,9 @@ Three clues
      single pixels, and the confirming threshold (--confirm 0.7) is looser than the finding one (0.6),
      so an object near the line in one year is not called temporary because light or clarity differed.
      Only years that see the bottom there count.
-       hard        mean ratio < --confirm in every other year             boulders / stone reef
+       hard        mean ratio < --confirm in at least --hard-share (0.75)  boulders / stone reef
+                   of the other years (all of them with 2 or 3 years; with
+                   4 or more, one poor photo is tolerated)
        changing    sand-bright (ratio >= --gone 0.85) in most other years eelgrass, drift weed, annual
                                                                           weed on sand, or moved sand ripples
        uncertain   in between
@@ -37,8 +39,8 @@ Outputs in --out
   flora_objects.csv        one row per dark object: position (EPSG:25832 and lat/lon), area, diameter,
                            elongation, solidity, edge_sharpness, overlap per year, class, colour
   flora_objects.geojson    the same as points (WGS84)
-  flora_classes.tif        per pixel (at --map-res m): 1 sand, 2 hard (dark every year),
-                           3 changing (dark only some years), 0 not visible / land
+  flora_classes.tif        per pixel (at --map-res m): 1 sand, 2 hard,
+                           3 changing, 4 uncertain, 0 not visible / land
   flora_summary.csv        area per class and depth band, object counts per class and colour
   flora_map.png            reference photo with hard (orange) and changing (green) overlaid
   sources.csv / SOURCES.md carried from the photo folders
@@ -73,6 +75,7 @@ def main():
     ap.add_argument("--tol", type=float, default=1.0, help="misregistration allowed when checking another year, m")
     ap.add_argument("--max-shift", type=float, default=3.0, help="largest shift searched between years, m")
     ap.add_argument("--confirm", type=float, default=0.7, help="mean dark ratio over the footprint that confirms an object in another year")
+    ap.add_argument("--hard-share", type=float, default=0.75, help="share of other years that must confirm an object for 'hard' (with 4+ years, one poor photo is tolerated)")
     ap.add_argument("--gone", type=float, default=0.85, help="mean ratio at or above this in most other years = 'changing' (sand-bright)")
     ap.add_argument("--colour-depth", type=float, default=2.0)
     ap.add_argument("--map-res", type=float, default=0.5)
@@ -164,7 +167,7 @@ def main():
     MW = int(round((max(k[0] for k in keys) + tile_m - xs0) / (res * mf))); MH = int(round((ys1 - min(k[1] for k in keys)) / (res * mf)))
     cmap = np.zeros((MH, MW), "uint8"); ref_small = np.zeros((3, MH, MW), "uint8")
     cdeep0 = stats[0][5]; sstep = max(1, int(round(0.25 / res)))
-    rows = []; tolpx = max(1, int(round(a.tol / res))); px = res * res; shifts = []; visfrac = [[] for _ in years[1:]]
+    rows = []; tolpx = max(1, int(round(a.tol / res))); px = res * res; shifts = []; visfrac = [[] for _ in years[1:]]; conf = [[] for _ in years[1:]]
     for ti, (tx, ty) in enumerate(keys, 1):
         d = depth_for(tx, ty)
         with rasterio.open(tl[0][(tx, ty)]) as s: img0 = s.read([1, 2, 3])
@@ -181,13 +184,21 @@ def main():
         # a pixel is judged on the years where the bottom is visible there (a windy or murky year drops out locally)
         nvis = np.zeros(dk0.shape, "uint8"); ndark = np.zeros(dk0.shape, "uint8")
         for dkd, v, _ in others: nvis += v; ndark += (dkd & dk0 & v)
-        for yi, (_, v, _) in enumerate(others): visfrac[yi].append((float((v & vis0).sum()), float(vis0.sum())))
+        for yi, (dkd, v, _) in enumerate(others):
+            visfrac[yi].append((float((v & vis0).sum()), float(vis0.sum())))
+            # leave-one-out check: on dark ground that the OTHER comparison years mostly confirm, does this year confirm it?
+            if len(others) > 1:
+                nv = sum(o[1] for j, o in enumerate(others) if j != yi); nd = sum(o[0] & o[1] for j, o in enumerate(others) if j != yi)
+                cons = dk0 & v & (nv > 0) & (nd >= 0.5 * nv)
+                conf[yi].append((float((dkd & cons).sum()), float(cons.sum())))
         both = vis0 & (nvis >= 1)
         # pixel classes
         cls = np.zeros(dk0.shape, "uint8")
         cls[both] = 1
-        cls[both & dk0 & (ndark == nvis)] = 2
-        cls[both & dk0 & (ndark < nvis)] = 3
+        hard_px = ndark >= np.ceil(a.hard_share * nvis - 1e-9)
+        cls[both & dk0 & ~hard_px] = 4
+        cls[both & dk0 & (ndark < 0.5 * nvis)] = 3
+        cls[both & dk0 & hard_px] = 2
         r0 = int(round((ys1 - ty - tile_m) / (res * mf))); c0 = int(round((tx - xs0) / (res * mf)))
         cmap[r0:r0 + mn, c0:c0 + mn] = cls[:mn * mf:mf, :mn * mf:mf]
         ref_small[:, r0:r0 + mn, c0:c0 + mn] = img0[:, :mn * mf:mf, :mn * mf:mf]
@@ -215,7 +226,8 @@ def main():
                 rv.append(best if np.isfinite(best) else np.nan)
             ok = [r for r in rv if not np.isnan(r)]
             if not ok: continue
-            cls_o = "hard" if max(ok) < a.confirm else ("changing" if np.median(ok) >= a.gone else "uncertain")
+            share = np.mean(np.array(ok) < a.confirm)
+            cls_o = "hard" if share >= a.hard_share - 1e-9 else ("changing" if np.median(ok) >= a.gone else "uncertain")
             cov = np.cov(np.vstack([xx, yy])) if len(xx) > 2 else np.eye(2); ev = np.sort(np.linalg.eigvalsh(cov))
             try: sol = float(len(xx) / ConvexHull(np.c_[xx, yy]).volume) if len(xx) > 10 else 1.0
             except Exception: sol = 1.0
@@ -246,10 +258,14 @@ def main():
     if shifts:
         sh = np.array(shifts); print(f"Shift between years (median |dy|, |dx|, over {len(sh)} tile pairs with enough bottom): "
                                     f"{np.median(np.abs(sh[:, 0])):.2f} m, {np.median(np.abs(sh[:, 1])):.2f} m (step {max(1, int(round(0.25 / res))) * res:.2f} m)", file=sys.stderr)
+    rates = [sum(x for x, _ in c) / max(sum(t for _, t in c), 1) if c else np.nan for c in conf]
     for yi, vf in enumerate(visfrac):
-        f = sum(x for x, _ in vf) / max(sum(t for _, t in vf), 1)
-        print(f"Year {years[yi + 1][0]}: bottom visible on {100 * f:.0f}% of the reference year's visible area"
-              + ("  (low: windy or murky photo; it only counts where it sees the bottom)" if f < 0.5 else ""), file=sys.stderr)
+        f = sum(x for x, _ in vf) / max(sum(t for _, t in vf), 1); r = rates[yi]
+        bad = bool(np.isfinite(r) and r < 0.7)
+        print(f"Year {years[yi + 1][0]}: sees the bottom on {100 * f:.0f}% of the reference year's visible area"
+              + (f"; confirms {100 * r:.0f}% of the dark ground the other years agree on" if np.isfinite(r) else "")
+              + ("  <- disagrees with the other years: probably a poor photo (waves, glare, murky water); check its overview and consider dropping it" if bad else ""),
+              file=sys.stderr)
     if not rows: raise SystemExit("No dark objects visible in the reference year and at least one other year.")
     lon, lat = transform(crs, "EPSG:4326", [r["x"] for r in rows], [r["y"] for r in rows])
     for r, lo, la in zip(rows, lon, lat): r["lat"], r["lon"] = round(la, 6), round(lo, 6)
@@ -261,7 +277,7 @@ def main():
     mtr = from_origin(xs0, ys1, res * mf, res * mf)
     with rasterio.open(os.path.join(a.out, "flora_classes.tif"), "w", driver="GTiff", width=MW, height=MH, count=1, dtype="uint8",
                        crs=crs, transform=mtr, nodata=0, compress="deflate") as dd:
-        dd.write(cmap, 1); dd.descriptions = ("1 sand, 2 hard (dark every year), 3 changing (dark some years)",)
+        dd.write(cmap, 1); dd.descriptions = ("1 sand, 2 hard, 3 changing, 4 uncertain",)
 
     # summary
     sumrows = []
@@ -272,7 +288,7 @@ def main():
         m = (dmap > lo) & (dmap <= hi) & (cmap > 0); tot = m.sum()
         if not tot: continue
         sumrows.append({"what": f"area {lo}-{hi} m", **{c: round(100 * float(((cmap == v) & m).sum()) / tot, 1) for v, c in
-                        ((1, "sand_%"), (2, "hard_%"), (3, "changing_%"))}, "area_ha": round(tot * (res * mf) ** 2 / 1e4, 1)})
+                        ((1, "sand_%"), (2, "hard_%"), (3, "changing_%"), (4, "uncertain_%"))}, "area_ha": round(tot * (res * mf) ** 2 / 1e4, 1)})
     for c in ("hard", "changing", "uncertain"):
         sub = [r for r in rows if r["class"] == c]
         cols = {k: sum(r["colour"] == k for r in sub) for k in ("brown_olive", "green", "grey_dark")}
@@ -291,10 +307,11 @@ def main():
     step = max(1, int(max(MW, MH) / 4000))
     fig, ax = plt.subplots(figsize=(14, 14 * MH / MW + 0.6)); ext = (xs0, xs0 + MW * res * mf, ys1 - MH * res * mf, ys1)
     ax.imshow(np.moveaxis(ref_small[:, ::step, ::step], 0, -1), extent=ext)
-    ov = np.zeros((MH, MW, 4), "float32"); ov[cmap == 2] = (1, 0.55, 0, 0.75); ov[cmap == 3] = (0.1, 0.9, 0.2, 0.6)
+    ov = np.zeros((MH, MW, 4), "float32"); ov[cmap == 2] = (1, 0.55, 0, 0.75); ov[cmap == 3] = (0.1, 0.9, 0.2, 0.6); ov[cmap == 4] = (1, 1, 0.2, 0.45)
     ax.imshow(ov[::step, ::step], extent=ext, interpolation="nearest")
-    ax.legend(handles=[Patch(color=(1, 0.55, 0), label="hard: dark in every year (boulders, usually weed-covered)"),
-                       Patch(color=(0.1, 0.9, 0.2), label="changing: dark in some years only (eelgrass, drift weed, moved sand)")],
+    ax.legend(handles=[Patch(color=(1, 0.55, 0), label=f"hard: dark in the reference year and >= {100 * a.hard_share:.0f}% of the others (boulders, usually weed-covered)"),
+                       Patch(color=(0.1, 0.9, 0.2), label="changing: dark in under half of the other years (eelgrass, drift weed, moved sand)"),
+                       Patch(color=(1, 1, 0.2), label="uncertain: in between")],
               fontsize=8, loc="lower left")
     ax.set_title(f"Spring photos {', '.join(y for y, _ in years)} (SDFI), {a.min_depth:g}-{a.max_depth:g} m", fontsize=9)
     ax.set_xticks([]); ax.set_yticks([])
