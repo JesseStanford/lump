@@ -39,3 +39,7 @@
 - 67 boulders detected (≥ ~1.6 m across, the 1 m grid limit): diameter p50 1.6 m (p90 2.4), height p50 0.5 m (0.33–0.75), nearest-neighbour spacing p50 7.8 m (p10 3.4). They cluster along the ledge bands NW and SE of the nest; nearest is 97 m from it. The nest boulder itself is below detection.
 - Caveat: several background points fell on the flat −2.1 m fill. sample_nest_sites.py now skips dead-flat cells and takes `--floor -2.1`; re-run to clean the comparison.
 - Still n = 1. Use as supporting evidence, not as calibrated rule values.
+
+### Clean re-run with `--floor -2.1` (results/lidar_1m/nest_vs_background.json)
+
+Nest vs 20 same-depth background points: hard fraction 0.08 vs median 0 (effect 1.07); nearest hard ground 6.7 m vs 24 m (effect −1.08); substrate classes 3 vs 1 (effect 1.09); Shannon 0.39 vs 0. Slope and relief do not differ. Added to parameters as R15 (nest within ~10 m of a hard/soft edge, low confidence), and P01 minimum nest depth lowered to 1 m.

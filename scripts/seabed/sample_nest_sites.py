@@ -129,7 +129,7 @@ def main():
            row("R02c", "bed_slope_at_nest", "zone_Z3", [r["bed_slope_deg"] for r in nest], "deg", ""),
            row("R08c", "boulder_cover_at_nest", "zone_Z3", [r["boulder_fraction"] for r in nest], "fraction", ""),
            row("R07c", "relief_within_radius", "zone_Z3", [r["relief_m"] for r in nest], "m", ""),
-           row("R13c", "nearest_hard_substrate", "spawning_nest", [r["nearest_hard_m"] for r in nest], "m", "")]
+           row("R15c", "nearest_hard_substrate", "spawning_nest", [r["nearest_hard_m"] for r in nest], "m", "")]
     with open(os.path.join(a.run, "parameters_calibrated.csv"), "w", newline="") as f:
         w = csv.DictWriter(f, list(out[0].keys())); w.writeheader(); [w.writerow(r) for r in out]
     print(json.dumps({k: summary["variables"][k] for k in ("depth_m", "hard_fraction", "boulder_fraction", "nearest_hard_m")}, indent=1))

@@ -1,13 +1,13 @@
 rule_id,category,variable,applies_to,min,optimum_low,optimum_high,max,unit,confidence,basis,source,source_url
-P01,abiotic,nest_depth,spawning_nest,2,5,10,20,m,medium,measured+inferred,"Møller et al. 2019 Fiskeatlas p.5,7; COSEWIC 2017",https://fiskeatlas.ku.dk/artstekster/Stenbider_Fiskeatlas.pdf
-P02,abiotic,water_temperature_spawning,spawning_adult,3.8,4,8,10,degC,high,measured,"Fiskeatlas p.7; Collins 1978 via Imsland et al. 2019",https://fiskeatlas.ku.dk/artstekster/Stenbider_Fiskeatlas.pdf
+P01,abiotic,nest_depth,spawning_nest,1,5,10,20,m,medium,measured+inferred,"Møller et al. 2019 Fiskeatlas p.5,7; COSEWIC 2017; GBIF nest records reviewed 2026 (Bergen 1.5 m, Bodø 3 m, Bembridge low intertidal -1.3 m ODN)",https://fiskeatlas.ku.dk/artstekster/Stenbider_Fiskeatlas.pdf
+P02,abiotic,water_temperature_spawning,spawning_adult,3.8,4,8,10,degC,high,measured,Fiskeatlas p.7; Collins 1978 via Imsland et al. 2019,https://fiskeatlas.ku.dk/artstekster/Stenbider_Fiskeatlas.pdf
 P03,abiotic,incubation_temperature_early,egg_first_10_days,3.8,4,5,10,degC,high,lab,Imsland et al. 2019 Aquaculture doi:10.1016/j.aquaculture.2018.08.061,https://munin.uit.no/bitstream/10037/16864/3/article.pdf
 P04,abiotic,incubation_temperature_late,egg_after_10_days,4,8,10,10,degC,medium,lab,Imsland et al. 2019,https://munin.uit.no/bitstream/10037/16864/3/article.pdf
 P05,abiotic,degree_days_to_hatch,egg,279,279,285,300,degC_day,high,lab,Imsland et al. 2019,https://munin.uit.no/bitstream/10037/16864/3/article.pdf
 P06,abiotic,incubation_duration,egg,10,35,56,70,days,high,measured,Fiskeatlas p.6-7; Imsland et al. 2019,https://fiskeatlas.ku.dk/artstekster/Stenbider_Fiskeatlas.pdf
 P07,abiotic,salinity_adult,spawning_adult,10,20,34,35,psu,medium,measured,Fiskeatlas p.6 (dwarf form at ~10 permille in Køge Bugt),https://fiskeatlas.ku.dk/artstekster/Stenbider_Fiskeatlas.pdf
 P08,abiotic,salinity_juvenile,juvenile,15,20,36,36,psu,medium,lab,Jonassen & Imsland 2025 doi:10.1007/s10499-025-02030-8,https://link.springer.com/article/10.1007/s10499-025-02030-8
-P09,abiotic,dissolved_oxygen,egg_and_male,4,90,110,,"mg/L (min) ; % saturation (optimum)",low,assumption,Imsland et al. 2019 incubated at 103-109% sat; min is a working design threshold,https://munin.uit.no/bitstream/10037/16864/3/article.pdf
+P09,abiotic,dissolved_oxygen,egg_and_male,4,90,110,,mg/L (min) ; % saturation (optimum),low,assumption,Imsland et al. 2019 incubated at 103-109% sat; min is a working design threshold,https://munin.uit.no/bitstream/10037/16864/3/article.pdf
 P10,abiotic,temperature_juvenile,juvenile,4,6,9,12,degC,medium,measured,COSEWIC 2017; Kennedy et al. 2025 doi:10.1111/fog.12737,https://wildlife-species.canada.ca/species-risk-registry/virtual_sara/files/cosewic/sr-LumpfishGrossePouleMer-2017-e.pdf
 P11,abiotic,temperature_adult,adult,-1,4,8,12,degC,high,measured,COSEWIC 2017; Kennedy et al. 2025,https://wildlife-species.canada.ca/species-risk-registry/virtual_sara/files/cosewic/sr-LumpfishGrossePouleMer-2017-e.pdf
 P12,timing,spawning_months,spawning_adult,1,2,5,6,month_of_year,high,measured,Fiskeatlas p.5 and p.7; DTU Aqua 2026 p.13,https://fiskeatlas.ku.dk/artstekster/Stenbider_Fiskeatlas.pdf
@@ -47,3 +47,4 @@ Z1,zone,depth_band,zones::Z1_nursery,0,0,-2,-2,m (z),medium,measured,Fiskeatlas 
 Z2,zone,depth_band,zones::Z2_transition,-2,-2,-5,-5,m (z),medium,derived,Krause-Jensen et al. 2011,
 Z3,zone,depth_band,zones::Z3_nest_reef,-5,-5,-10,-10,m (z),medium,measured,Fiskeatlas p.5,
 Z4,zone,depth_band,zones::Z4_refuge,-10,-10,-15,-15,m (z),medium,derived,Øresund oceanic bottom water below 10-15 m (Wikipedia: Øresund),
+R15,geometry,nest_to_hard_soft_edge_distance,spawning_nest,0,0,10,25,m,low,measured (n=1),"Bembridge nest vs 20 same-depth background points, EA lidar 1 m: nest 6.7 m from hard ground, background median 24 m; 3 substrate classes within 15 m vs 1",https://www.gbif.org/occurrence/6063900716

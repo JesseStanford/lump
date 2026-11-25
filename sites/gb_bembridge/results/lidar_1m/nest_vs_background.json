@@ -1,0 +1,164 @@
+{
+  "n_nest": 1,
+  "n_background": 20,
+  "radius_m": 15,
+  "variables": {
+    "class_shannon": {
+      "nest_p10_p50_p90": [
+        0.392,
+        0.392,
+        0.392
+      ],
+      "background_p10_p50_p90": [
+        -0.0,
+        -0.0,
+        0.551
+      ],
+      "effect_size": 0.784
+    },
+    "class_richness": {
+      "nest_p10_p50_p90": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "background_p10_p50_p90": [
+        1.0,
+        1.0,
+        3.0
+      ],
+      "effect_size": 1.089
+    },
+    "depth_m": {
+      "nest_p10_p50_p90": [
+        -1.272,
+        -1.272,
+        -1.272
+      ],
+      "background_p10_p50_p90": [
+        -2.047,
+        -1.774,
+        -0.76
+      ],
+      "effect_size": 0.496
+    },
+    "bed_slope_deg": {
+      "nest_p10_p50_p90": [
+        0.952,
+        0.952,
+        0.952
+      ],
+      "background_p10_p50_p90": [
+        0.247,
+        0.947,
+        1.479
+      ],
+      "effect_size": -0.036
+    },
+    "rough_std_m": {
+      "nest_p10_p50_p90": [
+        0.032,
+        0.032,
+        0.032
+      ],
+      "background_p10_p50_p90": [
+        0.015,
+        0.025,
+        0.035
+      ],
+      "effect_size": 0.637
+    },
+    "hard_fraction": {
+      "nest_p10_p50_p90": [
+        0.079,
+        0.079,
+        0.079
+      ],
+      "background_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.051
+      ],
+      "effect_size": 1.074
+    },
+    "boulder_fraction": {
+      "nest_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "background_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "effect_size": -0.235
+    },
+    "shelf_fraction": {
+      "nest_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "background_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "effect_size": -0.235
+    },
+    "boulders_in_radius": {
+      "nest_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "background_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "effect_size": 0.0
+    },
+    "nearest_boulder_m": {
+      "nest_p10_p50_p90": [
+        96.876,
+        96.876,
+        96.876
+      ],
+      "background_p10_p50_p90": [
+        52.719,
+        121.889,
+        585.985
+      ],
+      "effect_size": -0.641
+    },
+    "nearest_hard_m": {
+      "nest_p10_p50_p90": [
+        6.708,
+        6.708,
+        6.708
+      ],
+      "background_p10_p50_p90": [
+        6.237,
+        23.693,
+        71.847
+      ],
+      "effect_size": -1.08
+    },
+    "relief_m": {
+      "nest_p10_p50_p90": [
+        0.781,
+        0.781,
+        0.781
+      ],
+      "background_p10_p50_p90": [
+        0.233,
+        0.643,
+        1.26
+      ],
+      "effect_size": 0.195
+    }
+  },
+  "warning": "Only 1 nest points: ranges are indicative, not robust."
+}
