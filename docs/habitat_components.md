@@ -49,3 +49,10 @@ Spring orthophotos from SDFI (Dataforsyningen) can show boulders at 0 to about 5
 - Dark patches can also be eelgrass or mussel beds. On this exposed north coast boulders with Fucus or kelp are the more likely reading, and the GBIF records near #3 fit that (kelp, Fucus, red algae, corkwing, butterfish). Needs checking at full resolution (0.4 m tiles in QGIS): single boulders of 1 m or more show as separate dark dots with pale sand around them.
 - A few inland tiles (Søborg Sø basin) were fetched because the depth grid puts the drained lake bed below sea level. They are harmless.
 
+### Photo vs maps (`ortho-compare`)
+`ortho_compare.py` lays the photo under the EMODnet substrate polygons, the till/moraine polygons, the erratic screen (score 3) and the HELCOM mapped reefs. In water shallow enough to see the bottom (default 0 to 6 m), each pixel is compared with the usual brightness of water at the same depth. Pixels clearly darker than that (2 robust SD) count as dark. Each 250 m screen cell gets a dark share and a class: patchy_dark (25% or more dark: boulders or weed likely), pale_even (8% or less: sand likely) or mixed. It then reports the dark share per substrate class, screen score, category and mapped reef, plus a both/maps-only/photo-only/neither table with percent agreement and Cohen's kappa for each map. Dark can also mean eelgrass or mussels, so a "photo hard, maps soft" cell needs a look before it counts as missed reef. The 250 m depth grid is coarse near the shore, so the 0 to 1 m band is the least reliable.
+
+```
+.\run.ps1 ortho-compare --ortho runs\ortho_gilleleje_hornbaek --erratic runs\dk_erratics\erratic_grid.tif --data data\dk --out runs\ortho_compare_gh --zoom 12.33 56.105 12.40 56.128
+```
+

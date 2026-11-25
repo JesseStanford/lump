@@ -19,6 +19,7 @@
 #   .\run.ps1 shortlist --bbox ... [options]              ranked candidate reef patches in a box
 #   .\run.ps1 species   --shortlist ... [options]         GBIF flora / fauna per candidate patch (needs GBIF login)
 #   .\run.ps1 ortho     [--list] --bbox ... [options]      Danish spring aerial photos of shallow water (needs token)
+#   .\run.ps1 ortho-compare --ortho ... --erratic ...    photos vs substrate maps, reef screen and mapped reefs
 #   .\run.ps1 currents  [--test] [options]                spring currents (Copernicus Baltic reanalysis)
 #   .\run.ps1 drift     --bbox ... [options]              surface drift from candidate reefs to nursery
 #   .\run.ps1 sources   [--backfill data runs]            write / check sources.csv + SOURCES.md in data and runs
@@ -122,6 +123,10 @@ switch ($Task) {
         $extra = @($Rest | Where-Object { $_ })
         & $py (Join-Path $seabed "reef_nursery_overlay.py") @extra
     }
+    "ortho-compare" {
+        $extra = @($Rest | Where-Object { $_ })
+        & $py (Join-Path $seabed "ortho_compare.py") @extra
+    }
     "ortho" {
         $extra = @($Rest | Where-Object { $_ })
         & $py (Join-Path $seabed "fetch_ortho.py") @extra
@@ -159,7 +164,7 @@ switch ($Task) {
         & $py (Join-Path $root "scripts\schematics\module_layout.py") @extra
     }
     default {
-        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 27 | ForEach-Object { $_ -replace "^# ?", "" }
+        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 28 | ForEach-Object { $_ -replace "^# ?", "" }
         if (Test-Path $py) {
             Write-Host "`n--- classify options (seabed_classify.py) ---"
             & $py (Join-Path $seabed "seabed_classify.py") -h | Out-Host
