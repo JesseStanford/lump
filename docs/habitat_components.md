@@ -14,6 +14,9 @@ Evidence levels: **measured** (numbers from surveys or nests), **literature (dir
 ## Design tensions found
 - **Egg predators live on the same reefs.** In Newfoundland, guarding males could not stop cunners (a wrasse) eating eggs (Goulet 1985). Goldsinny wrasse is the most frequent fish on Danish boulder reefs (DCE SR647). A reef built for nests will also gather likely egg predators.
 - **Very shallow nests** (Bembridge-like) are exposed to birds; Davenport lists crows, rooks and gulls taking intertidal eggs and guarding males.
+- **The egg predators are already at the candidate sites.** In GBIF records within 2 km of the 43 Øresund candidate patches (`gbif_site_species`, doi 10.15468/dl.anwzt9), wrasse occur near 18 patches and cod near 17. Goldsinny occurs near 11 (up to 235 records), corkwing near 12, including #3 Gilleleje–Hornbæk. Butterfish occurs near 5. A nest reef will be built inside existing predator range, so crevice shape (a narrow entrance the guarding male can block) matters more than keeping predators away. This is an inference from presence, not a measured predation rate.
+- **Seals** (harbour near 17 patches, grey near 14) cluster around Saltholm and south Amager haul-outs. Patches near haul-outs carry more risk for spawning adults (inferred; no rates).
+- **Grazing urchins are not a design risk in Øresund.** Only one grazing-urchin record (Strongylocentrotus droebachiensis, 2015) occurs across all 43 patches. The other urchin records are burrowing heart urchins. Kelp on a built reef should not be grazed down, unlike the urchin barrens described for Danish reefs (`tr142`). The likely reason is low surface salinity (inferred).
 
 ## Biggest gaps
 1. Stone and crevice size actually used by nesting lumpfish (still inferred).
