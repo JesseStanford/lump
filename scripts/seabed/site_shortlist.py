@@ -26,6 +26,8 @@ def main():
     ap.add_argument("--min-cells", type=int, default=2); ap.add_argument("--near-km", type=float, default=1.0)
     ap.add_argument("--out", default="runs/shortlist")
     a = ap.parse_args()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.carry_args(a.out, a)
     import rasterio
     from rasterio.warp import transform, reproject, Resampling
     from rasterio.windows import from_bounds

@@ -58,6 +58,8 @@ def main():
     ap.add_argument("--shore-km", type=float, default=1.5, help="stranded particles count the nearest nursery within this distance")
     ap.add_argument("--seed", type=int, default=1); ap.add_argument("--out", default="runs/drift")
     a = ap.parse_args()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.carry_args(a.out, a)
     import rasterio
     from rasterio.warp import transform
     from rasterio.windows import from_bounds

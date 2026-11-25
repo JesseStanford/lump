@@ -52,6 +52,8 @@ def main():
     ap.add_argument("--surveyed"); ap.add_argument("--nursery")
     ap.add_argument("--bands-km", default="1,2,5,10"); ap.add_argument("--out", default="runs/reef_nursery")
     a = ap.parse_args()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.carry_args(a.out, a)
     import rasterio
     from scipy import ndimage as ndi
     os.makedirs(a.out, exist_ok=True)

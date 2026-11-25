@@ -66,6 +66,8 @@ def main():
               "Writing an empty file so later steps still run.")
     os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
     json.dump({"type": "FeatureCollection", "features": feats}, open(a.out, "w", encoding="utf-8"))
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.record(a.out, a.url, f"layer {a.layer}; bbox {a.bbox}; where {a.where}")
     print(f"Saved {len(feats)} features to {a.out}")
 
 if __name__ == "__main__":

@@ -154,3 +154,144 @@
 @techreport{sr647, title = {DCE Scientific Report 647}, institution = {DCE, Aarhus University}, year = {2025}, url = {https://dce.au.dk/fileadmin/dce.au.dk/Udgivelser/Videnskabelige_rapporter_600-699/SR647.pdf}}
 @techreport{tr142, title = {DCE Technical Report 142}, institution = {DCE, Aarhus University}, year = {2019}, url = {https://dce2.au.dk/pub/TR142.pdf}}
 @article{salovius2020, author = {Salovius-Laur{\'e}n, S. and Rinne, H.}, title = {Fucus in the Baltic (Ambio)}, journal = {Ambio}, year = {2020}, doi = {10.1007/s13280-019-01175-0}}
+
+% ---- Datasets and papers used by the seabed / nursery scripts (added 2026-11-25) ----
+@misc{emodnet_substrate250k,
+  author = {{EMODnet Geology}},
+  title = {Seabed substrate 1:250 000 (Folk 7-class)},
+  howpublished = {EMODnet Geology, WFS layer gtk:seabed_substrate_250k (GTK)},
+  url = {https://drive.emodnet-geology.eu/geoserver/gtk/wfs},
+  note = {Release year to confirm on the EMODnet Geology portal. Method: kaskela2019substrate. Swedish waters are 'Restricted data'.; Licence: Free and open via EMODnet; cite EMODnet Geology (no named licence checked)}
+}
+@article{kaskela2019substrate,
+  author = {Kaskela, A. M. and Kotilainen, A. T. and Alanen, U. and Cooper, R. and Green, S. and Guinan, J. and van Heteren, S. and Kihlman, S. and Van Lancker, V. and Stevenson, A. and the EMODnet Geology Partners},
+  title = {Picking Up the Pieces: Harmonising and Collating Seabed Substrate Data for European Maritime Areas},
+  year = {2019},
+  journal = {Geosciences 9: 84},
+  doi = {10.3390/geosciences9020084},
+  note = {Verified from the PDF 2026-11-25}
+}
+@misc{emodnet_seafloorgeology,
+  author = {Asch, K. (BGR) and EMODnet Geology partners},
+  title = {EMODNET Seafloor Geology - Pre Quaternary, Quaternary, Geomorphology (EMODnet4)},
+  year = {2020},
+  howpublished = {Bundesanstalt für Geowissenschaften und Rohstoffe (BGR), ArcGIS service geologie/emodnet_seafloor_geology},
+  url = {https://metadata.europe-geology.eu/record/full/c0481cb3-eb2c-49b2-9d4f-8502e943ce80},
+  note = {Published 2020-09-25, revised 2021-05-12 (metadata record). Service: https://services.bgr.de/arcgis/rest/services/geologie/emodnet_seafloor_geology/MapServer; Licence: No access restrictions; ownership of original data stays with the data originators (no named licence)}
+}
+@misc{emodnet_dtm2024,
+  author = {{EMODnet Bathymetry Consortium}},
+  title = {EMODnet Digital Bathymetry (DTM 2024)},
+  year = {2024},
+  howpublished = {EMODnet Bathymetry},
+  doi = {10.12770/cf51df64-56f9-4a99-b1aa-36b8d7b743a1},
+  url = {https://ows.emodnet-bathymetry.eu/wcs},
+  note = {Read through WCS coverage emodnet__mean, which serves the current release; confirm no newer DTM was live on the download date. Not for navigation.; Licence: CC BY 4.0}
+}
+@misc{helcom_zostera,
+  author = {{HELCOM}},
+  title = {HELCOM HOLAS II Dataset: Zostera marina distribution (2018)},
+  year = {2018},
+  howpublished = {HELCOM},
+  url = {https://metadata.helcom.fi/geonetwork/srv/api/records/ca327bb1-d3cb-46c2-8316-f5f62f889090},
+  note = {Citation string is the one the metadata record requires. Data 1995-2016, 1 km grid (EC_12.tif).; Licence: Free use provided it is cited as given in the title}
+}
+@misc{helcom_reefs1170,
+  author = {{HELCOM}},
+  title = {HELCOM HOLAS II Dataset: Reefs (1170) (2018)},
+  year = {2018},
+  howpublished = {HELCOM},
+  url = {https://maps.helcom.fi/website/download/HOLAS%20II%202011-2015%20indicators%20and%20assessments%20data/Reefs_1170.zip},
+  note = {Citation string by analogy with the Zostera record: CHECK the Reefs record in metadata.helcom.fi. Danish input = reef polygons inside Natura 2000 sites (Danish Nature Agency).; Licence: Assumed same HELCOM free-use-with-citation terms: CHECK}
+}
+@misc{eea_natura2000,
+  author = {{European Environment Agency}},
+  title = {Natura 2000 spatial data (ArcGIS service ProtectedSites/Natura2000Sites)},
+  howpublished = {EEA},
+  url = {https://bio.discomap.eea.europa.eu/arcgis/rest/services/ProtectedSites/Natura2000Sites/MapServer},
+  note = {Download timed out on 2026-11-25; NOT used in any result so far; Licence: to check if used}
+}
+@misc{cmems_bal_phy_my,
+  author = {{E.U. Copernicus Marine Service Information (CMEMS)}},
+  title = {Baltic Sea Physics Reanalysis (BALTICSEA_MULTIYEAR_PHY_003_011)},
+  howpublished = {Copernicus Marine Service (DMI)},
+  doi = {10.48670/moi-00013},
+  url = {https://data.marine.copernicus.eu/product/BALTICSEA_MULTIYEAR_PHY_003_011/description},
+  note = {Not downloaded yet (needs a login). Cite with the access date.; Licence: Copernicus Marine service commitments and licence}
+}
+@misc{gbif_occurrences,
+  author = {{GBIF.org}},
+  title = {GBIF occurrence search API: Cyclopterus lumpus, months 1-6, selected countries},
+  year = {2026},
+  howpublished = {GBIF},
+  url = {https://api.gbif.org/v1/occurrence/search},
+  note = {Search-API results have NO DOI. GBIF asks for a derived dataset DOI: register at https://www.gbif.org/derived-dataset/about with the source datasets and counts (nest_candidates_gbif_datasets.csv, written by nests from now on).; Licence: Per record (CC0 / CC BY / CC BY-NC); see licence column in nest_candidates.csv}
+}
+@misc{inaturalist_observations,
+  author = {{iNaturalist contributors}},
+  title = {iNaturalist observations of Cyclopterus lumpus with egg/nest words in the description},
+  year = {2026},
+  howpublished = {iNaturalist},
+  url = {https://www.inaturalist.org},
+  note = {Credit each observer used in a figure or table (rights_holder column).; Licence: Per observation (CC0 / CC BY / CC BY-NC or all rights reserved)}
+}
+@misc{ices_datras,
+  author = {{ICES}},
+  title = {ICES Database on Trawl Surveys (DATRAS)},
+  howpublished = {ICES, Copenhagen, Denmark},
+  url = {https://datras.ices.dk},
+  note = {Required form: 'ICES Database on Trawl Surveys (DATRAS), [Date Accessed], ICES, Copenhagen, Denmark. https://datras.ices.dk'. Not run yet.; Licence: CC BY 4.0 (public data)}
+}
+@misc{worms,
+  author = {{WoRMS Editorial Board}},
+  title = {World Register of Marine Species},
+  year = {2026},
+  howpublished = {VLIZ},
+  doi = {10.14284/170},
+  url = {https://www.marinespecies.org},
+  note = {Only used by the parked DATRAS script; Licence: CC BY 4.0}
+}
+@misc{ea_surfzone2019,
+  author = {{Environment Agency}},
+  title = {SurfZone Digital Elevation Model (DEM) - 2m},
+  year = {2019},
+  howpublished = {Environment Agency, data.gov.uk},
+  url = {https://www.data.gov.uk/dataset/fe455db0-5ce5-4d63-8b38-d74612eb43d5/surfzone-digital-elevation-model-2019},
+  note = {Attribution: '© Environment Agency copyright and/or database right 2019. All rights reserved.'; Licence: Open Government Licence v3.0}
+}
+@misc{ea_lidar_dtm1m,
+  author = {{Environment Agency}},
+  title = {LIDAR Composite Digital Terrain Model (DTM) - 1m},
+  howpublished = {Environment Agency},
+  url = {https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs},
+  note = {Year and attribution statement to confirm on data.gov.uk; Licence: Open Government Licence v3.0 (CHECK)}
+}
+@article{kennedy2014movements,
+  author = {Kennedy, J. and Jónsson, S. Þ. and Kasper, J. M. and Ólafsson, H. G.},
+  title = {Movements of female lumpfish (Cyclopterus lumpus) around Iceland},
+  year = {2014},
+  journal = {ICES Journal of Marine Science 71(3): 880-889},
+  doi = {10.1093/icesjms/fsu170},
+  url = {https://heima.hafro.is/~jim/publication/2015-kennedy-et-al/},
+  note = {Earlier docs said 2015; the paper is 2014}
+}
+@techreport{mitamura2007nina,
+  author = {Mitamura, H. and Uglem, I. and Thorstad, E. B. and Bjørn, P. A. and Økland, F. and Næsje, T. F. and Dempster, T. and Arai, N.},
+  title = {Movements of female lumpsucker Cyclopterus lumpus in a Norwegian fjord during the spawning period},
+  year = {2007},
+  howpublished = {NINA Report 288},
+  url = {https://brage.nina.no/nina-xmlui/handle/11250/2455225}
+}
+@article{mitamura2012movements,
+  author = {Mitamura, H. and Thorstad, E. B. and Uglem, I. and Bjørn, P. A. and Økland, F. and Næsje, T. F. and Dempster, T. and Arai, N.},
+  title = {Movements of lumpsucker females in a northern Norwegian fjord during the spawning season},
+  year = {2012},
+  journal = {Environmental Biology of Fishes 93(4): 475-481},
+  doi = {10.1007/s10641-011-9942-8}
+}
+@techreport{sr647,
+  author = {Carstensen, J. and Al-Hamdani, Z. and Larsen, E. G.},
+  title = {Validation of macroalgae indicators through deeper sampling. Identification of suitable substrate and macroalgae observations for indicator improvement},
+  institution = {Aarhus University, DCE - Danish Centre for Environment and Energy}, type = {Scientific Report}, number = {647}, year = {2025},
+  isbn = {978-87-7156-934-6}, url = {https://dce.au.dk/fileadmin/dce.au.dk/Udgivelser/Videnskabelige_rapporter_600-699/SR647.pdf}
+}

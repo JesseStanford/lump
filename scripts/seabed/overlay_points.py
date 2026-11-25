@@ -12,7 +12,7 @@ Usage:
 
 Points CSV needs lat, lon; optional evidence, month, depth_m columns are used as filters/kept.
 """
-import argparse, csv, json, math, os
+import argparse, csv, json, math, os, sys
 from collections import Counter, defaultdict
 import numpy as np
 from matplotlib.path import Path
@@ -62,6 +62,8 @@ def main():
     ap.add_argument("--drop", default="", help="regex; drop points whose notes/dataset/basis match (e.g. 'cruise haul' for trawl surveys)")
     ap.add_argument("--out", default="runs/overlay")
     a = ap.parse_args()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.carry_args(a.out, a)
 
     feats = json.load(open(a.polys, encoding="utf-8"))["features"]
     if not a.field:

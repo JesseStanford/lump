@@ -217,6 +217,8 @@ def main():
     ap.add_argument("--bbox", nargs=4, type=float, metavar=("XMIN","YMIN","XMAX","YMAX"),
                     help="crop to this box, in the raster's own coordinates")
     a = ap.parse_args()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.carry_args(a.out, a)
     import rasterio
     p = dict(fine_window_m=5.0, broad_window_m=60.0, bed_smooth_m=2.0, sediment_slope_deg=5.0,
              rough_std_m=0.08, shelf_slope_deg=12.0, shelf_bpi_m=0.6, boulder_min_height_m=0.3,

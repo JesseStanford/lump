@@ -178,6 +178,9 @@ def main():
         for k, (b, n) in enumerate(zip(bands, names), 1):
             d.write(north_up(b, latv).astype("float32"), k); d.set_band_description(k, n)
         d.update_tags(source=did, years=f"{a.years[0]}-{a.years[1]}", months=",".join(map(str, a.months)))
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    q = f"{did}; bbox {a.bbox}; years {a.years}; months {a.months}; levels to {a.max_depth} m"
+    sources.record(os.path.join(a.out, "currents_mean.tif"), f"https://data.marine.copernicus.eu/product/{a.product}", q)
     sp = np.hypot(bands[0], bands[1])
     print(f"\nMean surface speed {np.nanmedian(sp):.3f} m/s (median), {np.nanpercentile(sp, 90):.3f} m/s (p90)")
 
@@ -213,6 +216,8 @@ def main():
     tdays = (times - np.datetime64("1970-01-01")) / np.timedelta64(1, "D")
     np.savez_compressed(os.path.join(a.out, "currents_daily_surface.npz"), lon=ds[lon].values, lat=latv,
                         tdays=tdays.astype("float64"), u=Ud, v=Vd, source=did)
+    sources.record(os.path.join(a.out, "currents_daily_surface.npz"), f"https://data.marine.copernicus.eu/product/{a.product}",
+                   f"{did}; surface level; bbox {a.bbox}; years {a.years}; months {a.months}")
     print("Results in", a.out)
 
 if __name__ == "__main__":

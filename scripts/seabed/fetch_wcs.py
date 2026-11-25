@@ -82,6 +82,8 @@ def main():
         part = f"{a.out}.part{i}.tif"; open(part, "wb").write(data); parts.append(part)
         print(f"  tile {i + 1}/{len(tiles)} ok ({describe(part)})", file=sys.stderr)
     mosaic_tiles(parts, a.out)
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.record(a.out, a.url, f"coverage {cov}; " + (f"bbox {a.bbox}" if getattr(a, "bbox", None) else f"point {a.lat},{a.lon} half-size {a.half_size} m"))
     for pp in parts: os.remove(pp)
     import rasterio
     with rasterio.open(a.out) as s:

@@ -20,7 +20,7 @@ Usage:
   python nest_records.py --countries DK SE NO GB IE FR IS --months 1 2 3 4 5 6 \
       --out nest_candidates.csv [--bbox lonmin latmin lonmax latmax] [--literature lit.csv]
 """
-import argparse, csv, json, re, sys, time, urllib.parse, urllib.request
+import argparse, os, csv, json, re, sys, time, urllib.parse, urllib.request
 
 UA = {"User-Agent": "lumpfish-habitat-research/0.1"}
 NEST_WORDS = re.compile(r"\b(egg|eggs|egg ?mass|nest|guard\w*|spawn\w*|roe|clutch|"
@@ -56,7 +56,9 @@ def gbif_records(countries, months, bbox, limit_total):
             out.append(dict(source="GBIF", id=o.get("key"), lat=o.get("decimalLatitude"), lon=o.get("decimalLongitude"),
                             uncertainty_m=o.get("coordinateUncertaintyInMeters"), date=o.get("eventDate", "")[:10],
                             month=o.get("month"), depth_m=o.get("depth"), life_stage=o.get("lifeStage", ""),
-                            dataset=o.get("datasetName", ""), basis=o.get("basisOfRecord", ""),
+                            dataset=o.get("datasetName", ""), dataset_key=o.get("datasetKey", ""),
+                            licence=o.get("license", ""), rights_holder=o.get("rightsHolder") or o.get("recordedBy") or "",
+                            basis=o.get("basisOfRecord", ""),
                             notes=text.strip()[:500], media=media[:500],
                             url=f"https://www.gbif.org/occurrence/{o.get('key')}"))
         offset += page["limit"]
@@ -81,6 +83,8 @@ def inat_records(months, bbox, words=("egg", "eggs", "nest", "guarding", "spawni
                                 uncertainty_m=o.get("positional_accuracy"), date=o.get("observed_on") or "",
                                 month=(o.get("observed_on_details") or {}).get("month"), depth_m="",
                                 life_stage="", dataset="iNaturalist " + o.get("quality_grade", ""),
+                                licence=o.get("license_code") or "all rights reserved",
+                                rights_holder=(o.get("user") or {}).get("login", ""),
                                 basis="HUMAN_OBSERVATION", notes=(o.get("description") or "")[:500],
                                 media=";".join(p["url"].replace("square", "large") for p in o.get("photos", []))[:500],
                                 url=f"https://www.inaturalist.org/observations/{o['id']}"))
@@ -123,7 +127,7 @@ def main():
                              media="", url=l.get("url", ""), evidence=int(l.get("evidence", 2))))
     rows.sort(key=lambda r: -r["evidence"])
     keys = ["evidence", "reviewed", "source", "id", "lat", "lon", "uncertainty_m", "date", "month", "depth_m",
-            "life_stage", "dataset", "basis", "notes", "media", "url"]
+            "life_stage", "dataset", "dataset_key", "licence", "rights_holder", "basis", "notes", "media", "url"]
     with open(a.out, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, keys, extrasaction="ignore"); w.writeheader()
         for r in rows: r.setdefault("reviewed", ""); w.writerow(r)
@@ -131,7 +135,21 @@ def main():
         {"type": "Feature", "geometry": {"type": "Point", "coordinates": [r["lon"], r["lat"]]},
          "properties": {k: r.get(k) for k in keys if k not in ("lat", "lon")}} for r in rows if r["lat"] is not None]}
     json.dump(gj, open(a.out.rsplit(".", 1)[0] + ".geojson", "w"), default=str)
+    # provenance: GBIF search-API results get no DOI, so list the source datasets and record counts needed to
+    # register a GBIF derived dataset (https://www.gbif.org/derived-dataset/about), which gives the citable DOI
     from collections import Counter
+    cnt = Counter((r.get("dataset_key"), r.get("dataset")) for r in rows if r["source"] == "GBIF")
+    dpath = a.out.rsplit(".", 1)[0] + "_gbif_datasets.csv"
+    with open(dpath, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f); w.writerow(["datasetKey", "datasetName", "records"])
+        for (k, n), c in cnt.most_common(): w.writerow([k, n, c])
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import sources
+    q = f"taxon Cyclopterus lumpus; countries {a.countries}; months {a.months}; bbox {a.bbox}"
+    for f_ in (a.out, a.out.rsplit(".", 1)[0] + ".geojson", dpath):
+        sources.record(f_, "https://api.gbif.org/v1/occurrence/search", q, how="download (search API, no DOI: register a derived dataset)")
+        if not a.no_inat: sources.record(f_, "https://api.inaturalist.org/v1/observations", q + "; description words egg/nest/guarding/spawning")
+    print(f"GBIF source datasets and counts: {dpath} (needed for a GBIF derived-dataset DOI)", file=sys.stderr)
     print("evidence levels:", dict(Counter(r["evidence"] for r in rows)), file=sys.stderr)
 
 if __name__ == "__main__":

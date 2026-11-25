@@ -73,6 +73,8 @@ def main():
         feats += batch; start += len(batch); print(f"  {len(feats)} features", file=sys.stderr)
     os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
     json.dump({"type": "FeatureCollection", "features": feats}, open(a.out, "w"))
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.record(a.out, a.url, f"layer {a.layer}; bbox {a.bbox}")
     keys = sorted({k for f in feats[:200] for k in (f.get("properties") or {})})
     print(f"Saved {a.out}: {len(feats)} features. Attribute fields: {', '.join(keys[:25])}")
 

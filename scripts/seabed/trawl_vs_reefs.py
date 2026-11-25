@@ -27,6 +27,8 @@ def main():
     ap.add_argument("--bands", default="0,5,10,20,40,80", help="distance band edges, km")
     ap.add_argument("--out", default="runs/trawl_vs_reefs")
     a = ap.parse_args()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.carry_args(a.out, a)
     import rasterio
     from rasterio.warp import transform
     from scipy import ndimage as ndi, stats

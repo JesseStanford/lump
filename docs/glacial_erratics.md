@@ -64,3 +64,6 @@ Sensitivity check: rerun with `--wave-depth 6` and `--wave-depth 15`, and with `
 - The maps are 1:100k to 1:250k and the DTM is ~115 m. This screens areas the size of a coast segment, not single nest boulders.
 - EMODnet Quaternary lithology uses `diamicton` and has no "till" or "lag" class. Moraine polygons and lines are patchy and depend on which surveys exist.
 - Sightings follow observers (harbours, piers, dive sites), and the trawl records avoid boulder ground. Read the use ratios as a hint, not as selection.
+
+## Sources
+Dataset citations, licences and access dates: [data_sources.md](data_sources.md). Each data and results folder has its own `SOURCES.md`.

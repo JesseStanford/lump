@@ -38,6 +38,9 @@ def helcom_zip(fname, base_out, out):
         shutil.move(os.path.join(tmp, m), os.path.join(out, base_out + m[len(base):]))
     shutil.rmtree(tmp, ignore_errors=True)
     print(f"Saved {os.path.join(out, base_out + '.tif')}")
+    sys.path.insert(0, HERE); import sources
+    for m in members:
+        sources.record(os.path.join(out, base_out + m[len(base):]), HELCOM + fname, f"zip member {m}")
 
 def n2000(bbox, out):
     info = json.loads(urllib.request.urlopen(urllib.request.Request(EEA_N2000 + "?f=json", headers=UA), timeout=120).read())

@@ -3,7 +3,7 @@
 Status: started 2026-11-25. Step 1 is built and tested on synthetic data. Steps 2 and 3 are planned.
 
 ## Why
-Lumpfish nest on stony ground (the erratic screen's `lag_on_till_shallow`), but juveniles live on shoreline algae, in rock pools and under drift weed ([habitat_components.csv](../parameters/habitat_components.csv): F3, F6, A5). The adults are strong, active swimmers. Females travelled up to 49 km a day off Iceland (Kennedy et al. 2015, ICES J Mar Sci), two fish swam 1,510 and 1,612 km from Iceland to Denmark (Kennedy et al., J Fish Biol, doi 10.1111/jfb.15994), and in a Norwegian fjord tagged females swam against the tide with "no indications" of passive drift (Mitamura et al. 2007, NINA Rapport 288, n = 20). So currents probably don't steer the adults. The thing currents can link is the young: larvae, drifting juveniles and the drift weed they shelter under, moving from reefs to the shores where they grow up.
+Lumpfish nest on stony ground (the erratic screen's `lag_on_till_shallow`), but juveniles live on shoreline algae, in rock pools and under drift weed ([habitat_components.csv](../parameters/habitat_components.csv): F3, F6, A5). The adults are strong, active swimmers. Females travelled up to 49 km a day off Iceland (Kennedy et al. 2014, ICES J Mar Sci, doi 10.1093/icesjms/fsu170), two fish swam 1,510 and 1,612 km from Iceland to Denmark (Kennedy et al., J Fish Biol, doi 10.1111/jfb.15994), and in a Norwegian fjord tagged females swam against the tide with "no indications" of passive drift (Mitamura et al. 2007, NINA Rapport 288, n = 20). So currents probably don't steer the adults. The thing currents can link is the young: larvae, drifting juveniles and the drift weed they shelter under, moving from reefs to the shores where they grow up.
 
 ## Nursery maps: what exists (checked 2026-11-25)
 | Layer | Source | Use |
@@ -55,3 +55,6 @@ Outputs:
 .\run.ps1 datras --bbox @dk --years 1991 2025 --out data\dk\datras_hauls.csv
 .\run.ps1 trawl-test --hauls data\dk\datras_hauls.csv --grid runs\dk_erratics\erratic_grid.tif --out runs\dk_trawl_vs_reefs
 ```
+
+## Sources
+Dataset citations, licences and access dates: [data_sources.md](data_sources.md). Each data and results folder has its own `SOURCES.md`.

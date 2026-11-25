@@ -7,7 +7,7 @@ breeding habitat around Copenhagen. See `docs/workflow.md` for the stages.
 | Folder | What goes there | On GitHub? |
 |---|---|---|
 | `docs/` | Ecology brief pointer, workflow, data guides, drafts | yes |
-| `citations/` | `references.bib` + `references.csv` | yes |
+| `citations/` | `references.bib` + `references.csv` (papers and datasets; see docs/data_sources.md) | yes |
 | `parameters/` | Parameter table (CSV/JSON) and site criteria | yes |
 | `sites/<site_id>/` | One folder per analysed site: `site.json`, `notes.md` | yes |
 | `schematics/` | 2D sections and plans | yes |

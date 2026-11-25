@@ -78,6 +78,8 @@ def main():
     ap.add_argument("--data", help="folder from fetch_erratic_inputs.py; fills any layer not given explicitly")
     ap.add_argument("--out", default="runs/erratics")
     a = ap.parse_args()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.carry_args(a.out, a)
     if a.data:
         d = lambda f: os.path.join(a.data, f)
         if not a.substrate and os.path.exists(d("substrate.geojson")): a.substrate = [d("substrate.geojson"), "auto"]

@@ -31,3 +31,6 @@ Output: `points_with_class.csv` (class under each sighting) and `use_vs_availabi
 Caveats: sightings are where people look (piers, harbours, dive sites), not a random sample; 1:100k–1:250k polygons are far coarser than a nest; coastal records with ~100 m+ uncertainty can fall on the wrong polygon.
 
 See also [glacial_erratics.md](glacial_erratics.md) for the till / moraine / depth overlay that builds on the substrate layer.
+
+## Sources
+Dataset citations, licences and access dates: [data_sources.md](data_sources.md). Each data and results folder has its own `SOURCES.md`.

@@ -21,7 +21,7 @@ Outputs (in --run folder):
   nest_vs_background.json     medians, p10-p90, and a simple effect size per variable
   parameters_calibrated.csv   rows in the same format as parameters.csv (rule_id, min, optimum, max ...)
 """
-import argparse, csv, json, os
+import argparse, csv, json, os, sys
 import numpy as np
 
 VARS = ["class_shannon", "class_richness", "depth_m", "bed_slope_deg", "rough_std_m", "hard_fraction", "boulder_fraction",
@@ -37,6 +37,8 @@ def main():
     ap.add_argument("--depth-positive", action="store_true"); ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--include-land", action="store_true", help="count dry land / above-water cells in the radius stats")
     a = ap.parse_args()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.carry_args(a.run, a)
     import rasterio
     from rasterio.warp import transform as warp
     from scipy import ndimage as ndi

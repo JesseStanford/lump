@@ -103,6 +103,9 @@ def main():
     with open(a.out, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, list(rows[0])); w.writeheader(); w.writerows(rows)
     print(f"Saved {len(rows)} hauls ({n_pos} with lumpfish) to {a.out}")
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.record(a.out, "https://datras.ices.dk/WebServices/DATRASWebService.asmx", f"HH+HL; {vars(a)}")
+    sources.record(a.out, "https://www.marinespecies.org/rest/AphiaIDByName/", "Cyclopterus lumpus AphiaID", how="lookup")
 
 if __name__ == "__main__":
     main()

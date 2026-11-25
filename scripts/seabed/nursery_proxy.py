@@ -38,6 +38,8 @@ def main():
     ap.add_argument("--coarse-match", default=COARSE); ap.add_argument("--unmapped-match", default=UNMAPPED)
     ap.add_argument("--out", default="runs/nursery")
     a = ap.parse_args()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sources
+    sources.carry_args(a.out, a)
     import rasterio
     from rasterio import features as rf
     from rasterio.transform import from_origin
