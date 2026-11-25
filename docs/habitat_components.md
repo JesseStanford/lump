@@ -99,6 +99,15 @@ One photo cannot tell a boulder from a weed bed: both are dark. `flora_classify.
 ```
 The first year is the reference: use the clearest photo. Fetch every year with the same `--bbox`, `--tile-m 250` and `--res 0.125`.
 
+**Seven-year run, Nakkehoved (2022 reference + latest, 2023, 2021, 2020, 2018, 2019; 0.125 m; 2026-11-25):**
+- About 27 ha classed `hard`: the whole Nakkehoved field and the offshore patches to the west. Share of the visible seabed that is hard: 52% at 0 to 1 m, 47% at 1 to 2 m, 26% at 2 to 3 m, 17% at 3 to 5 m.
+- `changing`: only about 0.5 ha, in 268 small objects, 254 of them at 3 to 5 m, mostly on the north-east fringe of the Nakkehoved field. They are more ragged than hard objects (solidity 0.83 vs 0.96; elongation 2.0 vs 1.9), as drifting weed or eelgrass tufts would be. `uncertain`: 1.5 ha.
+- Year check: 2019 (windy) confirmed only 32% of the large fields; the other years confirmed 77 to 95%. With seven years, 2019 is outvoted.
+- Single objects of about 1 m are confirmed by only 35 to 66% of years: they sit at the edge of what the photos resolve. Trust the patch-scale result, not single small objects.
+- Colour gave no usable signal: hard ground came out slightly less red than sand (median -1.1 points), not browner. At 1 to 2 m the water removes too much red in these spring photos. Colour is not used as evidence.
+- Caveat: dense perennial eelgrass can also persist for years. The fields here sit on mapped coarse substrate on till (score 3), which supports stone; cross-checking against the HELCOM eelgrass layer is a next step.
+- Gap found and fixed afterwards: a strip up to about one depth-grid cell (around 100 m) wide along the shore had no depth after resampling and was left out of all three photo tools (the straight inshore edges on the maps). `depthfill.py` now extends the depth grid to the coast; the western inshore dark band needs a rerun.
+
 ### Seaweed from lidar?
 - Denmark's national lidar (Danmarks Højdemodel) uses near-infrared light, which water absorbs within centimetres. It gives no seabed or seaweed signal below the waterline.
 - Green (topobathymetric) lidar, which does see the seabed, has been flown in Denmark only at research sites: Knudedyb in the Wadden Sea and Rødsand (`steinbacher2018topobathy`). Nothing on the north coast of Zealand or in the Øresund is published.

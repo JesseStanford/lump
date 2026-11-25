@@ -82,6 +82,7 @@ def main():
     ap.add_argument("--out", default="runs/flora")
     a = ap.parse_args()
     sys.path.insert(0, HERE); import sources
+    from depthfill import fill_coast
     os.makedirs(a.out, exist_ok=True)
     years = [y.split("=", 1) for y in a.years]
     if len(years) < 2: raise SystemExit("Give at least two years (YEAR=FOLDER).")
@@ -107,7 +108,7 @@ def main():
     es = rasterio.open(a.erratic)
     def depth_for(tx, ty):
         d = np.full((n, n), np.nan, "float32")
-        reproject(es.read(3).astype("float32"), d, src_transform=es.transform, src_crs=es.crs,
+        reproject(fill_coast(es.read(3)), d, src_transform=es.transform, src_crs=es.crs,
                   dst_transform=from_origin(tx, ty + tile_m, res, res), dst_crs=crs, src_nodata=np.nan, dst_nodata=np.nan,
                   resampling=Resampling.bilinear)
         return d
@@ -282,7 +283,7 @@ def main():
     # summary
     sumrows = []
     dmap = np.full((MH, MW), np.nan, "float32")
-    reproject(es.read(3).astype("float32"), dmap, src_transform=es.transform, src_crs=es.crs, dst_transform=mtr, dst_crs=crs,
+    reproject(fill_coast(es.read(3)), dmap, src_transform=es.transform, src_crs=es.crs, dst_transform=mtr, dst_crs=crs,
               src_nodata=np.nan, dst_nodata=np.nan, resampling=Resampling.bilinear)
     for lo, hi in ((0, 1), (1, 2), (2, 3), (3, 5)):
         m = (dmap > lo) & (dmap <= hi) & (cmap > 0); tot = m.sum()

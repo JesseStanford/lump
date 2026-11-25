@@ -81,6 +81,7 @@ def main():
     ap.add_argument("--out", default="runs/ortho_compare")
     a = ap.parse_args()
     sys.path.insert(0, HERE); import sources
+    from depthfill import fill_coast
     os.makedirs(a.out, exist_ok=True); sources.carry_args(a.out, a)
     if a.data:
         d = lambda f: os.path.join(a.data, f)
@@ -114,7 +115,7 @@ def main():
         score, cat, edepth = s.read(1), s.read(2), s.read(3)
     eshape = score.shape
     depth = np.full((H, W), np.nan, "float32")   # positive down, smooth
-    reproject(edepth.astype("float32"), depth, src_transform=etr, src_crs=ecrs, dst_transform=ftr, dst_crs=crs,
+    reproject(fill_coast(edepth), depth, src_transform=etr, src_crs=ecrs, dst_transform=ftr, dst_crs=crs,
               src_nodata=np.nan, dst_nodata=np.nan, resampling=Resampling.bilinear)
     geom = lambda g: transform_geom("EPSG:4326", ecrs, g)
 

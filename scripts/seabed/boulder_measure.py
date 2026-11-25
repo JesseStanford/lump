@@ -60,6 +60,7 @@ def main():
     ap.add_argument("--out", default="runs/boulders")
     a = ap.parse_args()
     sys.path.insert(0, HERE); import sources
+    from depthfill import fill_coast
     os.makedirs(a.out, exist_ok=True)
     sources.carry_args(a.out, argparse.Namespace(**{k: v for k, v in vars(a).items() if k != "params"}))   # our own rules file is not a data source
 
@@ -96,7 +97,7 @@ def main():
 
     with rasterio.open(a.erratic) as s:
         depth = np.full((H, W), np.nan, "float32")
-        reproject(s.read(3).astype("float32"), depth, src_transform=s.transform, src_crs=s.crs, dst_transform=tr, dst_crs=crs,
+        reproject(fill_coast(s.read(3)), depth, src_transform=s.transform, src_crs=s.crs, dst_transform=tr, dst_crs=crs,
                   src_nodata=np.nan, dst_nodata=np.nan, resampling=Resampling.bilinear)
     water = valid & np.isfinite(depth) & (depth > 0) & (B > R) & (G >= R - 5)
     land = valid & ~water & ~(np.isfinite(depth) & (depth > 2))
