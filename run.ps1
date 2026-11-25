@@ -5,6 +5,7 @@
 #   .\run.ps1 classify  <site_id> <dem.tif> [options]     seabed classes + geometry -> runs\<site_id>
 #   .\run.ps1 nests     [options]                         pull nest candidates from GBIF + iNaturalist
 #   .\run.ps1 sample    <site_id> <dem.tif> [options]     nest vs background seabed stats for a site
+#   .\run.ps1 fetch-uk  <site_id> <lat> <lon> [size_m]    2 m England SurfZone DEM clip -> data\<site_id>
 #
 # Extra options are passed straight to the Python script (see .\run.ps1 help).
 param(
@@ -44,11 +45,19 @@ switch ($Task) {
     "sample" {
         $id = $Rest[0]; $dem = $Rest[1]; $more = @($Rest | Select-Object -Skip 2)
         if (-not $dem) { throw "Usage: .\run.ps1 sample <site_id> <dem.tif> [--radius 15] [--reviewed-only]" }
-        $pts = Join-Path $root "runs\nest_candidates.csv"
-        & $py (Join-Path $seabed "sample_nest_sites.py") --run (Join-Path $root "runs\$id") --dem $dem --points $pts @more
+        # Default: the reviewed nest list, confirmed rows only. Pass --points <file> to use another list.
+        $pts = Join-Path $root "sites\nest_records\nest_candidates_reviewed.csv"
+        $filt = if ($more -contains "--points") { @() } else { @("--reviewed-only") }
+        & $py (Join-Path $seabed "sample_nest_sites.py") --run (Join-Path $root "runs\$id") --dem $dem --points $pts @filt @more
+    }
+    "fetch-uk" {
+        $id = $Rest[0]; $lat = $Rest[1]; $lon = $Rest[2]; $half = if ($Rest.Count -gt 3) { $Rest[3] } else { "500" }
+        if (-not $lon) { throw "Usage: .\run.ps1 fetch-uk <site_id> <lat> <lon> [half_size_m]" }
+        $out = Join-Path $root "data\$id\surfzone_2m.tif"
+        & $py (Join-Path $seabed "fetch_wcs.py") --lat $lat --lon $lon --half-size $half --out $out
     }
     default {
-        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 8 | ForEach-Object { $_ -replace "^# ?", "" }
+        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 9 | ForEach-Object { $_ -replace "^# ?", "" }
         if (Test-Path $py) {
             Write-Host "`n--- classify options (seabed_classify.py) ---"
             & $py (Join-Path $seabed "seabed_classify.py") -h | Out-Host

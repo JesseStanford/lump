@@ -1,0 +1,22 @@
+{
+  "site_id": "gb_bembridge",
+  "name": "Bembridge Ledges, Isle of Wight (UK reference nest)",
+  "status": "reference",
+  "country": "GB",
+  "centre_lat": 50.6892,
+  "centre_lon": -1.0709,
+  "crs": "EPSG:27700",
+  "centre_bng": [465727, 88139],
+  "bbox_crs_units": [464227, 86639, 467227, 89639],
+  "seabed_source": "Environment Agency SurfZone DEM 2019 (merged lidar + nearshore multibeam), WCS",
+  "seabed_resolution_m": 2,
+  "seabed_vertical_datum": "ODN (Newlyn), about mean sea level",
+  "seabed_licence": "Open Government Licence v3.0. © Environment Agency copyright and/or database right 2019.",
+  "dem_path_local": "data/gb_bembridge/surfzone_2m.tif",
+  "nest_evidence": "reviewed records",
+  "nest_records": ["https://www.gbif.org/occurrence/6063900716"],
+  "criteria_scores": {"C1": null, "C2": null, "C3": null, "C4": null, "C5": null,
+                      "C6": null, "C7": null, "C8": null, "C9": null, "C10": null, "C11": null},
+  "citations": [],
+  "notes": "notes.md"
+}
