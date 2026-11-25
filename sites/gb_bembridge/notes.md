@@ -17,3 +17,11 @@
 - Coverage this far into the nearshore at Bembridge is not yet confirmed. If the clip is mostly nodata, check the EA Survey Index Catalogue.
 - One nest against background points is descriptive, not a statistical test.
 - Finer option: Cefas 2012 Bembridge MCZ multibeam (about 1 to 34 m depth, OGL) on the Cefas Data Portal.
+
+## Results (run 2026-11-25, copies in results/)
+
+- Clip: 1500 × 1500 px at 2 m, 22% nodata, elevation −17.3 to +41.1 m ODN. Bembridge Ledges show as rock-shelf bands to the NE.
+- Nest cell sits at **−1.3 m ODN**. Chart datum near Portsmouth is roughly 2.7 m below ODN and spring high water roughly 2 m above, so this is about 1.4 m below chart datum and 3–4 m deep at high water. That fits a diver-reported depth of a few metres. The nest is at the low-water fringe, not in the 5–10 m band.
+- Within 15 m: slope 0.65°, relief 0.72 m, roughness 0.015 m (slightly above background median 0.011). No mapped boulder or shelf; nearest mapped hard ground is 90 m away. The record says the eggs were under a boulder, so the boulder is below grid resolution.
+- Background (20 points, same depth ±3 m): median slope 0.8°, relief 0.79 m. The nest does not stand out from its surroundings at 2 m.
+- Conclusion: this run supports a shallower nest depth (consistent with Bergen 1.5 m and Bodø 3 m) but cannot calibrate boulder size, cover or spacing. Keep R03/R06/R08 as literature values. Do not adopt parameters_calibrated.csv rows (n = 1).

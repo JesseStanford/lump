@@ -1,0 +1,138 @@
+{
+  "n_nest": 1,
+  "n_background": 20,
+  "radius_m": 15,
+  "variables": {
+    "depth_m": {
+      "nest_p10_p50_p90": [
+        -1.297,
+        -1.297,
+        -1.297
+      ],
+      "background_p10_p50_p90": [
+        -1.787,
+        -1.281,
+        -0.434
+      ],
+      "effect_size": -0.145
+    },
+    "bed_slope_deg": {
+      "nest_p10_p50_p90": [
+        0.649,
+        0.649,
+        0.649
+      ],
+      "background_p10_p50_p90": [
+        0.219,
+        0.8,
+        2.825
+      ],
+      "effect_size": -0.49
+    },
+    "rough_std_m": {
+      "nest_p10_p50_p90": [
+        0.015,
+        0.015,
+        0.015
+      ],
+      "background_p10_p50_p90": [
+        0.007,
+        0.011,
+        0.021
+      ],
+      "effect_size": 0.312
+    },
+    "hard_fraction": {
+      "nest_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "background_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.011
+      ],
+      "effect_size": -0.274
+    },
+    "boulder_fraction": {
+      "nest_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "background_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "effect_size": 0.0
+    },
+    "shelf_fraction": {
+      "nest_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "background_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "effect_size": -0.235
+    },
+    "boulders_in_radius": {
+      "nest_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "background_p10_p50_p90": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "effect_size": 0.0
+    },
+    "nearest_boulder_m": {
+      "nest_p10_p50_p90": [
+        1168.729,
+        1168.729,
+        1168.729
+      ],
+      "background_p10_p50_p90": [
+        486.582,
+        1127.355,
+        1289.04
+      ],
+      "effect_size": 0.36
+    },
+    "nearest_hard_m": {
+      "nest_p10_p50_p90": [
+        90.51,
+        90.51,
+        90.51
+      ],
+      "background_p10_p50_p90": [
+        11.259,
+        61.98,
+        105.253
+      ],
+      "effect_size": 0.564
+    },
+    "relief_m": {
+      "nest_p10_p50_p90": [
+        0.718,
+        0.718,
+        0.718
+      ],
+      "background_p10_p50_p90": [
+        0.135,
+        0.79,
+        1.861
+      ],
+      "effect_size": -0.215
+    }
+  },
+  "warning": "Only 1 nest points: ranges are indicative, not robust."
+}

@@ -1,0 +1,134 @@
+{
+  "grid_resolution_m": 2.0,
+  "classes": {
+    "sand_flat": {
+      "area_m2": 4251884.0,
+      "fraction": 0.6019
+    },
+    "sediment_slope": {
+      "area_m2": 128340.0,
+      "fraction": 0.0182
+    },
+    "cobble_gravel_rough": {
+      "area_m2": 19508.0,
+      "fraction": 0.0028
+    },
+    "boulder": {
+      "area_m2": 56.0,
+      "fraction": 0.0
+    },
+    "rock_shelf": {
+      "area_m2": 61612.0,
+      "fraction": 0.0087
+    },
+    "dry_land": {
+      "area_m2": 2603080.0,
+      "fraction": 0.3685
+    }
+  },
+  "zones": {
+    "Z1_nursery": {
+      "depth_band_m": [
+        0,
+        -2
+      ],
+      "area_m2": 948096.0,
+      "slope_deg_p10_p50_p90": [
+        0.117,
+        0.526,
+        2.521
+      ],
+      "slope_rise_over_run_p50": 0.0092,
+      "hard_substrate_fraction": 0.0173,
+      "boulder_cover_fraction": 0.0,
+      "relief_m_p90": 0.266
+    },
+    "Z2_transition": {
+      "depth_band_m": [
+        -2,
+        -5
+      ],
+      "area_m2": 887060.0,
+      "slope_deg_p10_p50_p90": [
+        0.235,
+        1.016,
+        3.702
+      ],
+      "slope_rise_over_run_p50": 0.0177,
+      "hard_substrate_fraction": 0.0182,
+      "boulder_cover_fraction": 0.0001,
+      "relief_m_p90": 0.39
+    },
+    "Z3_nest_reef": {
+      "depth_band_m": [
+        -5,
+        -10
+      ],
+      "area_m2": 2007336.0,
+      "slope_deg_p10_p50_p90": [
+        0.312,
+        0.947,
+        2.929
+      ],
+      "slope_rise_over_run_p50": 0.0165,
+      "hard_substrate_fraction": 0.015,
+      "boulder_cover_fraction": 0.0,
+      "relief_m_p90": 0.303
+    },
+    "Z4_refuge": {
+      "depth_band_m": [
+        -10,
+        -15
+      ],
+      "area_m2": 532316.0,
+      "slope_deg_p10_p50_p90": [
+        0.356,
+        1.114,
+        3.632
+      ],
+      "slope_rise_over_run_p50": 0.0194,
+      "hard_substrate_fraction": 0.0321,
+      "boulder_cover_fraction": 0.0,
+      "relief_m_p90": 0.335
+    }
+  },
+  "boulders": {
+    "count": 6,
+    "diameter_m_p10_p50_p90": [
+      3.192,
+      3.192,
+      3.909
+    ],
+    "height_m_p10_p50_p90": [
+      0.474,
+      0.801,
+      0.935
+    ],
+    "nn_spacing_m_p10_p50_p90": [
+      12.806,
+      36.741,
+      215.459
+    ],
+    "density_per_100m2": 0.0
+  },
+  "maps_to_rules": {
+    "R01_R02_slope": "zones.*.slope_rise_over_run_p50",
+    "R03_nest_boulder_diameter": "boulders.diameter_m_p10_p50_p90",
+    "R06_cluster_spacing": "boulders.nn_spacing_m_p10_p50_p90",
+    "R07_reef_relief": "zones.Z3_nest_reef.relief_m_p90",
+    "R08_boulder_cover": "zones.Z3_nest_reef.boulder_cover_fraction"
+  },
+  "parameters_used": {
+    "fine_window_m": 5.0,
+    "broad_window_m": 60.0,
+    "bed_smooth_m": 2.0,
+    "sediment_slope_deg": 5.0,
+    "rough_std_m": 0.08,
+    "shelf_slope_deg": 12.0,
+    "shelf_bpi_m": 0.6,
+    "boulder_min_height_m": 0.3,
+    "min_boulder_diam_m": 0.5,
+    "bs_hard_pct": 80
+  },
+  "warning": "Grid is 2.0 m: boulders under ~6.0 m cannot be resolved; use slope/zone stats only."
+}
