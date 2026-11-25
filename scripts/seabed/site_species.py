@@ -48,10 +48,16 @@ def match_taxa(path, include_birds):
     out = []
     for r in rows:
         if r["component_id"] == "A3" and not include_birds: continue
-        m = get(f"{API}/species/match", {"name": r["taxon"], "strict": "true"})
-        if m.get("matchType") in (None, "NONE") or "usageKey" not in m:
-            print(f"  no GBIF match for {r['taxon']} ({r['component_id']})", file=sys.stderr); continue
+        q = {"name": r["taxon"], "strict": "true"}
+        for col, par in (("rank", "rank"), ("kingdom", "kingdom"), ("class_hint", "class")):
+            if r.get(col): q[par] = r[col]
+        m = get(f"{API}/species/match", q)
         rank = m.get("rank", "")
+        want = (r.get("rank") or "").upper()
+        # HIGHERRANK means GBIF fell back to a parent taxon (e.g. the whole phylum): never accept that
+        if m.get("matchType") not in ("EXACT", "FUZZY") or "usageKey" not in m or (want and rank != want):
+            print(f"  REJECTED match for {r['taxon']} ({r['component_id']}): {m.get('matchType')} {rank} "
+                  f"{m.get('canonicalName', '')} - fix component_taxa.csv", file=sys.stderr); continue
         out.append({"component": r["component_id"], "taxon": r["taxon"], "key": m["usageKey"], "rank": rank,
                     "col": RANKS.get(rank, "species"), "name": m.get("canonicalName", r["taxon"])})
         print(f"  {r['component_id']:3s} {r['taxon']:24s} -> {m['usageKey']} {rank} ({m.get('status', '')})", file=sys.stderr)

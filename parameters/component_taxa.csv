@@ -1,36 +1,38 @@
-component_id,taxon,note
-F1,Zostera marina,eelgrass
-F2,Saccharina latissima,sugar kelp
-F2,Laminaria digitata,oarweed
-F2,Laminaria hyperborea,tangle
-F3,Fucus,all wracks (genus)
-F4,Phycodrys rubens,
-F4,Delesseria sanguinea,
-F4,Furcellaria lumbricalis,
-F4,Coccotylus truncatus,
-F5,Cladophora,filamentous green (genus)
-F5,Ectocarpus,filamentous brown (genus)
-F5,Pylaiella littoralis,filamentous brown
-F5,Ulva,ephemeral green (genus)
-S7,Mytilus edulis,blue mussel (biogenic reef)
-A1,Ctenolabrus rupestris,goldsinny wrasse
-A1,Labrus bergylta,ballan wrasse
-A1,Symphodus melops,corkwing wrasse
-A2,Gadus morhua,cod
-A2,Pholis gunnellus,butterfish
-A2,Lipophrys pholis,shanny
-A3,Larus,gulls (genus) - only with --include-birds
-A3,Corvus,crows and rooks (genus) - only with --include-birds
-A3,Sturnus vulgaris,starling - only with --include-birds
-A4,Phoca vitulina,harbour seal
-A4,Halichoerus grypus,grey seal
-A4,Lutra lutra,otter
-A5,Harpacticoida,harpacticoid copepods (order)
-A5,Amphipoda,amphipods (order)
-A5,Isopoda,isopods (order)
-A6,Aurelia aurita,moon jelly
-A6,Cyanea capillata,lion's mane jelly
-A6,Mnemiopsis leidyi,comb jelly
-A7,Echinoidea,sea urchins (class)
-A8,Asterias rubens,common starfish
-T0,Cyclopterus lumpus,the target species
+component_id,taxon,rank,kingdom,class_hint,note
+F1,Zostera marina,SPECIES,Plantae,,eelgrass
+F2,Saccharina latissima,SPECIES,,,sugar kelp
+F2,Laminaria digitata,SPECIES,,,oarweed
+F2,Laminaria hyperborea,SPECIES,,,tangle
+F3,Fucus,GENUS,Chromista,,all wracks (genus)
+F4,Phycodrys rubens,SPECIES,,,
+F4,Delesseria sanguinea,SPECIES,,,
+F4,Furcellaria lumbricalis,SPECIES,,,
+F4,Coccotylus truncatus,SPECIES,,,
+F5,Cladophora,GENUS,Plantae,,filamentous green (genus)
+F5,Ectocarpus,GENUS,Chromista,,filamentous brown (genus)
+F5,Pylaiella littoralis,SPECIES,,,filamentous brown
+F5,Ulva,GENUS,Plantae,,ephemeral green (genus)
+S7,Mytilus edulis,SPECIES,Animalia,,blue mussel (biogenic reef)
+A1,Ctenolabrus rupestris,SPECIES,Animalia,,goldsinny wrasse
+A1,Labrus bergylta,SPECIES,Animalia,,ballan wrasse
+A1,Symphodus melops,SPECIES,Animalia,,corkwing wrasse
+A2,Gadus morhua,SPECIES,Animalia,,cod
+A2,Pholis gunnellus,SPECIES,Animalia,,butterfish
+A2,Lipophrys pholis,SPECIES,Animalia,,shanny
+A3,Larus,GENUS,Animalia,Aves,gulls (genus) - only with --include-birds
+A3,Corvus,GENUS,Animalia,Aves,crows and rooks (genus) - only with --include-birds
+A3,Sturnus vulgaris,SPECIES,Animalia,,starling - only with --include-birds
+A4,Phoca vitulina,SPECIES,Animalia,,harbour seal
+A4,Halichoerus grypus,SPECIES,Animalia,,grey seal
+A4,Lutra lutra,SPECIES,Animalia,,otter
+A5,Harpacticoida,ORDER,Animalia,Copepoda,harpacticoid copepods (order)
+A5,Amphipoda,ORDER,Animalia,Malacostraca,amphipods (order)
+A5,Isopoda,ORDER,Animalia,Malacostraca,isopods (order)
+A6,Aurelia aurita,SPECIES,Animalia,,moon jelly
+A6,Cyanea capillata,SPECIES,Animalia,,lion's mane jelly
+A6,Mnemiopsis leidyi,SPECIES,Animalia,,comb jelly
+A7,Echinus esculentus,SPECIES,Animalia,Echinoidea,edible sea urchin (grazer); heart urchins (Echinocardium) left out: sand burrowers
+A7,Strongylocentrotus droebachiensis,SPECIES,Animalia,Echinoidea,green sea urchin (grazer); heart urchins (Echinocardium) left out: sand burrowers
+A7,Psammechinus miliaris,SPECIES,Animalia,Echinoidea,shore urchin (grazer); heart urchins (Echinocardium) left out: sand burrowers
+A8,Asterias rubens,SPECIES,Animalia,,common starfish
+T0,Cyclopterus lumpus,SPECIES,Animalia,,the target species
