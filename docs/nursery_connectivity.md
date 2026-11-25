@@ -17,14 +17,23 @@ Lumpfish nest on stony ground (the erratic screen's `lag_on_till_shallow`), but 
 
 ## Steps
 1. **Nursery proxy** (`nursery`). 100 m grid: shore_hard, shallow_hard (0–3 m), eelgrass, kelp_hard (3–10 m), shore_soft. It uses the substrate and depth from `erratic-inputs` plus HELCOM eelgrass.
-2. **Currents.** Copernicus Marine Baltic Sea Physics Reanalysis (DMI NEMO, ~1 nm / 2 km, 1993–2026, covers Kattegat, Belts and Øresund; western Skagerrak is outside its box), doi 10.48670/moi-00013. Mean surface and near-bottom u/v for April–July, the egg, larval and early-juvenile period. It needs a free Copernicus Marine account and the `copernicusmarine` Python toolbox.
-3. **Drift.** Particles released from reef cells (score 3) and advected through the mean or daily currents for 2–6 weeks, then counted on each nursery-proxy shore. The outputs are a reef → nursery link table and a "supply" map of shores.
+2. **Currents.** Copernicus Marine Baltic Sea Physics Reanalysis (DMI NEMO, ~1 nm / 2 km, 1993–2026, covers Kattegat, Belts and Øresund; western Skagerrak is outside its box), doi 10.48670/moi-00013. Mean surface and near-bottom u/v for April–July, the egg, larval and early-juvenile period. `currents` first tries to read the public ARCO (Zarr) copy without an account; only if that is refused does it fall back to the `copernicusmarine` toolbox and a login. Outputs: `currents_mean.tif` (surface, 0–10 m and near-bottom means) and `currents_daily_surface.npz` (daily surface fields for the drift).
+3. **Drift** (`drift`). Particles are released weekly from every candidate reef patch of `shortlist` (same box, same patch numbers), carried by the daily surface currents (RK2, 1 h steps) plus a random walk (K = 10 m²/s), for 30 days. Each records its first contact with hard nursery and with eelgrass. A particle stranded on the model coast (~1 nm coarse) is credited with the nearest nursery within 1.5 km. Outputs: `drift_by_patch.csv`, `drift_arrivals.tif`, `drift_map.png`. Limits: daily means, no tide, no wind drag on floating weed, no larval behaviour (larvae cling to algae near the nest). It answers "which shores are downstream of which reefs", not how many fish arrive.
 
 ## Commands (step 1)
 ```powershell
 $box = "11.9","55.95","12.7","56.2"
 .\run.ps1 nursery-inputs --out data\dk_test
 .\run.ps1 nursery --bbox @box --data data\dk_test --out runs\dk_nursery_test
+```
+
+## Commands (steps 2 and 3, Øresund)
+Run `.\setup.ps1` once after updating, to install xarray and zarr.
+```powershell
+.\run.ps1 currents --test
+$sund = "12.3","55.45","12.95","56.15"
+.\run.ps1 currents --bbox 12.2 55.35 13.05 56.25 --years 2019 2023 --months 4 5 6 7 --out data\dk_currents
+.\run.ps1 drift --bbox @sund --currents data\dk_currents\currents_daily_surface.npz --erratic runs\dk_erratics\erratic_grid.tif --reefs data\dk\reefs_helcom_1170.tif --nursery runs\dk_nursery\nursery_grid.tif --out runs\oresund_drift
 ```
 
 ## Mapped reefs vs the till screen vs nursery (all of Denmark)
