@@ -64,6 +64,8 @@ def main():
                     help="moraine / ice-margin lines (repeatable); FIELD '*' takes every line")
     ap.add_argument("--depth", help="elevation GeoTIFF (negative below sea level) e.g. EMODnet DTM")
     ap.add_argument("--depth-positive", action="store_true", help="depth raster is positive down")
+    ap.add_argument("--unmapped-match", default=r"restricted|no data|not mapped|unknown|unclassified",
+                    help="substrate classes treated as unmapped (left out of areas and use ratios)")
     ap.add_argument("--coarse-match", default=COARSE); ap.add_argument("--glacial-match", default=GLACIAL)
     ap.add_argument("--line-match", default=r"morain|ice.?margin|terminal|push")
     ap.add_argument("--line-buffer", type=float, default=2000, help="metres from a moraine line that count as source")
@@ -123,6 +125,9 @@ def main():
             shapes.append((geom(f["geometry"]), i))
         names += sorted(idx, key=idx.get)
         sub = rf.rasterize(shapes, out_shape=shape, transform=tr, fill=0, dtype="int32")
+    ure = re.compile(a.unmapped_match, re.I)
+    unm = [i for i, n in enumerate(names) if i and ure.search(n)]
+    if unm: print("Treated as unmapped:", [names[i] for i in unm], file=sys.stderr); sub[np.isin(sub, unm)] = 0
     cre = re.compile(a.coarse_match, re.I)
     coarse_ids = [i for i, n in enumerate(names) if i and cre.search(n)]
     coarse = np.isin(sub, coarse_ids)
@@ -167,7 +172,7 @@ def main():
                            f"p10 {np.percentile(wet, 10):.1f}  median {np.median(wet):.1f}  p90 {np.percentile(wet, 90):.1f} m", file=sys.stderr)
         else: print("No cells below sea level: the raster may be positive-down already, try --depth-positive", file=sys.stderr)
     has_depth = np.isfinite(depth)
-    water = (sub > 0) | source  # mapped seabed
+    water = sub > 0 if a.substrate else source   # mapped seabed
     if a.depth:
         water &= has_depth & (depth > 0) & (depth <= a.max_depth)
     shallow = has_depth & (depth > 0) & (depth <= a.wave_depth)
