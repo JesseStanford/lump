@@ -1,0 +1,12 @@
+# local-only folders (also protected from update.ps1 mirroring)
+data/
+runs/
+export/
+work/
+.venv/
+__pycache__/
+*.pyc
+# Rhino backups and locks
+*.3dmbak
+*.rhl
+*.3dm.lock

@@ -1,0 +1,19 @@
+{
+  "site_id": "SITE_ID",
+  "name": "",
+  "status": "candidate",
+  "country": "DK",
+  "centre_lat": null,
+  "centre_lon": null,
+  "crs": "EPSG:25832",
+  "bbox_crs_units": [null, null, null, null],
+  "seabed_source": "",
+  "seabed_resolution_m": null,
+  "seabed_licence": "",
+  "dem_path_local": "data/SITE_ID/seabed.tif",
+  "nest_evidence": "none | literature | reviewed records",
+  "criteria_scores": {"C1": null, "C2": null, "C3": null, "C4": null, "C5": null,
+                      "C6": null, "C7": null, "C8": null, "C9": null, "C10": null, "C11": null},
+  "citations": [],
+  "notes": "notes.md"
+}

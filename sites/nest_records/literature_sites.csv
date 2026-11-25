@@ -1,0 +1,5 @@
+lat,lon,label,source,evidence,depth_m,uncertainty_m,notes,url
+56.060,12.593,Helsingor Oresund,Jansson et al. 2023 PLoS ONE Table 1,2,,5000,"Spawning adults sampled Feb 2020; coordinates approximate; no depth/substrate given",https://doi.org/10.1371/journal.pone.0283351
+57.590,10.420,Albaek North Kattegat,Jansson et al. 2023 PLoS ONE Table 1,2,,5000,"Spawning adults sampled Mar 2018 and Feb 2020; coordinates approximate",https://doi.org/10.1371/journal.pone.0283351
+56.970,10.330,Hals Kattegat,Jansson et al. 2023 PLoS ONE Table 1,2,,5000,"Spawning adults sampled Mar 2019; coordinates approximate",https://doi.org/10.1371/journal.pone.0283351
+55.870,-2.090,Eyemouth Berwickshire,Seasearch Scotland 2018 summary Fig. 4,3,,3000,"Photo of lumpsucker guarding eggs from Eyemouth diving; no coordinates or depth in source; point is the town (approximate)",https://www.seasearch.org.uk/resource_redirect/downloads/sites/2147503706/themes/2148215941/downloads/TMwpGX0QLS3SdRQ7Rvoz_2018-Scotland-summary.pdf

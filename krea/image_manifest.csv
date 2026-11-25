@@ -1,0 +1,13 @@
+layer,species_or_material,role_in_render,image_file,source_url,licence,author,attribution_text,retrieved
+substrate::boulder_nest,granite/gneiss boulder with crevice,texture+form,,,,,,
+substrate::cobble,cobble 0.06-0.25 m,texture,,,,,,
+substrate::sand,rippled sand,texture,,,,,,
+flora::Saccharina_latissima,sugar kelp,style reference,,,,,,
+flora::Fucus_vesiculosus,bladder wrack,style reference,,,,,,
+flora::Zostera_marina,eelgrass,style reference,,,,,,
+fauna::Cyclopterus_lumpus_male,lumpfish male in spawning colours,subject,,,,,,
+fauna::Cyclopterus_lumpus_eggmass,lumpfish egg mass,subject,,,,,,
+fauna::Cyclopterus_lumpus_juvenile,juvenile lumpfish on seaweed,subject,,,,,,
+fauna::Ctenolabrus_rupestris,goldsinny wrasse,secondary,,,,,,
+fauna::Asterias_rubens,common starfish,secondary,,,,,,
+water::surface,Øresund water column / light,atmosphere,,,,,,

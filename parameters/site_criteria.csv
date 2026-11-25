@@ -1,0 +1,12 @@
+id,criterion,threshold,pass_fail,weight,data_source
+C1,Depth range present,Seabed 0 to <= -10 m within ~300 m of shore,yes,,EMODnet / Danish Geodata Agency bathymetry
+C2,Bottom salinity Feb-May at 5-10 m,>= 15 psu (ideal >= 20),yes,,DMI / Danish EPA monitoring
+C3,Spring temperature at nest depth,4-8 degC Mar-Apr; < 12 degC to June,yes,,DMI ocean model
+C4,Oxygen,No summer bottom hypoxia (< 4 mg/L working threshold),yes,,NOVANA oxygen maps
+C5,Fishing control possible,Gillnets can be excluded,yes,,Fisheries regulations / harbour authority
+C6,Water clarity,Secchi >= 4 m summer,no,0.15,NOVANA Secchi
+C7,Seabed bearing and sediment,Firm sand/gravel; organic matter < 13%,no,0.15,GEUS sediment maps
+C8,Exposure,Moderate flushing; sheltered from largest storm waves,no,0.15,Fetch / wave models
+C9,Hard substrate or kelp nearby,Within 1 km,no,0.15,Habitat maps / diver surveys
+C10,Conflicts,Clear of shipping lanes cables dredged channels beaches,no,0.2,Danish Maritime Authority charts
+C11,Lumpfish present,Spring eDNA or snorkel records,no,0.2,Fiskeatlas / eDNA
