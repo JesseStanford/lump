@@ -57,13 +57,15 @@ switch ($Task) {
         if (-not $lon) { throw "Usage: .\run.ps1 fetch-uk <site_id> <lat> <lon> [half_size_m]" }
         $out = Join-Path $root "data\$id\surfzone_2m.tif"
         & $py (Join-Path $seabed "fetch_wcs.py") --lat $lat --lon $lon --half-size $half --out $out
+        if ($LASTEXITCODE -ne 0) { throw "Download failed; nothing saved." }
     }
     "fetch-lidar" {
         $id = $Rest[0]; $lat = $Rest[1]; $lon = $Rest[2]; $half = if ($Rest.Count -gt 3) { $Rest[3] } else { "1000" }
         if (-not $lon) { throw "Usage: .\run.ps1 fetch-lidar <site_id> <lat> <lon> [half_size_m]" }
         $out = Join-Path $root "data\$id\lidar_dtm_1m.tif"
         $url = "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs"
-        & $py (Join-Path $seabed "fetch_wcs.py") --url $url --lat $lat --lon $lon --half-size $half --out $out
+        & $py (Join-Path $seabed "fetch_wcs.py") --url $url --lat $lat --lon $lon --half-size $half --tile 500 --out $out
+        if ($LASTEXITCODE -ne 0) { throw "Download failed; nothing saved." }
     }
     default {
         Get-Content $PSCommandPath | Select-Object -Skip 1 -First 10 | ForEach-Object { $_ -replace "^# ?", "" }

@@ -22,7 +22,7 @@ Outputs (in --run folder):
 import argparse, csv, json, os
 import numpy as np
 
-VARS = ["depth_m", "bed_slope_deg", "rough_std_m", "hard_fraction", "boulder_fraction",
+VARS = ["class_shannon", "class_richness", "depth_m", "bed_slope_deg", "rough_std_m", "hard_fraction", "boulder_fraction",
         "shelf_fraction", "boulders_in_radius", "nearest_boulder_m", "nearest_hard_m", "relief_m"]
 
 def main():
@@ -76,7 +76,9 @@ def main():
         sl = (slice(r - rr, r + rr + 1), slice(c - rr, c + rr + 1)); m = disk & valid[sl]
         if m.sum() < 3: return None
         nb = int(((np.hypot(bpts[:, 0] - x, bpts[:, 1] - y) <= a.radius).sum())) if len(bpts) else 0
-        return dict(depth_m=float(np.nanmedian(z[sl][m])), bed_slope_deg=float(np.nanmedian(met[0][sl][m])),
+        cc = cls[sl][m]; cc = cc[cc > 0]; pk = np.bincount(cc, minlength=7)[1:] / max(1, cc.size); pk = pk[pk > 0]
+        return dict(class_shannon=float(-(pk * np.log(pk)).sum()), class_richness=int(pk.size),
+                    depth_m=float(np.nanmedian(z[sl][m])), bed_slope_deg=float(np.nanmedian(met[0][sl][m])),
                     rough_std_m=float(np.nanmedian(met[5][sl][m])) if met.shape[0] > 5 else np.nan,
                     hard_fraction=float(hard[sl][m].mean()), boulder_fraction=float(boul[sl][m].mean()),
                     shelf_fraction=float(shelf[sl][m].mean()), boulders_in_radius=nb,
