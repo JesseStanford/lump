@@ -29,7 +29,9 @@ import argparse, base64, csv, io, json, math, os, sys, time, urllib.parse, urlli
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 API = "https://api.gbif.org/v1"
-RANKS = {"KINGDOM": "kingdom", "PHYLUM": "phylum", "CLASS": "class", "ORDER": "order", "FAMILY": "family",
+WOODLICE = {"Porcellionidae", "Armadillidiidae", "Oniscidae", "Trachelipodidae", "Philosciidae", "Trichoniscidae",
+            "Platyarthridae", "Cylisticidae", "Armadillidae", "Halophilosciidae", "Agnaridae"}   # Ligiidae (Ligia) kept: shore
+RANKS = {"KINGDOM": "kingdom", "SUBORDER": "order", "PHYLUM": "phylum", "CLASS": "class", "ORDER": "order", "FAMILY": "family",
          "GENUS": "genus", "SPECIES": "species"}
 NAMES = {"F1": "eelgrass", "F2": "kelp", "F3": "Fucus", "F4": "red algae", "F5": "filamentous algae", "S7": "blue mussel",
          "A1": "wrasse", "A2": "cod, blennies", "A3": "gulls, crows", "A4": "seals, otter", "A5": "copepods, amphipods",
@@ -48,6 +50,9 @@ def match_taxa(path, include_birds):
     out = []
     for r in rows:
         if r["component_id"] == "A3" and not include_birds: continue
+        if r["component_id"] == "X":       # exclusions are matched by name in the records; no lookup needed
+            out.append({"component": "X", "taxon": r["taxon"], "key": None, "rank": r.get("rank", ""), "col": "", "name": r["taxon"]})
+            continue
         q = {"name": r["taxon"], "strict": "true"}
         for col, par in (("rank", "rank"), ("kingdom", "kingdom"), ("class_hint", "class")):
             if r.get(col): q[par] = r[col]
@@ -74,7 +79,7 @@ def request_download(taxa, bbox, since):
     lo1, la1, lo2, la2 = bbox
     wkt = f"POLYGON(({lo1} {la1},{lo2} {la1},{lo2} {la2},{lo1} {la2},{lo1} {la1}))"
     pred = {"type": "and", "predicates": [
-        {"type": "in", "key": "TAXON_KEY", "values": sorted({str(t["key"]) for t in taxa})},
+        {"type": "in", "key": "TAXON_KEY", "values": sorted({str(t["key"]) for t in taxa if t["component"] != "X"})},
         {"type": "within", "geometry": wkt},
         {"type": "equals", "key": "HAS_COORDINATE", "value": "true"},
         {"type": "equals", "key": "HAS_GEOSPATIAL_ISSUE", "value": "false"},
@@ -146,7 +151,11 @@ def main():
 
     # assign records to components by matching the taxon's name at its rank column
     by_col = {}
-    for t in taxa: by_col.setdefault(t["col"], {})[t["name"]] = t["component"]
+    for t in taxa:
+        if t["component"] != "X": by_col.setdefault(t["col"], {})[t["name"]] = t["component"]
+    excl = {t["name"] for t in taxa if t["component"] == "X"}
+    if "Oniscidea" in excl:   # suborder is not a column in GBIF's simple CSV: list the woodlouse families
+        excl |= WOODLICE
     z = zipfile.ZipFile(zpath); member = [n for n in z.namelist() if n.endswith(".csv")][0]
     csv.field_size_limit(10 ** 8)
     recs = []
@@ -157,6 +166,7 @@ def main():
             except (TypeError, ValueError): continue
             unc = r.get("coordinateUncertaintyInMeters") or ""
             if unc and float(unc) > a.max_uncertainty_m: continue
+            if excl & {r.get("family", ""), r.get("species", ""), r.get("genus", "")}: continue
             comp = None
             for col in ("species", "genus", "family", "order", "class", "phylum"):
                 c = by_col.get(col, {}).get(r.get(col, ""))
@@ -165,7 +175,7 @@ def main():
             recs.append((comp, r.get("species") or r.get("scientificName", ""), lat, lon, int(r["year"]) if r.get("year") else None))
     print(f"{len(recs)} usable records assigned to components", file=sys.stderr)
 
-    comps = sorted({t["component"] for t in taxa}, key=lambda c: (c[0] != "T", c[0] != "F", c[0] != "S", c))
+    comps = sorted({t["component"] for t in taxa if t["component"] != "X"}, key=lambda c: (c[0] != "T", c[0] != "F", c[0] != "S", c))
     wide, long_ = [], []
     for p in patches:
         hits = {}

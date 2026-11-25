@@ -36,3 +36,7 @@ A7,Strongylocentrotus droebachiensis,SPECIES,Animalia,Echinoidea,green sea urchi
 A7,Psammechinus miliaris,SPECIES,Animalia,Echinoidea,shore urchin (grazer); heart urchins (Echinocardium) left out: sand burrowers
 A8,Asterias rubens,SPECIES,Animalia,,common starfish
 T0,Cyclopterus lumpus,SPECIES,Animalia,,the target species
+X,Oniscidea,SUBORDER,Animalia,Malacostraca,EXCLUDE: woodlice (land isopods) from A5; Ligia oceanica (shore) is kept
+X,Asellidae,FAMILY,Animalia,Malacostraca,EXCLUDE: freshwater isopods
+X,Gammarus pulex,SPECIES,Animalia,Malacostraca,EXCLUDE: freshwater amphipod
+X,Gammarus fossarum,SPECIES,Animalia,Malacostraca,EXCLUDE: freshwater amphipod
