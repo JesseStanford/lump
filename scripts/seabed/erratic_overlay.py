@@ -73,6 +73,8 @@ def main():
     ap.add_argument("--max-depth", type=float, default=30, help="ignore water deeper than this, m")
     ap.add_argument("--points"); ap.add_argument("--months", default=""); ap.add_argument("--drop", default="")
     ap.add_argument("--min-evidence", type=int, default=0)
+    ap.add_argument("--snap-m", type=float, default=1000,
+                    help="move a sighting on land / unmapped cells to the nearest mapped seabed cell within this distance")
     ap.add_argument("--data", help="folder from fetch_erratic_inputs.py; fills any layer not given explicitly")
     ap.add_argument("--out", default="runs/erratics")
     a = ap.parse_args()
@@ -215,12 +217,21 @@ def main():
         from overlay_points import load_points
         pts = load_points(a.points, a.bbox, a.min_evidence, a.months, None, a.drop)
         px, py = transform("EPSG:4326", a.crs, [p[0] for p in pts], [p[1] for p in pts]) if pts else ([], [])
-        rows, used = [], Counter()
+        rows, used, why = [], Counter(), Counter()
+        d_w, (wr_, wc_) = ndi.distance_transform_edt(~water, return_indices=True)
+        deep = has_depth & (depth > a.max_depth)
         for (lon, lat, r), x, y in zip(pts, px, py):
-            c, rr = ~tr * (x, y); rr, c = int(rr), int(c)
+            c, rr = ~tr * (x, y); rr, c = int(rr), int(c); moved = 0.0
             inside = 0 <= rr < H and 0 <= c < W and water[rr, c]
+            if 0 <= rr < H and 0 <= c < W and not inside:
+                if deep[rr, c]: why["deeper_than_max_depth"] += 1
+                elif d_w[rr, c] * a.cell <= a.snap_m:
+                    moved = float(d_w[rr, c] * a.cell); rr, c = int(wr_[rr, c]), int(wc_[rr, c]); inside = True
+                elif has_depth[rr, c] and depth[rr, c] > 0: why["water_but_substrate_unmapped"] += 1
+                else: why["on_land_beyond_snap"] += 1
+            elif not inside: why["outside_box"] += 1
             k = CATS[cat[rr, c]] if inside else "outside_mapped_seabed"; used[k] += 1
-            rows.append({"lat": lat, "lon": lon, "category": k, "score": int(score[rr, c]) if inside else "",
+            rows.append({"lat": lat, "lon": lon, "category": k, "moved_m": round(moved) if inside else "", "score": int(score[rr, c]) if inside else "",
                          "substrate": names[sub[rr, c]] if inside else "", "depth_m": round(float(depth[rr, c]), 1) if inside and has_depth[rr, c] else "",
                          "glacial_source": bool(source_any[rr, c]) if inside else "",
                          "dist_moraine_line_m": round(float(d_line[rr, c])) if inside and np.isfinite(d_line[rr, c]) else "",
@@ -233,7 +244,9 @@ def main():
             sp = used[k] / n_in if n_in else 0; sa = area_cat[k] / A if A else 0
             summary.append({"category": k, "points": used[k], "point_share": round(sp, 3), "area_km2": round(area_cat[k], 2),
                             "area_share": round(sa, 3), "use_ratio": round(sp / sa, 2) if sa and n_in else None})
-        print(f"{len(pts)} sightings kept, {n_in} on mapped seabed, {used['outside_mapped_seabed']} outside (land, harbour or deeper than --max-depth).")
+        n_moved = sum(1 for r_ in rows if r_["moved_m"] not in ("", 0))
+        print(f"{len(pts)} sightings kept, {n_in} on mapped seabed ({n_moved} moved up to {a.snap_m:g} m from shore), "
+              f"{used['outside_mapped_seabed']} outside: {dict(why)}")
     else:
         A = sum(area_cat.values())
         summary = [{"category": k, "area_km2": round(area_cat[k], 2), "area_share": round(area_cat[k] / A, 3) if A else 0} for k in CATS[::-1]]
