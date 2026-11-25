@@ -35,6 +35,9 @@ def token(a):
     if not t:
         raise SystemExit("A Dataforsyningen token is needed (free). Create a user at https://dataforsyningen.dk, make a token\n"
                          "under your user page, then in PowerShell:\n  $env:DATAFORSYNINGEN_TOKEN = \"the token text\"\nand run this again.")
+    if t.strip().lower() in ("the token text", "your token", "token"):
+        raise SystemExit("DATAFORSYNINGEN_TOKEN is still the example text. Copy your real token from your user page on "
+                         "dataforsyningen.dk and set it again.")
     return t
 
 def fetch(url, params, tries=4):
