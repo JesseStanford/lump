@@ -48,9 +48,10 @@ switch ($Task) {
         & $py (Join-Path $seabed "sample_nest_sites.py") --run (Join-Path $root "runs\$id") --dem $dem --points $pts @more
     }
     default {
-        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 9 | ForEach-Object { $_ -replace "^# ?", "" }
+        Get-Content $PSCommandPath | Select-Object -Skip 1 -First 8 | ForEach-Object { $_ -replace "^# ?", "" }
         if (Test-Path $py) {
-            Write-Host "`n--- seabed_classify.py options ---"; & $py (Join-Path $seabed "seabed_classify.py") -h | Select-Object -Last 14
+            Write-Host "`n--- classify options (seabed_classify.py) ---"
+            & $py (Join-Path $seabed "seabed_classify.py") -h | Out-Host
         }
     }
 }
