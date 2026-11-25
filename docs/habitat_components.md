@@ -72,6 +72,7 @@ Spring orthophotos from SDFI (Dataforsyningen) can show boulders at 0 to about 5
 - Footprints only: no heights, crevices or overhangs. A dark blob can be a weed clump or a shadow.
 - Boulders that touch or sit closer than about 0.5 m merge into one object, so clusters read as fewer, larger boulders.
 - Objects must be at least 6 pixels (0.4 m tiles) or `--min-area` (fine tiles), have a core clearly darker than the threshold, and not be thin streaks.
+- Visibility also needs the dark step to be at least three times the pixel noise (measured on the 3x3-smoothed brightness), so murky or wavy areas are skipped rather than read as stones.
 - Synthetic tests: on 0.125 m tiles, 158 of 187 planted boulders of 0.8 m or more were found (85%), median diameter 1.17 m. On 0.4 m tiles only boulders of about 1.1 m and more are kept. **Use 0.125 m tiles for boulder counts.**
 
 **First run, Nakkehoved (0.4 m tiles, before the object checks, 2026-11-25):** 12 dark patches of 300 m² to 24.6 ha between 0.3 and 5 m, almost solid dark inside (cover 0.89 to 1.0), with sand between. Dark cover per 50 m cell is either about 0 or about 1. The largest patch runs on past 5 m, and its edge at the foot of the cliff may partly be cliff shadow. The 331 single "boulders" were not reliable: 118 had identical repeated pixel shapes (noise at 0.4 m), and most sat on patch edges, so the size, cluster and spacing numbers from that run should not be used. Tentatively, natural hard ground here comes as dense fields of 0.03 to 25 ha separated by sand, not as scattered stones; the dark cover (boulders plus weed canopy) is well above the 0.3 to 0.5 in R08.
@@ -79,6 +80,21 @@ Spring orthophotos from SDFI (Dataforsyningen) can show boulders at 0 to about 5
 ```
 .\run.ps1 boulders --tiles runs\ortho_gilleleje_hornbaek\tiles --erratic runs\dk_erratics\erratic_grid.tif --bbox 12.335 56.110 12.395 56.127 --out runs\boulders_nakkehoved
 ```
+
+### Hard ground vs seaweed and eelgrass (`flora`)
+One photo cannot tell a boulder from a weed bed: both are dark. `flora_classify.py` uses several spring photo years of the same tiles (SDFI `geodanmark_YYYY_12_5cm`, 2015 to 2026) and the same frozen dark-pixel rule.
+- **Persistence.** Each year is aligned to the reference year by cross-correlation (up to 3 m shift) and each dark object in the reference year is checked against the other years with 1 m tolerance. Dark in every year that sees the bottom (overlap at least 0.6): `hard`. Mostly gone in other years (median overlap under 0.25): `vegetation` (eelgrass, drift weed, annual green algae). In between: `uncertain`.
+- **Shape.** Solidity, elongation and edge sharpness per object. Boulders are compact with sharp edges; weed beds are ragged and soft-edged. Reported, not used to classify yet.
+- **Colour** at 2 m or shallower only, against a ring of sand around the object: `brown_olive` (Fucus, kelp, or brown film on stone), `green` (Ulva, eelgrass), `grey_dark` (bare stone or shadow).
+- A pixel is judged only on the years where the bottom is visible there. A windy or murky year (such as the 2019 photo, which has waves and whitecaps) drops out locally instead of making real boulders look temporary. The run prints how much of the reference area each year sees.
+- **Limit:** stones covered in perennial Fucus or kelp are dark every year, so they come out `hard`. That is right for a lumpfish nest (hard ground with weed is what we want). What the method separates is hard ground (with or without weed) from weed or eelgrass on sand.
+- Synthetic test (three years with 0.4 to 0.5 m misregistration, 150 boulders, a different weed bed each year): shift found as 0.50 / 0.38 m; 112 objects `hard`; the reference year's weed bed `vegetation`; 58 objects `brown_olive` at 2 m or less. With the third year replaced by a windy copy (waves, whitecaps, noise 3.9 vs 1.5), that year saw 61% of the bottom and the result was unchanged.
+- Outputs: `flora_objects.csv` / `.geojson` (one row per object, EPSG:25832 x, y plus lat/lon, overlap per year, class, shape, colour), `flora_classes.tif` (1 sand, 2 hard, 3 vegetation), `flora_summary.csv` (per depth band and class), `flora_map.png`.
+
+```
+.\run.ps1 flora --years 2022=runs\ortho_nakkehoved_2022 2019=runs\ortho_nakkehoved_2019 --erratic runs\dk_erratics\erratic_grid.tif --out runs\flora_nakkehoved
+```
+The first year is the reference: use the clearest photo. Fetch every year with the same `--bbox`, `--tile-m 250` and `--res 0.125`.
 
 ### Seaweed from lidar?
 - Denmark's national lidar (Danmarks Højdemodel) uses near-infrared light, which water absorbs within centimetres. It gives no seabed or seaweed signal below the waterline.

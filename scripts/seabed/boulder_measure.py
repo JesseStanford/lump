@@ -118,7 +118,12 @@ def main():
     byd = np.interp(np.nan_to_num(depth), (np.flatnonzero(ok) + 0.5) * 0.5, sandb[ok])
     sand = np.maximum(loc, byd)
     cmax = np.nanmax(sandb - deep)
-    vis = water & (depth >= a.min_depth) & (depth <= a.max_depth) & ((byd - deep) >= a.min_contrast * cmax)
+    # noise of the 3x3-smoothed brightness: raw-pixel noise at 12.5 cm is too strict and hides real boulders
+    hp = L - ndi.uniform_filter(L, 31); hpw = hp[water & (depth < 2)]
+    noise = float(1.4826 * np.median(np.abs(hpw - np.median(hpw)))) if hpw.size else 0.0
+    vis = water & (depth >= a.min_depth) & (depth <= a.max_depth) & ((byd - deep) >= a.min_contrast * cmax) \
+          & ((byd - deep) * (1 - a.dark_ratio) >= 3 * noise)    # the dark step must stand clear of pixel noise
+    print(f"Pixel noise {noise:.1f}; deep-water brightness {deep:.0f}", file=sys.stderr)
     ratio = (Lraw - deep) / np.maximum(sand - deep, 1)
     dark = vis & (ratio < a.dark_ratio)
     dark = ndi.median_filter(dark.astype("uint8"), 3).astype(bool) & vis
