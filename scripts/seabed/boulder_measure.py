@@ -13,7 +13,8 @@ How a pixel is called dark (same rule as ortho_compare.py, not re-tuned)
   Brightness is compared with bare sand: the 80th percentile of brightness (a) in a --bg-m window
   around the pixel and (b) at the same depth (0.5 m bins), whichever is brighter. A pixel with less
   than --dark-ratio (0.6) of the sand's brightness above deep water is dark. Only water from
-  --min-depth to --max-depth (screen depth grid) where the bottom still shows is used.
+  --min-depth to --max-depth (screen depth grid) where the bottom still shows is used. Water itself comes
+  from the photo (connected to water the grid calls deep), minus --shore-buffer m at the waterline.
 
 Objects
   boulder   dark blob of --min-area to --max-area m2 (default 0.5 to 12 m2, about 0.8 to 3.9 m across)
@@ -47,6 +48,7 @@ def main():
     ap.add_argument("--erratic", required=True, help="erratic_grid.tif (band 3 = depth, positive down)")
     ap.add_argument("--bbox", nargs=4, type=float, help="lon_min lat_min lon_max lat_max: only tiles touching this box")
     ap.add_argument("--min-depth", type=float, default=0.3); ap.add_argument("--max-depth", type=float, default=5.0)
+    ap.add_argument("--shore-buffer", type=float, default=5.0, help="strip along the photo waterline left out (swash, foam), m")
     ap.add_argument("--dark-ratio", type=float, default=0.6); ap.add_argument("--sand-pct", type=float, default=80)
     ap.add_argument("--min-contrast", type=float, default=0.25)
     ap.add_argument("--bg-m", type=float, default=40, help="window for the local sand reference, m")
@@ -60,7 +62,7 @@ def main():
     ap.add_argument("--out", default="runs/boulders")
     a = ap.parse_args()
     sys.path.insert(0, HERE); import sources
-    from depthfill import fill_coast
+    from depthfill import fill_coast, sea
     os.makedirs(a.out, exist_ok=True)
     sources.carry_args(a.out, argparse.Namespace(**{k: v for k, v in vars(a).items() if k != "params"}))   # our own rules file is not a data source
 
@@ -99,8 +101,8 @@ def main():
         depth = np.full((H, W), np.nan, "float32")
         reproject(fill_coast(s.read(3)), depth, src_transform=s.transform, src_crs=s.crs, dst_transform=tr, dst_crs=crs,
                   src_nodata=np.nan, dst_nodata=np.nan, resampling=Resampling.bilinear)
-    water = valid & np.isfinite(depth) & (depth > 0) & (B > R) & (G >= R - 5)
-    land = valid & ~water & ~(np.isfinite(depth) & (depth > 2))
+    water, depth, swash = sea(R, G, B, valid, depth, a.min_depth, res, a.shore_buffer)
+    land = valid & ~water & ~swash & ~(np.isfinite(depth) & (depth > 2))
     land = ndi.binary_opening(land, iterations=3)
     deep = float(np.percentile(L[water], 1))
 

@@ -78,11 +78,12 @@ def main():
     ap.add_argument("--hard-share", type=float, default=0.75, help="share of other years that must confirm an object for 'hard' (with 4+ years, one poor photo is tolerated)")
     ap.add_argument("--gone", type=float, default=0.85, help="mean ratio at or above this in most other years = 'changing' (sand-bright)")
     ap.add_argument("--colour-depth", type=float, default=2.0)
+    ap.add_argument("--shore-buffer", type=float, default=5.0, help="strip along the photo waterline left out (swash, foam), m")
     ap.add_argument("--map-res", type=float, default=0.5)
     ap.add_argument("--out", default="runs/flora")
     a = ap.parse_args()
     sys.path.insert(0, HERE); import sources
-    from depthfill import fill_coast
+    from depthfill import fill_coast, sea
     os.makedirs(a.out, exist_ok=True)
     years = [y.split("=", 1) for y in a.years]
     if len(years) < 2: raise SystemExit("Give at least two years (YEAR=FOLDER).")
@@ -114,7 +115,8 @@ def main():
         return d
     def water_of(img, d):
         R, G, B = img.astype("float32")
-        return (img.sum(0) > 0) & np.isfinite(d) & (d > 0) & (B > R) & (G >= R - 5)
+        w, d2, _ = sea(R, G, B, img.sum(0) > 0, d, a.min_depth, res, a.shore_buffer)
+        return w, d2
 
     # pass 1: deep-water and sand brightness per year (sampled)
     stats = []
@@ -122,7 +124,7 @@ def main():
         Ls, Ds, Hs, Cs = [], [], [], []
         for k in keys:
             with rasterio.open(tl[yi][k]) as s: img = s.read([1, 2, 3])
-            d = depth_for(*k); w = water_of(img, d)
+            d = depth_for(*k); w, d = water_of(img, d)
             L = ndi.uniform_filter(lum(img), 3)
             hp = L - ndi.uniform_filter(L, 31)
             Ls.append(L[w][::37]); Ds.append(d[w][::37]); Hs.append(hp[w & (d < 2)][::37]); Cs.append(img[:, w][:, ::37].T)
@@ -137,7 +139,7 @@ def main():
 
     def dark_of(img, d, st):
         deep, cen, sandv, cmax, noise, _ = st
-        w = water_of(img, d); L = ndi.uniform_filter(lum(img), 3)
+        w, d = water_of(img, d); L = ndi.uniform_filter(lum(img), 3)
         idx = ndi.distance_transform_edt(~w, return_distances=False, return_indices=True) if w.any() else None
         if idx is None: z = np.zeros_like(w); return z, z, L, z, np.ones(w.shape, "float32")
         Lf = ndi.uniform_filter(L, 3)[tuple(idx)]; f = max(1, int(round(1.0 / res)))
@@ -172,6 +174,7 @@ def main():
     for ti, (tx, ty) in enumerate(keys, 1):
         d = depth_for(tx, ty)
         with rasterio.open(tl[0][(tx, ty)]) as s: img0 = s.read([1, 2, 3])
+        _, d = water_of(img0, d)          # photo waterline; depth floored at --min-depth in the water
         dk0, vis0, L0, _, _ = dark_of(img0, d, stats[0])
         others = []
         for yi in range(1, len(years)):
@@ -286,7 +289,7 @@ def main():
     reproject(fill_coast(es.read(3)), dmap, src_transform=es.transform, src_crs=es.crs, dst_transform=mtr, dst_crs=crs,
               src_nodata=np.nan, dst_nodata=np.nan, resampling=Resampling.bilinear)
     for lo, hi in ((0, 1), (1, 2), (2, 3), (3, 5)):
-        m = (dmap > lo) & (dmap <= hi) & (cmap > 0); tot = m.sum()
+        m = ((dmap > lo) | (lo == 0)) & (np.nan_to_num(dmap, nan=0) <= hi) & (cmap > 0); tot = m.sum()
         if not tot: continue
         sumrows.append({"what": f"area {lo}-{hi} m", **{c: round(100 * float(((cmap == v) & m).sum()) / tot, 1) for v, c in
                         ((1, "sand_%"), (2, "hard_%"), (3, "changing_%"), (4, "uncertain_%"))}, "area_ha": round(tot * (res * mf) ** 2 / 1e4, 1)})
