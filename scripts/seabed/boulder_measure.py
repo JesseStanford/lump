@@ -122,7 +122,9 @@ def main():
     sand = np.maximum(loc, byd)
     cmax = np.nanmax(sandb - deep)
     # noise of the 3x3-smoothed brightness: raw-pixel noise at 12.5 cm is too strict and hides real boulders
-    hp = L - ndi.uniform_filter(L, 31); hpw = hp[water & (depth < 2)]
+    hp = L - ndi.uniform_filter(L, 31); sh = water & (depth < 2)
+    if sh.sum() > 100: sh &= L >= np.percentile(L[sh], 60)     # sand-bright pixels only: boulder texture is not noise
+    hpw = hp[sh]
     noise = float(1.4826 * np.median(np.abs(hpw - np.median(hpw)))) if hpw.size else 0.0
     vis = water & (depth >= a.min_depth) & (depth <= a.max_depth) & ((byd - deep) >= a.min_contrast * cmax) \
           & ((byd - deep) * (1 - a.dark_ratio) >= 3 * noise)    # the dark step must stand clear of pixel noise
@@ -259,7 +261,8 @@ def main():
     ax.imshow(np.moveaxis(img[:, ::step, ::step], 0, -1), extent=(x0, x1, y0, y1))
     ax.contour(np.linspace(x0, x1, W)[::step], np.linspace(y1, y0, H)[::step], patch[::step, ::step].astype(float), levels=[0.5], colors="yellow", linewidths=0.7)
     ax.add_collection(PatchCollection([Circle((r["x"], r["y"]), max(r["diameter_m"] / 2, 0.6)) for r in rows], facecolor="none", edgecolor="#ff2d95", linewidth=0.5))
-    ax.set_title(f"{len(rows)} boulder-sized dark objects (magenta, to scale) and boulder patches (yellow), {a.min_depth:g}-{a.max_depth:g} m. SDFI spring orthophoto", fontsize=9)
+    ax.set_title(f"{len(rows)} boulder-sized dark objects (magenta, to scale) and boulder patches (yellow); water from the photo, "
+                 f"depth grid up to {a.max_depth:g} m. SDFI spring orthophoto", fontsize=9)
     ax.set_xticks([]); ax.set_yticks([])
     fig.savefig(os.path.join(a.out, "boulder_map.png"), dpi=220, bbox_inches="tight"); plt.close(fig)
     fig, axs = plt.subplots(1, 4, figsize=(16, 3.6))

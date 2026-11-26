@@ -23,21 +23,30 @@ def fill_coast(a, cells=2):
     return out
 
 
-def sea(R, G, B, valid, d, min_depth, res, buffer_m=5.0):
+def sea(R, G, B, valid, d, min_depth, res, buffer_m=5.0, neck_m=2.0):
     """Water mask from the photo, not the coarse depth grid, plus a depth that is never below min_depth in it.
 
     The depth grid's shallow contours can sit 100 m or more offshore of the real waterline, so a depth
     cut (d >= 0.3 m) dropped clearly submerged ground near the shore. Here water = photo pixels that
     look like water (blue > red, not red-dominated) AND are connected to water the depth grid calls
-    at least 2 x min_depth deep (so roads or roofs inland are not taken). The first buffer_m from the
+    at least 2 x min_depth deep (so roads or roofs inland are not taken), after links narrower than about
+    2 x neck_m are cut (so beach and cliff shadows touching the sea at one point stay out). The first buffer_m from the
     waterline (swash, foam, wet sand) is left out; beyond it, depth is floored at min_depth.
     Returns (water, depth_adjusted, swash) where swash marks the excluded strip."""
     cand = valid & np.isfinite(d) & (B > R) & (G >= R - 5)
     core = cand & (d > 2 * min_depth)
-    lab, nl = ndi.label(cand)
-    keep = np.zeros(nl + 1, bool); keep[np.unique(lab[core])] = True; keep[0] = False
-    w = keep[lab]
-    f = max(1, int(round(1.0 / res)))                       # distance to the waterline on a ~1 m grid
+    # cut narrow necks first, so shadows on the beach or cliff that touch the water at one point are not
+    # taken as sea (seen on the first Nakkehoved run); pixels within neck_m of the solid sea come back
+    f = max(1, int(round(1.0 / res)))                       # work on a ~1 m grid for speed
+    cs = cand[::f, ::f]; ks = core[::f, ::f]
+    r = max(1, int(round(neck_m / (res * f))))
+    st = ndi.generate_binary_structure(2, 1)
+    solid = ndi.binary_opening(cs, structure=st, iterations=r)
+    lab, nl = ndi.label(solid)
+    keep = np.zeros(nl + 1, bool); keep[np.unique(lab[solid & ks])] = True; keep[0] = False
+    seas = keep[lab]
+    seas = ndi.binary_dilation(seas, structure=st, iterations=r + 1) & cs
+    w = np.repeat(np.repeat(seas, f, 0), f, 1)[:cand.shape[0], :cand.shape[1]] & cand
     ws = w[::f, ::f]; dist = ndi.distance_transform_edt(ws) * res * f
     dist = np.repeat(np.repeat(dist, f, 0), f, 1)[:w.shape[0], :w.shape[1]]
     swash = w & (dist <= buffer_m)

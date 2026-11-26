@@ -115,8 +115,7 @@ def main():
         return d
     def water_of(img, d):
         R, G, B = img.astype("float32")
-        w, d2, _ = sea(R, G, B, img.sum(0) > 0, d, a.min_depth, res, a.shore_buffer)
-        return w, d2
+        return sea(R, G, B, img.sum(0) > 0, d, a.min_depth, res, a.shore_buffer)
 
     # pass 1: deep-water and sand brightness per year (sampled)
     stats = []
@@ -124,10 +123,12 @@ def main():
         Ls, Ds, Hs, Cs = [], [], [], []
         for k in keys:
             with rasterio.open(tl[yi][k]) as s: img = s.read([1, 2, 3])
-            d = depth_for(*k); w, d = water_of(img, d)
+            d = depth_for(*k); w, d, _ = water_of(img, d)
             L = ndi.uniform_filter(lum(img), 3)
-            hp = L - ndi.uniform_filter(L, 31)
-            Ls.append(L[w][::37]); Ds.append(d[w][::37]); Hs.append(hp[w & (d < 2)][::37]); Cs.append(img[:, w][:, ::37].T)
+            hp = L - ndi.uniform_filter(L, 31); sh = w & (d < 2)
+            # noise from sand-bright pixels only: dark boulder texture is signal, not noise
+            if sh.sum() > 100: sh &= L >= np.percentile(L[sh], 60)
+            Ls.append(L[w][::37]); Ds.append(d[w][::37]); Hs.append(hp[sh][::37]); Cs.append(img[:, w][:, ::37].T)
         L = np.concatenate(Ls); D = np.concatenate(Ds); H = np.concatenate(Hs); C = np.concatenate(Cs).astype("float32")
         noise = float(1.4826 * np.median(np.abs(H - np.median(H)))) if H.size else 0.0
         deep = float(np.percentile(L, 1)); nb = 41; b = np.clip((D / 0.5).astype(int), 0, nb - 1)
@@ -139,7 +140,7 @@ def main():
 
     def dark_of(img, d, st):
         deep, cen, sandv, cmax, noise, _ = st
-        w, d = water_of(img, d); L = ndi.uniform_filter(lum(img), 3)
+        w, d, _ = water_of(img, d); L = ndi.uniform_filter(lum(img), 3)
         idx = ndi.distance_transform_edt(~w, return_distances=False, return_indices=True) if w.any() else None
         if idx is None: z = np.zeros_like(w); return z, z, L, z, np.ones(w.shape, "float32")
         Lf = ndi.uniform_filter(L, 3)[tuple(idx)]; f = max(1, int(round(1.0 / res)))
@@ -168,13 +169,13 @@ def main():
     mf = max(1, int(round(a.map_res / res))); mn = n // mf
     xs0, ys1 = min(k[0] for k in keys), max(k[1] for k in keys) + tile_m
     MW = int(round((max(k[0] for k in keys) + tile_m - xs0) / (res * mf))); MH = int(round((ys1 - min(k[1] for k in keys)) / (res * mf)))
-    cmap = np.zeros((MH, MW), "uint8"); ref_small = np.zeros((3, MH, MW), "uint8")
+    cmap = np.zeros((MH, MW), "uint8"); wmap = np.zeros((MH, MW), bool); ref_small = np.zeros((3, MH, MW), "uint8")
     cdeep0 = stats[0][5]; sstep = max(1, int(round(0.25 / res)))
     rows = []; tolpx = max(1, int(round(a.tol / res))); px = res * res; shifts = []; visfrac = [[] for _ in years[1:]]; conf = [[] for _ in years[1:]]
     for ti, (tx, ty) in enumerate(keys, 1):
         d = depth_for(tx, ty)
         with rasterio.open(tl[0][(tx, ty)]) as s: img0 = s.read([1, 2, 3])
-        _, d = water_of(img0, d)          # photo waterline; depth floored at --min-depth in the water
+        w0, d, sw0 = water_of(img0, d)    # photo waterline; depth floored at --min-depth in the water
         dk0, vis0, L0, _, _ = dark_of(img0, d, stats[0])
         others = []
         for yi in range(1, len(years)):
@@ -204,7 +205,7 @@ def main():
         cls[both & dk0 & (ndark < 0.5 * nvis)] = 3
         cls[both & dk0 & hard_px] = 2
         r0 = int(round((ys1 - ty - tile_m) / (res * mf))); c0 = int(round((tx - xs0) / (res * mf)))
-        cmap[r0:r0 + mn, c0:c0 + mn] = cls[:mn * mf:mf, :mn * mf:mf]
+        cmap[r0:r0 + mn, c0:c0 + mn] = cls[:mn * mf:mf, :mn * mf:mf]; wmap[r0:r0 + mn, c0:c0 + mn] = (w0 | sw0)[:mn * mf:mf, :mn * mf:mf]
         ref_small[:, r0:r0 + mn, c0:c0 + mn] = img0[:, :mn * mf:mf, :mn * mf:mf]
         # objects
         lab, nl = ndi.label(dk0 & both, structure=np.ones((3, 3)))
@@ -293,6 +294,14 @@ def main():
         if not tot: continue
         sumrows.append({"what": f"area {lo}-{hi} m", **{c: round(100 * float(((cmap == v) & m).sum()) / tot, 1) for v, c in
                         ((1, "sand_%"), (2, "hard_%"), (3, "changing_%"), (4, "uncertain_%"))}, "area_ha": round(tot * (res * mf) ** 2 / 1e4, 1)})
+    # by distance from the photo waterline: the depth grid is too coarse near the shore to bin by depth there
+    shore = ndi.distance_transform_edt(wmap) * res * mf
+    for lo, hi in ((0, 25), (25, 50), (50, 100), (100, 200), (200, 1e9)):
+        m = (shore > lo) & (shore <= hi) & (cmap > 0); tot = m.sum()
+        if not tot: continue
+        sumrows.append({"what": f"shore {lo:g}-{hi:g} m" if hi < 1e9 else f"shore over {lo:g} m",
+                        **{c: round(100 * float(((cmap == v) & m).sum()) / tot, 1) for v, c in
+                           ((1, "sand_%"), (2, "hard_%"), (3, "changing_%"), (4, "uncertain_%"))}, "area_ha": round(tot * (res * mf) ** 2 / 1e4, 1)})
     for c in ("hard", "changing", "uncertain"):
         sub = [r for r in rows if r["class"] == c]
         cols = {k: sum(r["colour"] == k for r in sub) for k in ("brown_olive", "green", "grey_dark")}
@@ -317,7 +326,8 @@ def main():
                        Patch(color=(0.1, 0.9, 0.2), label="changing: dark in under half of the other years (eelgrass, drift weed, moved sand)"),
                        Patch(color=(1, 1, 0.2), label="uncertain: in between")],
               fontsize=8, loc="lower left")
-    ax.set_title(f"Spring photos {', '.join(y for y, _ in years)} (SDFI), {a.min_depth:g}-{a.max_depth:g} m", fontsize=9)
+    ax.set_title(f"Spring photos {', '.join(y for y, _ in years)} (SDFI); water from the photo, {a.shore_buffer:g} m swash strip left out, "
+                 f"depth grid up to {a.max_depth:g} m", fontsize=9)
     ax.set_xticks([]); ax.set_yticks([])
     fig.savefig(os.path.join(a.out, "flora_map.png"), dpi=200, bbox_inches="tight"); plt.close(fig)
     print(f"{len(rows)} objects; wrote {a.out}")
